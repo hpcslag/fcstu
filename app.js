@@ -1,8 +1,7 @@
 var express = require('express'),
 	app = new express(),
 	ejs = require('ejs'),
-	router = require('./router'),
-	md5 = require('./lib/hash');
+	router = require('./router');
 
 app.configure(function(){
 	app.use(express.static(__dirname+'/www'));
@@ -21,15 +20,6 @@ app.configure(function(){
 	app.use(app.router);//open router
 });
 
-app.get('/',function(req,res){
-	if(1==1){
-		//if is logined
-		res.render('singin',{logined:true,username:"Mac",gravatar:'http://www.gravatar.com/avatar/'+md5("cslag@hotmail.com.tw")+'?s=200'});
-	}else{
-		//if never login
-		res.render('singin',{logined:false});	
-	}
-	
-});
+app.get('/',router.index);
 
 app.listen(5555);

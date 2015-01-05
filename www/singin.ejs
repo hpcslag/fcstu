@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic' rel='stylesheet' type='text/css'>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>FCSTU - 和春資訊工程系學生資訊學習輔助系統</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./css/singin.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="./js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+    .lato{
+    	font-family: 'Lato',"微軟正黑體", "Microsoft JhengHei", sans-serif;
+    }
+    .fx{
+    	position: absolute;
+    }
+    .sans{
+    	font-family: 'Open Sans',"微軟正黑體", "Microsoft JhengHei", sans-serif;
+    }
+    input#recipient-name {
+		font-family: 'Open Sans',"微軟正黑體", "Microsoft JhengHei", sans-serif;
+	}
+    </style>
+    <script type="text/javascript">
+	    if(window.location.search == "?error=1"){
+
+	    }
+    </script>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin" action="/dashboard">
+      	<h1 class="lato">Fotech CSIE Student Manage</h1>
+      	<%if(logined){ %>
+      	<div style="text-align:center;padding-bottom:20px;">
+        	<img data-src="holder.js/200x200/auto/sky" width="200" src="<%= gravatar%>" data-holder-rendered="true" style="border-radius: 50%;">
+        </div>
+        <%}else{ %>
+        <h2 class="form-signin-heading lato">請登入您的帳號</h2>
+        <%} %>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <%if(logined){ %>
+        <h2 class="lato">你好 <%= name%>, 歡迎繼續使用學生管理系統</h2>
+        <%}else{ %>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <%} %>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me" class="lato"> 記住我
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" class="lato">登入</button>
+        <br>
+      	<p>無法登入? <a href="#" style="color: #427fed" data-toggle="modal" data-target="#exampleModal">請嘗試找回密碼</a></p>
+      	<br>
+      	<p class="sans">© 2015 Fotech CSIE. All rights reserved.</p>
+      </form>
+    </div> <!-- /container -->
+
+	<!-- Reset Password -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title sans text-danger" id="exampleModalLabel">忘記密碼的步驟</h4>
+	      </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="message-text" class="control-label sans text-danger">1. 我如何重設密碼(Password)</label>
+	            <p class="sans">請輸入您預設的電子信箱，將會電郵程序至您的電子信箱。</p>
+
+	            <label for="message-text" class="control-label sans text-success">2. 第一次登入的同學</label>
+	            <p class="sans">第一次登入的同學，請輸入您的身分證字號至密碼欄位，並有大小寫之分。</p>
+	          </div>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">電子信箱地址(Email Address)</label>
+	            <input type="text" class="form-control" id="recipient-name" placeholder="example@example.com">
+	          </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default sans" data-dismiss="modal">取消</button>
+	        <button type="button" class="btn btn-primary sans">重設密碼</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- end reset password-->
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
