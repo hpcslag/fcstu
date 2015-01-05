@@ -41,11 +41,6 @@
 		font-family: 'Open Sans',"微軟正黑體", "Microsoft JhengHei", sans-serif;
 	}
     </style>
-    <script type="text/javascript">
-	    if(window.location.search == "?error=1"){
-
-	    }
-    </script>
   </head>
 
   <body>
@@ -53,6 +48,8 @@
     <div class="container">
 
       <form class="form-signin" action="/dashboard">
+      	<p class="bg-danger sans text-danger" id="error" style="padding: 15px;display:none;">帳號或密碼錯誤了，請您修正。</p>
+      	<p class="bg-success sans text-success" id="logout" style="padding: 15px;display:none;">您現在可以重新登入了。</p>
       	<h1 class="lato">Fotech CSIE Student Manage</h1>
       	<%if(logined){ %>
       	<div style="text-align:center;padding-bottom:20px;">
@@ -71,7 +68,7 @@
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me" class="lato"> 記住我 &nbsp;&nbsp;<a href="#">不是<%=name%>嗎?</a>
+            <input type="checkbox" value="remember-me" class="lato"> 記住我 &nbsp;&nbsp;<a href="/?clean=true">不是<%=name%>嗎?</a>
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" class="lato">登入</button>
@@ -121,5 +118,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+	    if(window.location.search == "?error=1"){
+	    	document.getElementById('error').style.display = 'block';
+	    }else if(window.location.search == "?logout=1"){
+	    	document.getElementById('logout').style.display = 'block';
+	    }
+    </script>
   </body>
 </html>
