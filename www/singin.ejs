@@ -68,7 +68,7 @@
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me" class="lato"> 記住我 &nbsp;&nbsp;<a href="/?clean=true">不是<%=name%>嗎?</a>
+            <input type="checkbox" value="remember-me" class="lato"> 記住我 <%if(logined){ %>&nbsp;&nbsp;<a href="/?clean=true">不是<%=name%>嗎?</a><%}%>
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" class="lato">登入</button>

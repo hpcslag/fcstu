@@ -21,5 +21,13 @@ app.configure(function(){
 });
 
 app.get('/',router.index);
+app.get('/ba',function(req,res){
+	res.cookie('userdata',{name:"Mac",username:'hpcslag',email:'cslag@hotmail.com.tw'},{maxAge: new Date(Date.now() + 1000), httpOnly: true});
+	res.redirect('/bb');
+});
+app.get('/bb',function(req,res){
+	var data = req.cookies.userdata;
+	res.send(data);
+});
 
-app.listen(5555);
+app.listen(process.env.PORT);

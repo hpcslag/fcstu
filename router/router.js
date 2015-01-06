@@ -1,21 +1,22 @@
 var url = require('url'),
-	md5 = require('../lib/hash');
+	md5 = require('../lib/hash'),
+	colors = require('colors');
 
 exports.index = function(req,res){
 	/** found get method*/
 	var url_parts = url.parse(req.url, true),
 		query = url_parts.query; //query username if find
-
 	/** if want clean user cookie, clean*/
 	if(query.clean == "true"){
 		console.log("clean");
-		res.clearCookie('username');
+		res.clearCookie('userdata');
 		res.redirect('/');
 	}
 	//如果有cookie才找username，不是本人就刪除cookie即可,資訊全部撈cookie的資料
-	if(1==1/*!!req.cookies.username*/){
+	if(!!req.cookies.userdata){
 		//if is logined
-		res.render('singin',{logined:true,name:"Mac",gravatar:'http://www.gravatar.com/avatar/'+md5("cslag@hotmail.com.tw")+'?s=200',username:"hpcslag"});
+		var cookie = req.cookies.userdata;
+		res.render('singin',{logined:true,name:cookie.name,gravatar:'http://www.gravatar.com/avatar/'+md5(cookie.email)+'?s=200',username:cookie.username});
 	}else{
 		//if never login
 		res.render('singin',{logined:false});	
