@@ -21,8 +21,19 @@ app.configure(function(){
 });
 
 app.get('/',router.index);
+app.post('/dashboard',router.dashboard);
+app.get('/dashboard',router.dashboard_get);
+app.get('/logout',router.logout);
+
+
+
+app.get('/session',function(req,res){
+	req.session.logined = true;
+	res.redirect('/');
+});
+
 app.get('/ba',function(req,res){
-	res.cookie('userdata',{name:"Mac",username:'hpcslag',email:'cslag@hotmail.com.tw'},{maxAge: new Date(Date.now() + 1000), httpOnly: true});
+	res.cookie('userdata',{name:"Mac",email:'cslag@hotmail.com.tw'},{maxAge: new Date(Date.now() + 1000), httpOnly: true});
 	res.redirect('/bb');
 });
 app.get('/bb',function(req,res){

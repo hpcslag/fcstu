@@ -37,17 +37,31 @@
     .sans{
     	font-family: 'Open Sans',"微軟正黑體", "Microsoft JhengHei", sans-serif;
     }
-    input#recipient-name {
-		font-family: 'Open Sans',"微軟正黑體", "Microsoft JhengHei", sans-serif;
-	}
+    input {
+		  font-family: 'Open Sans',"微軟正黑體", "Microsoft JhengHei", sans-serif;
+	  }
     </style>
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Lato:100:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })(); 
+    </script>
   </head>
 
   <body>
 
     <div class="container">
 
-      <form class="form-signin" action="/dashboard">
+      <form class="form-signin" action="/dashboard" method="post">
       	<p class="bg-danger sans text-danger" id="error" style="padding: 15px;display:none;">帳號或密碼錯誤了，請您修正。</p>
       	<p class="bg-success sans text-success" id="logout" style="padding: 15px;display:none;">您現在可以重新登入了。</p>
       	<h1 class="lato">Fotech CSIE Student Manage</h1>
@@ -62,10 +76,10 @@
         <%if(logined){ %>
         <h2 class="lato">你好 <%= name%>, 歡迎繼續使用學生管理系統</h2>
         <%}else{ %>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <%} %>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me" class="lato"> 記住我 <%if(logined){ %>&nbsp;&nbsp;<a href="/?clean=true">不是<%=name%>嗎?</a><%}%>

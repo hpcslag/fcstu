@@ -1,0 +1,39 @@
+{
+  "name": "staticdb",
+  "description": "Fast,simple static json database.",
+  "version": "0.0.1",
+  "preferGlobal": "true",
+  "bin": {
+    "staticdb": "./bin/staticdb"
+  },
+  "author": {
+    "name": "MacTaylor",
+    "email": "cslag@hotmail.com.tw"
+  },
+  "keywords": [
+    "database",
+    "static",
+    "files manager"
+  ],
+  "dependencies": {
+    "colors": ">=1.0.3"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hpcslag/static_database.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hpcslag/static_database/issues"
+  },
+  "readme": "## Static Database\n\nthis static db is reference MongoDB, and it look like MongoDB!, This DB File is hashcode (Json Type)\n\nUsing Database.js to use!\n\n\\DB Folder Structure:\n * DB_name\n \t* Collection(Collections Files)\n \t\t* Collection_name\n\n##Install\n````shell\n$ npm install staticdb -g\n$ statucdb -n \"Your Database Name\"\n````\n\n#Command Line Setup\n\n#### first setup your Database\n!!!! You need to set before using, otherwise it will fail. !!!!\n````Bash\n$ staticdb -n \"Your Database Name\"\n````\n\n#API Use Callback\n\n####setup([Database name],[Collection name], callback)\n\n````javascript\nnew StaticDB('DB Name','Collection Name',function(met){\n\t//if DB, Colle are not yet on record, it will create new for you!\n\t//control database here!\n});\n````\n\n####First use demo example/sample (insert data)\n\n````javascript\nnew StaticDB('DB Name','Collection Name',function(met){\n\tmet.insert({name:\"Mac\"});\n});\n````\n\n#### Setup another way\nif you don't like callback hell! use that way\n````javascript\nvar staticdb = require('staticdb');\nvar app = new staticdb('Blog','post');\napp.insert()... //lookup API\n````\n\n##insert([object])\n\ninsert is replace save() , so insert same save feature!\njust new data in the database!\n\n````javascript\nmet.insert({name:\"Mac\"});\n````\n\n##drop()\nThis is experimental features. be careful bug.  this feature is delete all data collection!, if you drop! just gone!\n````javascript\nmet.drop();\n````\n\n##remove([object])\nremove something!\n````javascript\nmet.remove({name:\"eric\"});\n````\n\n##update([object],[update])\nchange find index data to your update object!. the update parameter must be object type!\n````javascript\nmet.update({\"name\":\"eric\"},{name:\"ohmygod\"});\n````\n\n##findAll([callback])\nfind all in collection!\n````javascript\nmet.findAll(function(data){ console.log(data) });\n````\n\n##findOne([object],[callback])\nfind the object in collection\n````javascript\nmet.findOne({name:'mac'},function(data){ console.log(data) });\n````\n",
+  "readmeFilename": "README.MD",
+  "gitHead": "552a96fef4ea713731d53a6d22c161f19924961e",
+  "homepage": "https://github.com/hpcslag/static_database",
+  "_id": "staticdb@0.0.1",
+  "scripts": {},
+  "_shasum": "13d5e0a5785a9762ca928ea751e577a9c03a7589",
+  "_from": "staticdb@"
+}
