@@ -40,7 +40,7 @@ exports.index = function(req,res){
 */
 exports.dashboard_get = function(req,res){
 	if(!!req.session.logined){
-		res.send("login now");
+		res.render('dashboard/index');
 	}else{
 		res.redirect('/');
 	}
@@ -97,8 +97,9 @@ function checkLogin(request,response,callback){
 
 /**
 * Logout
+* clean all session and redirect to index(singin page)
 */
-exports.logout = function(req,res){
+exports.signout = function(req,res){
 	//res.clearCookie('userdata');
 	req.session.logined = null;
 	req.session.user = null;

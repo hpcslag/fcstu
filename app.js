@@ -23,7 +23,7 @@ app.configure(function(){
 app.get('/',router.index);
 app.post('/dashboard',router.dashboard);
 app.get('/dashboard',router.dashboard_get);
-app.get('/logout',router.logout);
+app.get('/signout',router.signout);
 
 
 
