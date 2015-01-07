@@ -40,7 +40,7 @@ exports.index = function(req,res){
 */
 exports.dashboard_get = function(req,res){
 	if(!!req.session.logined){
-		res.render('dashboard/index');
+		res.render('dashboard/index',{});
 	}else{
 		res.redirect('/');
 	}
@@ -104,4 +104,38 @@ exports.signout = function(req,res){
 	req.session.logined = null;
 	req.session.user = null;
 	res.redirect('/?logout=1');
+}
+
+/**
+ * isLogin
+*/
+function isLogin(req,res){
+	if(!!req.session.logined){
+		return true;	
+	}else{
+		res.redirect('/');
+	}
+}
+/**
+* is Student or Teacher
+*/
+function invalts(req,res){
+	if(req.session.user.identity == "student"){
+		return "student";
+	}else if(req.session.user.identity == "teacher"){
+		return "teacher";
+	}else{
+		res.redirect('/');
+	}
+};
+
+/**
+* Student
+*/
+exports.ProfileSetting = function(req,res){
+	isLogin(req,res);
+	res.render('dashboard/management/ProfileSetting',{});
+};
+exports.PasswordReset = function(req,res){
+	res.render('dashboard/management/PasswordReset',{});
 }

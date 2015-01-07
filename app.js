@@ -25,7 +25,8 @@ app.post('/dashboard',router.dashboard);
 app.get('/dashboard',router.dashboard_get);
 app.get('/signout',router.signout);
 
-
+app.get('/ProfileSetting',router.ProfileSetting);
+app.get('/PasswordReset',router.PasswordReset);
 
 app.get('/session',function(req,res){
 	req.session.logined = true;
