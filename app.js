@@ -20,20 +20,31 @@ app.configure(function(){
 	app.use(app.router);//open router
 });
 
-app.get('/',router.index);
+//Global Router
 app.post('/dashboard',router.dashboard);
+app.get('/',router.index);
 app.get('/dashboard',router.dashboard_get);
 app.get('/signout',router.signout);
-
 app.get('/ProfileSetting',router.ProfileSetting);
 app.get('/PasswordReset',router.PasswordReset);
 
+//Student Router
+app.get('/Assets',router.Assets);
+
+//Teacher Router
+
+
+
+
+
+
+//Test Router
 app.get('/session',function(req,res){
 	req.session.logined = true;
 	res.redirect('/');
 });
 
-app.get('/ba',function(req,res){
+app.get('/cookie',function(req,res){
 	res.cookie('userdata',{name:"Mac",email:'cslag@hotmail.com.tw'},{maxAge: new Date(Date.now() + 1000), httpOnly: true});
 	res.redirect('/bb');
 });

@@ -1,375 +1,408 @@
 <!doctype html>
 <!--[if IE 8]>         <html class="ie8"> <![endif]-->
 <!--[if IE 9]>         <html class="ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html> <!--<![endif]-->
-    <head>
-        <!-- Meta, title, CSS, favicons, etc. -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>CSIE Student- Dashboard</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <!--<link rel="shortcut icon" href="/favicon.ico">-->
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" href="Assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="Assets/css/iriy-admin.min.css">
-        <link rel="stylesheet" href="Assets/demo/css/demo.css">
-        <link rel="stylesheet" href="Assets/assets/font-awesome/css/font-awesome.css">
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
 
-        <link rel="stylesheet" href="Assets/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css"/>
-        <link rel="stylesheet" href="Assets/css/plugins/rickshaw.min.css">
-        <link rel="stylesheet" href="Assets/css/plugins/morris.min.css">
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>CSIE Student- Dashboard</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!--<link rel="shortcut icon" href="/favicon.ico">-->
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="stylesheet" href="Assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Assets/css/iriy-admin.min.css">
+    <link rel="stylesheet" href="Assets/demo/css/demo.css">
+    <link rel="stylesheet" href="Assets/assets/font-awesome/css/font-awesome.css">
 
-        <!--[if lt IE 9]>
+    <link rel="stylesheet" href="Assets/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" />
+    <link rel="stylesheet" href="Assets/css/plugins/rickshaw.min.css">
+    <link rel="stylesheet" href="Assets/css/plugins/morris.min.css">
+
+    <!--[if lt IE 9]>
         <script src="Assets/assets/libs/html5shiv/html5shiv.min.js"></script>
         <script src="Assets/assets/libs/respond/respond.min.js"></script>
         <![endif]-->
-        <style type="text/css">
-            .ms{
-                font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
-            }
-            .notification{
-                font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
-            }
-        </style>
-    </head>
-    <body class="">
-        <header>
-            <nav class="navbar navbar-default navbar-static-top no-margin" role="navigation">
-                <div class="navbar-brand-group">
-                    <a class="navbar-sidebar-toggle navbar-link" data-sidebar-toggle>
-                        <i class="fa fa-lg fa-fw fa-bars"></i>
+    <style type="text/css">
+    .ms {
+        font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
+    }
+    .notification {
+        font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
+    }
+    </style>
+    <script type="text/javascript">
+    function httpGet(theUrl) {
+        var xmlHttp = null;
+
+        xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", theUrl, false);
+        xmlHttp.send(null);
+        return xmlHttp.responseText;
+    }
+    var loader = function(event,url){
+        var gets = httpGet('../'+url);
+        document.getElementById('load_v').innerHTML = gets;
+        var x = document.getElementById(e.target.id).childNodes[0];
+        x.setAttribute("style", "active");
+    }
+    </script>
+</head>
+
+<body class="">
+    <header>
+        <nav class="navbar navbar-default navbar-static-top no-margin" role="navigation">
+            <div class="navbar-brand-group">
+                <a class="navbar-sidebar-toggle navbar-link" data-sidebar-toggle>
+                    <i class="fa fa-lg fa-fw fa-bars"></i>
+                </a>
+                <a class="navbar-brand hidden-xxs" href="#">
+                    <span class="sc-visible">
+                        I
+                    </span>
+                    <span class="sc-hidden">
+                        <span class="semi-bold ms">和春資工系學生</span>
+                    </span>
+                </a>
+            </div>
+            <ul class="nav navbar-nav navbar-nav-expanded pull-right margin-md-right">
+                <li class="dropdown dropdown-xs-center">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
+                        <i class="glyphicon glyphicon-globe"></i>
+                        <span class="badge badge-up badge-danger badge-small">4</span>
                     </a>
-                    <a class="navbar-brand hidden-xxs" href="#">
-                        <span class="sc-visible">
-                            I
-                        </span>
-                        <span class="sc-hidden">
-                            <span class="semi-bold ms">和春資工系學生</span>
-                        </span>
+                    <ul class="dropdown-menu dropdown-notifications pull-right">
+                        <li class="dropdown-title bg-inverse ms">新通知 (4)</li>
+                        <li>
+                            <a href="javascript:;" class="notification">
+                                <div class="notification-thumb pull-left">
+                                    <i class="fa fa-clock-o fa-2x text-info"></i>
+                                </div>
+                                <div class="notification-body">
+                                    <strong>平時測驗成績發佈</strong>
+                                    <br>
+                                    <small class="text-muted">2015/1/7 - 15:19</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="notification">
+                                <div class="notification-thumb pull-left">
+                                    <i class="fa fa-exclamation fa-2x text-danger"></i>
+                                </div>
+                                <div class="notification-body">
+                                    <strong>平時測驗開始(2)</strong>
+                                    <br>
+                                    <small class="text-muted">時間:1/7 19:00 ~ 1/7 20:00</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="notification">
+                                <div class="notification-thumb pull-left">
+                                    <i class="fa fa-exclamation fa-2x text-danger"></i>
+                                </div>
+                                <div class="notification-body">
+                                    <strong>平時作業提交開始</strong>
+                                    <br>
+                                    <small class="text-muted">限時 1/7 - 1/9, 共兩天</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="notification">
+                                <div class="notification-thumb pull-left">
+                                    <i class="fa fa-user fa-2x text-muted"></i>
+                                </div>
+                                <div class="notification-body">
+                                    每周測驗開始 - 牛刀小試(1)
+                                    <br>
+                                    <small class="text-muted">第二周</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="dropdown-footer ms">
+                            <a href="javascript:;"><i class="fa fa-share"></i> 查看所有訊息</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle navbar-user" href="javascript:;">
+                        <img class="img-circle" src="http://www.gravatar.com/avatar/f1a03210e11fda48320e71dd79952977?s=200">
+                        <span class="hidden-xs ms">游崇祐 同學</span>
+                        <b class="caret"></b>
                     </a>
+                    <ul class="dropdown-menu pull-right-xs ms">
+                        <li class="arrow"></li>
+                        <li><a href="#" onclick="loader(event,'ProfileSetting')"><i class="fa fa-fw fa-cog"></i> 個人資料設定</a>
+                        </li>
+                        <li><a href="#" onclick="loader(event,'PasswordReset')"><i class="fa fa-fw fa-cog"></i> 密碼重新設定</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="/signout"><i class="fa fa-fw fa-sign-out"></i> Sign Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="page-wrapper">
+        <aside class="sidebar sidebar-default">
+            <div class="sidebar-profile">
+                <img class="img-circle profile-image" src="http://www.gravatar.com/avatar/f1a03210e11fda48320e71dd79952977?s=200">
+
+                <div class="profile-body ms">
+                    <h4>游崇祐 同學</h4>
+
+                    <div class="sidebar-user-links" style="color:grey">
+                        五工二甲
+                    </div>
                 </div>
-                <ul class="nav navbar-nav navbar-nav-expanded pull-right margin-md-right">
-                    <li class="dropdown dropdown-xs-center">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
-                            <i class="glyphicon glyphicon-globe"></i>
-                            <span class="badge badge-up badge-danger badge-small">4</span>
+            </div>
+            <nav class="ms">
+                <h5 class="sidebar-header ms">所有分頁籤</h5>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active">
+                        <!-- active 選中-->
+                        <a href="/" title="Dashboards">
+                            <i class="fa fa-lg fa-fw fa-home"></i> 主儀表板
                         </a>
-                        <ul class="dropdown-menu dropdown-notifications pull-right">
-                            <li class="dropdown-title bg-inverse ms">新通知 (4)</li>
+                    </li>
+                    <li class="nav-dropdown">
+                        <a href="#" title="Users">
+                            <i class="fa fa-lg fa-fw fa-user"></i> 學生管理
+                        </a>
+                        <ul class="nav-sub">
                             <li>
-                                <a href="javascript:;" class="notification">
-                                    <div class="notification-thumb pull-left">
-                                        <i class="fa fa-clock-o fa-2x text-info"></i>
-                                    </div>
-                                    <div class="notification-body">
-                                        <strong>平時測驗成績發佈</strong><br>
-                                        <small class="text-muted">2015/1/7 - 15:19</small>
-                                    </div>
+                                <a href="#" onclick="loader(event,'ProfileSetting')" title="Members">
+                                    <i class="fa fa-fw fa-caret-right"></i> 個人資料設定
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:;" class="notification">
-                                    <div class="notification-thumb pull-left">
-                                        <i class="fa fa-exclamation fa-2x text-danger"></i>
-                                    </div>
-                                    <div class="notification-body">
-                                        <strong>平時測驗開始(2)</strong><br>
-                                        <small class="text-muted">時間:1/7 19:00 ~ 1/7 20:00</small>
-                                    </div>
+                                <a href="#" onclick="loader(event,'PasswordReset')" title="Profile">
+                                    <i class="fa fa-fw fa-caret-right"></i> 密碼重設
                                 </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="notification">
-                                    <div class="notification-thumb pull-left">
-                                        <i class="fa fa-exclamation fa-2x text-danger"></i>
-                                    </div>
-                                    <div class="notification-body">
-                                        <strong>平時作業提交開始</strong><br>
-                                        <small class="text-muted">限時 1/7 - 1/9, 共兩天</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="notification">
-                                    <div class="notification-thumb pull-left">
-                                        <i class="fa fa-user fa-2x text-muted"></i>
-                                    </div>
-                                    <div class="notification-body">
-                                        每周測驗開始 - 牛刀小試(1)<br>
-                                        <small class="text-muted">第二周</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="dropdown-footer ms">
-                                <a href="javascript:;"><i class="fa fa-share"></i> 查看所有訊息</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle navbar-user" href="javascript:;">
-                            <img class="img-circle" src="http://www.gravatar.com/avatar/f1a03210e11fda48320e71dd79952977?s=200">
-                            <span class="hidden-xs ms">游崇祐 同學</span>
-                            <b class="caret"></b>
+                    <li class="">
+                        <a href="#" onclick="loader(event,'Assets')" title="Orders">
+                            <i class="fa fa-lg fa-fw fa-graduation-cap"></i> 課程資源
+                            <span class="label label-danger pull-right">實用</span>
                         </a>
-                        <ul class="dropdown-menu pull-right-xs ms">
-                            <li class="arrow"></li>
-                            <li><a href="/ProfileSetting"><i class="fa fa-fw fa-cog"></i> 個人資料設定</a></li>
-                            <li><a href="javascript:;"><i class="fa fa-fw fa-cog"></i> 密碼重新設定</a></li>
-                            <li class="divider"></li>
-                            <li><a href="/signout"><i class="fa fa-fw fa-sign-out"></i> Sign Out</a></li>
+                    </li>
+                    <li class="nav-dropdown">
+                        <a href="#" title="Users">
+                            <i class="fa fa-lg fa-fw fa-book"></i> 平時測驗
+                            <span class="label label-success pull-right">1</span>
+                        </a>
+                        <ul class="nav-sub">
+                            <li>
+                                <a href="email-inbox.html" title="Inbox">
+                                    <i class="fa fa-fw fa-caret-right badge"></i> 開始平時測驗
+                                    <span class="badge badge-success pull-right">1</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="email-message.html" title="Message">
+                                    <i class="fa fa-fw fa-caret-right"></i> 平時測驗成績
+                                    <span class="label label-warning pull-right">Updated</span>
+                                </a>
+                            </li>
                         </ul>
+                    </li>
+                    <li class="nav-dropdown">
+                        <a href="#" title="Forms">
+                            <i class="fa fa-lg fa-fw fa-edit"></i> 每週測驗
+                        </a>
+                        <ul class="nav-sub">
+                            <li>
+                                <a href="forms-form-layouts.html" title="Form Layouts">
+                                    <i class="fa fa-fw fa-caret-right"></i> 測驗解答
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-dropdown">
+                        <a href="#" title="Tables">
+                            <i class="fa fa-lg fa-fw  fa-lightbulb-o"></i> 平時作業
+                            <span class="label label-success pull-right">2</span>
+                        </a>
+                        <ul class="nav-sub">
+                            <li>
+                                <a href="tables-basic-tables.html" title="Basic Tables">
+                                    <i class="fa fa-fw fa-caret-right"></i> 作業提交
+                                    <span class="badge badge-success pull-right">1</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tables-data-tables.html" title="Data Tables">
+                                    <i class="fa fa-fw fa-caret-right"></i> 作業回應
+                                    <span class="badge badge-danger pull-right">1</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="#" title="Pages">
+                            <i class="fa fa-lg fa-fw  fa-question"></i> 問題反映
+                        </a>
+                    </li>
+                </ul>
+                <h5 class="sidebar-header">目前狀態</h5>
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="fa fa-fw fa-circle text-success"></i>
+                            資工系學生
+                        </a>
+                    </li>
+                </ul>
+                <h5 class="sidebar-header">授課教師(Teacher)</h5>
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="fa fa-fw fa-circle text-success"></i>
+                            李建磐 Keyboard. Lee
+                        </a>
                     </li>
                 </ul>
             </nav>
-        </header>
-        <div class="page-wrapper">
-            <aside class="sidebar sidebar-default">
-                <div class="sidebar-profile">
-                    <img class="img-circle profile-image" src="http://www.gravatar.com/avatar/f1a03210e11fda48320e71dd79952977?s=200">
+        </aside>
+<!-Start id="load_v"-->
+        <div id="load_v" class="page-content">
+            <div class="page-subheading page-subheading-md">
+                <ol class="breadcrumb ms">
+                    <li class="active"><a href="javascript:;">Class: 日間部 - 演算法邏輯(一)</a>
+                    </li>
+                </ol>
+            </div>
 
-                    <div class="profile-body ms">
-                        <h4>游崇祐 同學</h4>
+            <div class="container-fluid-md">
+                <div class="col-md-7 col-lg-8">
+                    <div class="panel panel-default panel-profile-details">
+                        <div class="panel-body">
+                            <div class="col-sm-5 text-center">
+                                <img alt="image" class="img-circle img-profile" width="128px" src="http://www.gravatar.com/avatar/f1a03210e11fda48320e71dd79952977?s=200">
+                            </div>
+                            <div class="col-sm-7 profile-details ms">
+                                <h3>游崇祐</h3>
+                                <h4 class="thin">Class</h4>
+                                <p>
+                                    <a href="javascript:;" class="text-gray text-no-decoration">
+                                        <i class="fa fa-fw fa-user"></i>
+                                        五工二甲
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="panel-body ms">
+                            <div class="col-sm-5">
+                                <dl>
+                                    <dt>Email</dt>
+                                    <dd>cslag@hotmail.com.tw</dd>
+                                </dl>
+                                <dl class="margin-sm-bottom">
+                                    <dt>學號</dt>
+                                    <dd>0215161078</dd>
+                                </dl>
+                            </div>
+                            <div class="col-sm-7">
+                                <dl>
+                                    <dt>狀態</dt>
+                                    <dd>資訊工程系五專部</dd>
+                                </dl>
+                                <dl class="margin-sm-bottom">
+                                    <dt>編號</dt>
+                                    <dd>00178</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="sidebar-user-links" style="color:grey">
-                            五工二甲
+                    <ul class="nav nav-tabs nav-dark">
+                        <li class="active ms"><a href="#tab1-1" data-toggle="tab">上課紀錄</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab1-1" class="tab-pane tab-pane-table active">
+                            <div class="table-responsive">
+                                <table class="table ms">
+                                    <thead>
+                                        <tr>
+                                            <th>課程次號</th>
+                                            <th>日期</th>
+                                            <th>狀態</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <a href="pages-order-details.html">#00001</a>
+                                            </td>
+                                            <td>
+                                                Jun 05, 11:40pm
+                                            </td>
+                                            <td>
+                                                <span class="label label-default">正常上課</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="pages-order-details.html">#00002</a>
+                                            </td>
+                                            <td>
+                                                Jun 06, 11:40pm
+                                            </td>
+                                            <td>
+                                                <span class="label label label-danger">曠課</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="pages-order-details.html">#00003</a>
+                                            </td>
+                                            <td>
+                                                Jun 07, 11:40pm
+                                            </td>
+                                            <td>
+                                                <span class="label label-default">正常上課</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <nav class="ms">
-                    <h5 class="sidebar-header ms">所有分頁籤</h5>
-                    <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><!-- active 選中-->
-                            <a href="#" title="Dashboards">
-                                <i class="fa fa-lg fa-fw fa-home"></i> 主儀表板
-                            </a>
-                        </li>
-                        <li class="nav-dropdown">
-                            <a href="#" title="Users">
-                                <i class="fa fa-lg fa-fw fa-user"></i> 學生管理
-                            </a>
-                            <ul class="nav-sub">
-                                <li>
-                                    <a href="/ProfileSetting" title="Members">
-                                        <i class="fa fa-fw fa-caret-right"></i> 個人資料設定
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pages-profile.html" title="Profile">
-                                        <i class="fa fa-fw fa-caret-right"></i> 密碼重設
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="">
-                            <a href="#" title="Orders">
-                                <i class="fa fa-lg fa-fw fa-graduation-cap"></i> 課程資源
-                                <span class="label label-danger pull-right">實用</span>
-                            </a>
-                        </li>
-                        <li class="nav-dropdown">
-                            <a href="#" title="Users">
-                                <i class="fa fa-lg fa-fw fa-book"></i> 平時測驗
-                                <span class="label label-success pull-right">1</span>
-                            </a>
-                            <ul class="nav-sub">
-                                <li>
-                                    <a href="email-inbox.html" title="Inbox">
-                                        <i class="fa fa-fw fa-caret-right badge"></i> 開始平時測驗
-                                        <span class="badge badge-success pull-right">1</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="email-message.html" title="Message">
-                                        <i class="fa fa-fw fa-caret-right"></i> 平時測驗成績
-                                        <span class="label label-warning pull-right">Updated</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-dropdown">
-                            <a href="#" title="Forms">
-                                <i class="fa fa-lg fa-fw fa-edit"></i> 每週測驗
-                            </a>
-                            <ul class="nav-sub">
-                                <li>
-                                    <a href="forms-form-layouts.html" title="Form Layouts">
-                                        <i class="fa fa-fw fa-caret-right"></i> 測驗解答
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-dropdown">
-                            <a href="#" title="Tables">
-                                <i class="fa fa-lg fa-fw  fa-lightbulb-o"></i> 平時作業
-                                <span class="label label-success pull-right">2</span>
-                            </a>
-                            <ul class="nav-sub">
-                                <li>
-                                    <a href="tables-basic-tables.html" title="Basic Tables">
-                                        <i class="fa fa-fw fa-caret-right"></i> 作業提交
-                                        <span class="badge badge-success pull-right">1</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="tables-data-tables.html" title="Data Tables">
-                                        <i class="fa fa-fw fa-caret-right"></i> 作業回應
-                                        <span class="badge badge-danger pull-right">1</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="">
-                            <a href="#" title="Pages">
-                                <i class="fa fa-lg fa-fw  fa-question"></i> 問題反映
-                            </a>
-                        </li>
-                    </ul>
-                    <h5 class="sidebar-header">目前狀態</h5>
-                    <ul class="nav nav-pills nav-stacked">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="fa fa-fw fa-circle text-success"></i>
-                                資工系學生
-                            </a>
-                        </li>
-                    </ul>
-                    <h5 class="sidebar-header">授課教師(Teacher)</h5>
-                    <ul class="nav nav-pills nav-stacked">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="fa fa-fw fa-circle text-success"></i>
-                                李建磐 Keyboard. Lee
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </aside>
-
-            <div class="page-content">
-                <div class="page-subheading page-subheading-md">
-    <ol class="breadcrumb ms">
-        <li class="active"><a href="javascript:;">Class: 日間部 - 演算法邏輯(一)</a></li>
-    </ol>
-</div>
-
-<div class="container-fluid-md">
-    <div class="col-md-7 col-lg-8">
-            <div class="panel panel-default panel-profile-details">
-                <div class="panel-body">
-                    <div class="col-sm-5 text-center">
-                        <img alt="image" class="img-circle img-profile" width="128px" src="http://www.gravatar.com/avatar/f1a03210e11fda48320e71dd79952977?s=200">
-                    </div>
-                    <div class="col-sm-7 profile-details ms">
-                        <h3>游崇祐</h3>
-                        <h4 class="thin">Class</h4>
-                        <p>
-                            <a href="javascript:;" class="text-gray text-no-decoration">
-                                <i class="fa fa-fw fa-user"></i>
-                                五工二甲
-                            </a>
-                        </p>
-                    </div>
-                </div>
-                <div class="panel-body ms">
-                    <div class="col-sm-5">
-                        <dl>
-                            <dt>Email</dt>
-                            <dd>cslag@hotmail.com.tw</dd>
-                        </dl>
-                        <dl class="margin-sm-bottom">
-                            <dt>學號</dt>
-                            <dd>0215161078</dd>
-                        </dl>
-                    </div>
-                    <div class="col-sm-7">
-                        <dl>
-                            <dt>狀態</dt>
-                            <dd>資訊工程系五專部</dd>
-                        </dl>
-                        <dl class="margin-sm-bottom">
-                            <dt>編號</dt>
-                            <dd>00178</dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-
-            <ul class="nav nav-tabs nav-dark">
-                <li class="active ms"><a href="#tab1-1" data-toggle="tab">上課紀錄</a></li>
-            </ul>
-            <div class="tab-content">
-                <div id="tab1-1" class="tab-pane tab-pane-table active">
-                    <div class="table-responsive">
-                        <table class="table ms">
-                            <thead>
-                                <tr>
-                                    <th>課程次號</th>
-                                    <th>日期</th>
-                                    <th>狀態</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <a href="pages-order-details.html">#00001</a>
-                                    </td>
-                                    <td>
-                                        Jun 05, 11:40pm
-                                    </td>
-                                    <td>
-                                        <span class="label label-default">正常上課</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="pages-order-details.html">#00002</a>
-                                    </td>
-                                    <td>
-                                        Jun 06, 11:40pm
-                                    </td>
-                                    <td>
-                                        <span class="label label label-danger">曠課</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="pages-order-details.html">#00003</a>
-                                    </td>
-                                    <td>
-                                        Jun 07, 11:40pm
-                                    </td>
-                                    <td>
-                                        <span class="label label-default">正常上課</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-5 col-lg-4">
-            <div class="panel panel-metric panel-metric-sm">
-                <div class="panel-body panel-body-warning">
-                    <div class="metric-content metric-icon">
-                        <div class="value">
-                            100%
+                <div class="col-md-5 col-lg-4">
+                    <div class="panel panel-metric panel-metric-sm">
+                        <div class="panel-body panel-body-warning">
+                            <div class="metric-content metric-icon">
+                                <div class="value">
+                                    100%
+                                </div>
+                                <div class="trend">
+                                    <p class="text-success ms">
+                                        <i class="fa fa-chevron-up"></i> 5%
+                                    </p>
+                                    <strong class="ms">比上次進步</strong>
+                                </div>
+                                <div id="metric-sales" class="chart" style="padding: 0px; position: relative;">
+                                    <canvas class="flot-base" width="302" height="110" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 302px; height: 110px;"></canvas>
+                                    <canvas class="flot-overlay" width="302" height="110" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 302px; height: 110px;"></canvas>
+                                </div>
+                                <header>
+                                    <h3 class="thin ms">平時作業</h3>
+                                </header>
+                            </div>
                         </div>
-                        <div class="trend">
-                            <p class="text-success ms">
-                                <i class="fa fa-chevron-up"></i> 5%
-                            </p>
-                            <strong class="ms">比上次進步</strong>
-                        </div>
-                        <div id="metric-sales" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" width="302" height="110" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 302px; height: 110px;"></canvas><canvas class="flot-overlay" width="302" height="110" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 302px; height: 110px;"></canvas></div>
-                        <header>
-                            <h3 class="thin ms">平時作業</h3>
-                        </header>
                     </div>
-                </div>
-            </div>
-            <div class="panel panel-metric">
+                    <div class="panel panel-metric">
                         <div class="panel-body">
                             <div class="metric-content">
                                 <div class="value">
@@ -381,144 +414,151 @@
                                     </p>
                                     <strong class="ms">比上次進步</strong>
                                 </div>
-                                <div id="metric-1" class="chart" style="padding: 0px; position: relative;"><canvas class="flot-base" width="296" height="135" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 296px; height: 135px;"></canvas><canvas class="flot-overlay" width="296" height="135" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 296px; height: 135px;"></canvas></div>
+                                <div id="metric-1" class="chart" style="padding: 0px; position: relative;">
+                                    <canvas class="flot-base" width="296" height="135" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 296px; height: 135px;"></canvas>
+                                    <canvas class="flot-overlay" width="296" height="135" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 296px; height: 135px;"></canvas>
+                                </div>
                                 <header>
                                     <h3 class="thin ms">本次評時考成績</h3>
                                 </header>
                             </div>
                         </div>
                     </div>
-            <div class="panel panel-default">
-                <table class="table ms">
-                    <tbody><tr>
-                        <td>
-                            到課率
-                        </td>
-                        <td class="valign-middle" style="min-width: 50%;">
-                            <div class="progress progress-xs">
-                                <div style="width: 60%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-info">
-                                    <span class="sr-only">60 MB / 100 MB</span>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            請假
-                        </td>
-                        <td class="valign-middle">
-                            <div class="progress progress-xs">
-                                <div style="width: 90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="90" role="progressbar" class="progress-bar progress-bar-warning">
-                                    <span class="sr-only">90 / 100</span>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            曠課
-                        </td>
-                        <td class="valign-middle">
-                            <div class="progress progress-xs">
-                                <div style="width: 30%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="30" role="progressbar" class="progress-bar progress-bar-success">
-                                    <span class="sr-only">30 / 100</span>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody></table>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-md-12">
                     <div class="panel panel-default">
-                        <div class="panel-body">
-                            <h4 class="page-header no-margin semi-bold ms">到課次數</h4>
-                            <h1 class="semi-bold text-primary-dark no-margin-bottom">8 </h1>
+                        <table class="table ms">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        到課率
+                                    </td>
+                                    <td class="valign-middle" style="min-width: 50%;">
+                                        <div class="progress progress-xs">
+                                            <div style="width: 60%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-info">
+                                                <span class="sr-only">60 MB / 100 MB</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        請假
+                                    </td>
+                                    <td class="valign-middle">
+                                        <div class="progress progress-xs">
+                                            <div style="width: 90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="90" role="progressbar" class="progress-bar progress-bar-warning">
+                                                <span class="sr-only">90 / 100</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        曠課
+                                    </td>
+                                    <td class="valign-middle">
+                                        <div class="progress progress-xs">
+                                            <div style="width: 30%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="30" role="progressbar" class="progress-bar progress-bar-success">
+                                                <span class="sr-only">30 / 100</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <h4 class="page-header no-margin semi-bold ms">到課次數</h4>
+                                    <h1 class="semi-bold text-primary-dark no-margin-bottom">8</h1>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td colspan="3">
+                                        <h4 class="semi-bold margin-sm-vertical ms">取三次考試成績</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        First
+                                    </th>
+                                    <td>
+                                        89
+                                    </td>
+                                    <td class="text-right text-success">
+                                        <i class="fa fa-caret-up margin-sm-right"></i>20%
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Second
+                                    </th>
+                                    <td>
+                                        80
+                                    </td>
+                                    <td class="text-right text-danger">
+                                        <i class="fa fa-caret-up margin-sm-right"></i>5%
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Third
+                                    </th>
+                                    <td>
+                                        77
+                                    </td>
+                                    <td class="text-right text-muted">
+                                        <i class="fa fa-sort margin-sm-right"></i>0%
+                                        <!--一定是0-->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td colspan="3">
-                                <h4 class="semi-bold margin-sm-vertical ms">取三次考試成績 </h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                First
-                            </th>
-                            <td>
-                                89
-                            </td>
-                            <td class="text-right text-success">
-                                <i class="fa fa-caret-up margin-sm-right"></i>20%
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Second
-                            </th>
-                            <td>
-                                80
-                            </td>
-                            <td class="text-right text-danger">
-                                <i class="fa fa-caret-up margin-sm-right"></i>5%
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Third
-                            </th>
-                            <td>
-                                77
-                            </td>
-                            <td class="text-right text-muted">
-                                <i class="fa fa-sort margin-sm-right"></i>0% <!--一定是0-->
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
-</div>
+        <!-- end Load_v-->
+    </div>
+    <script src="Assets/assets/libs/jquery/jquery.min.js"></script>
+    <script src="Assets/assets/bs3/js/bootstrap.min.js"></script>
+    <script src="Assets/assets/plugins/jquery-navgoco/jquery.navgoco.js"></script>
+    <script src="Assets/js/main.js"></script>
 
-            </div>
-        </div>
-        <script src="Assets/assets/libs/jquery/jquery.min.js"></script>
-        <script src="Assets/assets/bs3/js/bootstrap.min.js"></script>
-        <script src="Assets/assets/plugins/jquery-navgoco/jquery.navgoco.js"></script>
-        <script src="Assets/js/main.js"></script>
-
-        <!--[if lt IE 9]>
+    <!--[if lt IE 9]>
         <script src="assets/plugins/flot/excanvas.min.js"></script>
         <![endif]-->
-        <script src="Assets/assets/plugins/jquery-sparkline/jquery.sparkline.js"></script>
-        <script src="Assets/demo/js/demo.js"></script>
+    <script src="Assets/assets/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+    <script src="Assets/demo/js/demo.js"></script>
 
-        <script src="Assets/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-        <script src="Assets/assets/plugins/jquery-jvectormap/maps/world_mill_en.js"></script>
+    <script src="Assets/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="Assets/assets/plugins/jquery-jvectormap/maps/world_mill_en.js"></script>
 
-        <!--[if gte IE 9]>-->
-        <script src="Assets/assets/plugins/rickshaw/js/vendor/d3.v3.js"></script>
-        <script src="Assets/assets/plugins/rickshaw/rickshaw.min.js"></script>
-        <!--<![endif]-->
+    <!--[if gte IE 9]>-->
+    <script src="Assets/assets/plugins/rickshaw/js/vendor/d3.v3.js"></script>
+    <script src="Assets/assets/plugins/rickshaw/rickshaw.min.js"></script>
+    <!--<![endif]-->
 
-        <script src="Assets/assets/plugins/flot/jquery.flot.js"></script>
-        <script src="Assets/assets/plugins/flot/jquery.flot.resize.js"></script>
-        <script src="Assets/assets/plugins/raphael/raphael-min.js"></script>
-        <script src="Assets/assets/plugins/morris/morris.min.js"></script>
-        <script src="Assets/demo/js/dashboard.js"></script>
-        <script type="text/javascript">
-            window.addEventListener("resize", function () {
-		    if (window.innerWidth >= 767) {
-		        //test
-		     }
-		});
-        </script>
+    <script src="Assets/assets/plugins/flot/jquery.flot.js"></script>
+    <script src="Assets/assets/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="Assets/assets/plugins/raphael/raphael-min.js"></script>
+    <script src="Assets/assets/plugins/morris/morris.min.js"></script>
+    <script src="Assets/demo/js/dashboard.js"></script>
+    <script type="text/javascript">
+    window.addEventListener("resize", function() {
+        if (window.innerWidth >= 767) {
+            //test
+        }
+    });
+    </script>
 
 
-    </body>
+</body>
+
 </html>

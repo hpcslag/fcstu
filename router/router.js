@@ -10,7 +10,6 @@ var url = require('url'),
 * - Cookie Check
 * - Error
 * - Lose Password
-* 
 */
 exports.index = function(req,res){
 	/** found get method*/
@@ -117,7 +116,7 @@ function isLogin(req,res){
 	}
 }
 /**
-* is Student or Teacher
+* is Student or Teacher, check Login
 */
 function invalts(req,res){
 	if(req.session.user.identity == "student"){
@@ -130,12 +129,22 @@ function invalts(req,res){
 };
 
 /**
-* Student
+* Student All Page
 */
 exports.ProfileSetting = function(req,res){
 	isLogin(req,res);
 	res.render('dashboard/management/ProfileSetting',{});
 };
 exports.PasswordReset = function(req,res){
+	isLogin(req,res);
 	res.render('dashboard/management/PasswordReset',{});
-}
+};
+exports.Assets = function(req,res){
+	isLogin(req,res);
+	res.render('dashboard/management/Assets',{});
+};
+
+
+/**
+ * Teacher All Page
+*/
