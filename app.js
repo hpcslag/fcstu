@@ -17,7 +17,7 @@ app.configure(function(){
 	app.use(express.bodyParser()); //open GER,POST body parser
 	app.set('views',__dirname+'/www'); //views engine path
 	app.set('view engine','ejs');
-	app.use(app.router);//open router
+	app.use(app.router);//open routers
 });
 
 //Global Router
