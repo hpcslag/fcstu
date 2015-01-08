@@ -46,7 +46,13 @@ exports.index = function(req, res) {
  */
 exports.dashboard_get = function(req, res) {
 	isLogin(req, res);
-	res.render('dashboard/index', {});
+	if(!!req.session.user){
+		if(req.session.user.identity == 'teacher'){
+			res.render('dashboard/Teacher/index',{});
+		}else{
+			res.render('dashboard/Student/index', {});
+		}
+	}
 };
 
 /**
@@ -94,8 +100,8 @@ function checkLogin(request, response, callback) {
 						identity: data.identity
 					};
 					response.cookie('userdata', {
-						name: "Mac",
-						email: 'cslag@hotmail.com.tw'
+						name: data.name,
+						email: data.email
 					}, {
 						maxAge: new Date(Date.now() + 1000),
 						httpOnly: true
@@ -127,33 +133,36 @@ exports.signout = function(req, res) {
 /**
  * isLogin
  */
-function isLogin(req, res) {
+function isLogin(req, res, identity) {
 		if (!!req.session.logined && !!req.session.user && !!req.cookies.userdata) {
 			return true;
 		}
 		else {
 			res.redirect('/');
 		}
-		//清除cookie也要重新登入, 重寫isLogin的程式碼, session也是
+		//清除cookie也要重新登入, 重寫isLogin的程式碼, session也是. ok
 	}
-	/**
-	 * is Student or Teacher, check Login
-	 */
-function invalts(req, res) {
-	if (req.session.user.identity == "student") {
-		return "student";
-	}
-	else if (req.session.user.identity == "teacher") {
-		return "teacher";
+	
+/**
+ * Only Identity
+ * this function is check only student can view
+ *
+ * @param {string} identity
+ */
+function OnlyParticularPerson(req,res,identity) {
+	if (req.session.user.identity == identity) {
+		return true;
 	}
 	else {
-		res.redirect('/');
+		res.redirect('/404');
 	}
 };
 
 /**
- * Student All Page
- */
+* Management Page
+* All Persion can use
+* 
+*/
 exports.ProfileSetting = function(req, res) {
 	isLogin(req, res);
 	res.render('dashboard/management/ProfileSetting', {});
@@ -162,39 +171,69 @@ exports.PasswordReset = function(req, res) {
 	isLogin(req, res);
 	res.render('dashboard/management/PasswordReset', {});
 };
+exports.Response = function(req, res) {
+	isLogin(req, res);
+	res.render('dashboard/management/Response', {});
+};
+
+/**
+ * Student All Page
+ */
 exports.Assets = function(req, res) {
 	isLogin(req, res);
 	res.render('dashboard/management/Assets', {});
 };
 exports.UsuallyTest = function(req, res) {
 	isLogin(req, res);
+	OnlyParticularPerson(req,res,'student');
 	res.render('dashboard/Student/UsuallyTest', {});
 };
 exports.UsuallyTestScores = function(req, res) {
 	isLogin(req, res);
+	OnlyParticularPerson(req,res,'student');
 	res.render('dashboard/Student/UsuallyTestScores', {});
 };
 exports.WeekTest = function(req, res) {
 	isLogin(req, res);
+	OnlyParticularPerson(req,res,'student');
 	res.render('dashboard/Student/WeekTest', {});
 };
 exports.WeekTestAnswer = function(req, res) {
 	isLogin(req, res);
+	OnlyParticularPerson(req,res,'student');
 	res.render('dashboard/management/WeekTestAnswer', {});
 };
-exports.Homework = function(req,res){
-	isLogin(req,res);
-	res.render('dashboard/Student/Homework',{});
+exports.Homework = function(req, res) {
+	isLogin(req, res);
+	OnlyParticularPerson(req,res,'student');
+	res.render('dashboard/Student/Homework', {});
 };
-exports.HomeworkResponse = function(req,res){
-	isLogin(req,res);
-	res.render('dashboard/Student/HomeworkResponse',{});
-};
-exports.Question = function(req,res){
-	isLogin(req,res);
-	res.render('dashboard/management/Question',{});
+exports.Question = function(req, res) {
+	isLogin(req, res);
+	OnlyParticularPerson(req,res,'student');
+	res.render('dashboard/Student/Question', {});
 };
 
 /**
  * Teacher All Page
- */
+*/
+exports.AddStudent = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'teacher');
+	res.render('dashboard/Teacher/StudentManager/AddStudent', {});
+};
+exports.ModifyStudent = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'teacher');
+	res.render('dashboard/Teacher/StudentManager/ModifyStudent', {});
+};
+exports.StudentManagement = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'teacher');
+	res.render('dashboard/Teacher/StudentManager/StudentManagement', {});
+};
+exports.RollColl = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'teacher');
+	res.render('dashboard/Teacher/StudentManager/RollColl', {});
+};

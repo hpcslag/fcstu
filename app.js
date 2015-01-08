@@ -51,6 +51,11 @@ app.get('/dashboard', router.dashboard_get);
 app.get('/signout', router.signout);
 app.get('/ProfileSetting', router.ProfileSetting);
 app.get('/PasswordReset', router.PasswordReset);
+app.get('/Response',router.Response);
+//losePassword
+//resetPassword
+//mail to
+
 
 //Student Router
 app.get('/Assets', router.Assets);
@@ -59,34 +64,17 @@ app.get('/UsuallyTestScores', router.UsuallyTestScores);
 app.get('/WeekTest', router.WeekTest);
 app.get('/WeekTestAnswer', router.WeekTestAnswer);
 app.get('/Homework',router.Homework);
-app.get('/HomeworkResponse',router.HomeworkResponse);
 app.get('/Question',router.Question);
+
 //Teacher Router
-
-
-
-
-
-
-//Test Router
-app.get('/session', function(req, res) {
-	req.session.logined = true;
-	res.redirect('/');
-});
-
-app.get('/cookie', function(req, res) {
-	res.cookie('userdata', {
-		name: "Mac",
-		email: 'cslag@hotmail.com.tw'
-	}, {
-		maxAge: new Date(Date.now() + 1000),
-		httpOnly: true
-	});
-	res.redirect('/bb');
-});
-app.get('/bb', function(req, res) {
-	var data = req.cookies.userdata;
-	res.send(data);
-});
+app.get('/AddStudent',router.AddStudent);
+app.get('/ModifyStudent',router.ModifyStudent);
+app.get('/RollColl',router.RollColl);
+app.get('/AssetsManagement',router.AssetsManagement);
+app.get('/AddUsuallyTest',router.AddUsuallyTest);
+app.get('/UsuallyTestCorrect',router.UsuallyTestCorrect);
+app.get('/UpdateWeekTest',router.UpdateWeekTest);
+app.get('/HomeworkCorrect',router.HomeworkCorrect);
+app.get('/HomeworkUpdate',router.HomeworkUpdate);
 
 app.listen(process.env.PORT);
