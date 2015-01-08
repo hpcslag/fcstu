@@ -1,0 +1,166 @@
+    <div class="page-subheading page-subheading-md">
+        <ol class="breadcrumb ms">
+            <li class="active"><a href="javascript:;">Class: 日間部 - 演算法邏輯(一)</a>
+            </li>
+        </ol>
+    </div>
+    <div class="page-heading page-heading-md ms">
+        <h2>作業內容 (內容/提交)</h2>
+    </div>
+    <div class="container-fluid-md">
+        <div class="row ms">
+            <!---->
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">回家作業</h4>
+
+                        <p>請注意提交時間，以免被鎖定提交作業。</p>
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="fa fa-fw fa-minus"></i></a>
+                            <a href="#" data-rel="reload"><i class="fa fa-fw fa-refresh"></i></a>
+                            <a href="#" data-rel="close"><i class="fa fa-fw fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="course-quiz-preamble">
+                            <h3>作業繳交期限</h3>
+                            <strong>發布起至 2015- 1/8 下午17:50分，遲交請至J607A研究室提交，並扣分總分<code>0.5</code>，未繳交作業扣分總分<code>1</code>分</strong>
+                            <hr>
+                            <p>寫一個程式解線性系統 Ax = y。其中 A 是 n 乘 n 方陣，x 及 y 都是 n 乘 1 的向量。給定 A 及 y 時求解 x。為求簡單起見，給定的 A 一定是上三角矩陣。</p>
+
+                            <pre>void upper_solver(double *A, double *x, double *y, int n);
+</pre>
+
+                            <ul>
+                                <li>函式 upper_solver 的第一個參數式指向 A 的指標。<b>注意</b>，為了節省記憶體我們只存 A 的上三角部分，而且存成一維陣列，請參考下方的主程式。</li>
+                                <li>upper_solver 的第二個參數是指向 x 的指標。upper_solver 必須將 x 的解放在這裡。</li>
+                                <li>upper_solver 的第三個參數是指向 y 的指標。</li>
+                                <li>upper_solver 的第四個參數是矩陣大小 n。</li>
+                            </ul>
+
+                            <p>我們提供了主程式，請你實作函式 upper_solver。</p>
+
+                            <pre>#include <stdio.h>
+#define N 256
+
+void upper_solver(double *A, double *x, double *y, int n);
+int main(void)
+{
+    int i, j;
+    int n; 
+    double A[N * (N + 1) / 2];
+    double *aptr = A;
+    double x[N];
+    double y[N];
+    scanf("%d", &amp;n);
+    for ( i = 0 ; i &lt; n ; i++ )
+        for ( j = i ; j &lt; n ; j++ ) {
+            scanf("%lf", aptr);
+            aptr++;
+        }
+    for ( i = 0 ; i &lt; n ; i++ )
+        scanf("%lf", &amp;(y[i]));
+    upper_solver(A, x, y, n);
+
+    for ( i = 0 ; i &lt; n ; i++ )
+        printf("%lf ", x[i]);
+
+    return 0;
+}
+</stdio.h></pre>
+
+                            <h4>參數規範</h4>
+
+                            <p>0 &lt; n &lt;= 256</p>
+
+                            <h4>輸入範例</h4>
+                            <pre>3
+1.000 2.000 3.000
+      2.000 1.000
+            4.000
+2.000
+3.000
+-4.000
+</pre>
+
+                            <h4>輸出範例</h4>
+                            <pre>1.000000 2.000000 -1.000000
+</pre> </div>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">作業繳交說明</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h3>作業提交方案</h3>
+                        <p>文件作業:<code>Google Docs</code>
+                            <br>程式碼作業:<code>IDEONE</code>網址提交
+                            <br>協同作業: 暫時不支援<code>檔案上傳</code>，您可以使用<code>C9.IO</code>的服務向教師一同探討。
+                            <br> 檔案提交服務:
+                            <br> OneDrive
+                            <br> MEGA
+                            <br>Dropbox
+                            <br>Google Drive
+                            <br>WebRTC of Torrent</p>
+                        <hr>
+                        <h3>作業繳交的限制</h3>
+                        <strong>請您注意作業繳交的期限，若遲交請至教授的研究室親自提交，隨之該同學也會被斟酌扣分，請注意!</strong>
+                        <hr>
+                        <h4>作業關鍵字說明</h4>
+                        <p>為確認同學是自行完成作業，請隨意輸入在本作業題目中的關鍵詞。 <br>舉例:<br>題目: 請實作Proxy轉向<BR>關鍵字: <BR>取得Request後做Foward.</p>
+                        <strong>可能是您做作業的時候需要的專有名詞等等... 相關詞則為關鍵字，無填入先扣0.2分</strong>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div class="col-md-6">
+                <form class="form-horizontal" role="form">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">作業繳交</h4>
+
+                            <p>請參照上方繳交說明完成作業繳交。</p>
+                            <div class="panel-options">
+                                <a href="#" data-rel="collapse"><i class="fa fa-fw fa-minus"></i></a>
+                                <a href="#" data-rel="reload"><i class="fa fa-fw fa-refresh"></i></a>
+                                <a href="#" data-rel="close"><i class="fa fa-fw fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-4 control-label">作業網址</label>
+                                <div class="col-sm-8">
+                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Google Docs/ IDEONE 或 C9.IO 網址">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-4 control-label">作業回應(含回答題目)</label>
+                                <div class="col-sm-8">
+                                    <textarea rows="6" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="輸出的測資、簡述題或觀念題...                                      比方: 1.對 2.錯 3.測試資料:9 1 2 3 4 5 6 | 4.NASM是一個可以跨平台的組合語言，支持所有X86架構cpu的處理器 5.PPTP是一個沒有安全加密驗證的點對點交換協定，通常用於VPN服務。"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputFirstName3" class="col-sm-4 control-label">請輸入作業的關鍵字</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="inputFirstName3" placeholder="輸入一個相關的專有名詞或一個詞...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-8">
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> 作業提交</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,28 +28,45 @@
         <script src="Assets/assets/libs/respond/respond.min.js"></script>
         <![endif]-->
     <style type="text/css">
-    .ms {
-        font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
-    }
-    .notification {
-        font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
-    }
+        .ms {
+            font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
+        }
+        .notification {
+            font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
+        }
+        .ifr {
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            height: 900px;
+        }
+        textarea::-webkit-input-placeholder:afterxx {
+            content: "line@ \A line#";
+            /* 这里 \A 形成回车符号  */
+            
+            color: red;
+        }
+        ;
     </style>
     <script type="text/javascript">
-    function httpGet(theUrl) {
-        var xmlHttp = null;
+        function httpGet(theUrl) {
+            var xmlHttp = null;
 
-        xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", theUrl, false);
-        xmlHttp.send(null);
-        return xmlHttp.responseText;
-    }
-    var loader = function(event,url){
-        var gets = httpGet('../'+url);
-        document.getElementById('load_v').innerHTML = gets;
-        var x = document.getElementById(e.target.id).childNodes[0];
-        x.setAttribute("style", "active");
-    }
+            xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", theUrl, false);
+            xmlHttp.send(null);
+            return xmlHttp.responseText;
+        }
+        var loader = function(event, url) {
+            var gets = httpGet('../' + url);
+            document.getElementById('load_v').innerHTML = gets;
+            var x = document.getElementById(e.target.id).childNodes[0];
+            x.setAttribute("style", "active");
+        };
+        var AssetsLoader = function(url) {
+            var vpx = '<iframe src="' + url + '" class="ifr" frameborder="0" height="100%" width="100%"></iframe>';
+            document.getElementById('load_v').innerHTML = vpx;
+        };
     </script>
 </head>
 
@@ -190,7 +207,7 @@
                         </ul>
                     </li>
                     <li class="">
-                        <a href="#" onclick="loader(event,'Assets')" title="Orders">
+                        <a href="#" onclick="AssetsLoader('https://hackpad.com/-30-CVE--55wdYEJDxwI')" title="Orders">
                             <i class="fa fa-lg fa-fw fa-graduation-cap"></i> 課程資源
                             <span class="label label-danger pull-right">實用</span>
                         </a>
@@ -198,19 +215,16 @@
                     <li class="nav-dropdown">
                         <a href="#" title="Users">
                             <i class="fa fa-lg fa-fw fa-book"></i> 平時測驗
-                            <span class="label label-success pull-right">1</span>
                         </a>
                         <ul class="nav-sub">
                             <li>
-                                <a href="email-inbox.html" title="Inbox">
+                                <a href="#" onclick="loader(event,'UsuallyTest')" title="Inbox">
                                     <i class="fa fa-fw fa-caret-right badge"></i> 開始平時測驗
-                                    <span class="badge badge-success pull-right">1</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="email-message.html" title="Message">
+                                <a href="#" onclick="loader(event,'UsuallyTestScores')" title="Message">
                                     <i class="fa fa-fw fa-caret-right"></i> 平時測驗成績
-                                    <span class="label label-warning pull-right">Updated</span>
                                 </a>
                             </li>
                         </ul>
@@ -221,8 +235,13 @@
                         </a>
                         <ul class="nav-sub">
                             <li>
-                                <a href="forms-form-layouts.html" title="Form Layouts">
-                                    <i class="fa fa-fw fa-caret-right"></i> 測驗解答
+                                <a href="#" onclick="loader(event,'WeekTest')" title="Form Layouts">
+                                    <i class="fa fa-fw fa-caret-right"></i> 本周測驗題目
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" onclick="loader(event,'WeekTestAnswer')" title="Form Layouts">
+                                    <i class="fa fa-fw fa-caret-right"></i> 上周測驗解答
                                 </a>
                             </li>
                         </ul>
@@ -230,25 +249,24 @@
                     <li class="nav-dropdown">
                         <a href="#" title="Tables">
                             <i class="fa fa-lg fa-fw  fa-lightbulb-o"></i> 平時作業
-                            <span class="label label-success pull-right">2</span>
+                            <span class="label label-success pull-right">0</span>
                         </a>
                         <ul class="nav-sub">
-                            <li>
-                                <a href="tables-basic-tables.html" title="Basic Tables">
-                                    <i class="fa fa-fw fa-caret-right"></i> 作業提交
-                                    <span class="badge badge-success pull-right">1</span>
+                            <li id="homework">
+                                <a href="#" onclick="loader(event,'Homework')" title="Basic Tables">
+                                    <i class="fa fa-fw fa-caret-right"></i> 作業內容/提交
                                 </a>
                             </li>
                             <li>
-                                <a href="tables-data-tables.html" title="Data Tables">
-                                    <i class="fa fa-fw fa-caret-right"></i> 作業回應
-                                    <span class="badge badge-danger pull-right">1</span>
+                                <a href="#" onclick="loader(event,'HomeworkResponse')" title="Data Tables">
+                                    <i class="fa fa-fw fa-caret-right"></i> 消息回應
+                                    <span class="badge badge-danger pull-right">0</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li class="">
-                        <a href="#" title="Pages">
+                        <a href="#" onclick="loader(event,'Question')" title="Pages">
                             <i class="fa fa-lg fa-fw  fa-question"></i> 問題反映
                         </a>
                     </li>
@@ -257,8 +275,7 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li>
                         <a href="javascript:;">
-                            <i class="fa fa-fw fa-circle text-success"></i>
-                            資工系學生
+                            <i class="fa fa-fw fa-circle text-success"></i> 資工系學生
                         </a>
                     </li>
                 </ul>
@@ -266,14 +283,13 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li>
                         <a href="javascript:;">
-                            <i class="fa fa-fw fa-circle text-success"></i>
-                            李建磐 Keyboard. Lee
+                            <i class="fa fa-fw fa-circle text-success"></i> 李建磐 Keyboard. Lee
                         </a>
                     </li>
                 </ul>
             </nav>
         </aside>
-<!-Start id="load_v"-->
+        <!-Start id="load_v"-->
         <div id="load_v" class="page-content">
             <div class="page-subheading page-subheading-md">
                 <ol class="breadcrumb ms">
@@ -294,8 +310,7 @@
                                 <h4 class="thin">Class</h4>
                                 <p>
                                     <a href="javascript:;" class="text-gray text-no-decoration">
-                                        <i class="fa fa-fw fa-user"></i>
-                                        五工二甲
+                                        <i class="fa fa-fw fa-user"></i> 五工二甲
                                     </a>
                                 </p>
                             </div>
@@ -342,7 +357,7 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <a href="pages-order-details.html">#00001</a>
+                                                <a>#00001</a>
                                             </td>
                                             <td>
                                                 Jun 05, 11:40pm
@@ -353,7 +368,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="pages-order-details.html">#00002</a>
+                                                <a>#00002</a>
                                             </td>
                                             <td>
                                                 Jun 06, 11:40pm
@@ -364,7 +379,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="pages-order-details.html">#00003</a>
+                                                <a>#00003</a>
                                             </td>
                                             <td>
                                                 Jun 07, 11:40pm
@@ -419,7 +434,7 @@
                                     <canvas class="flot-overlay" width="296" height="135" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 296px; height: 135px;"></canvas>
                                 </div>
                                 <header>
-                                    <h3 class="thin ms">本次評時考成績</h3>
+                                    <h3 class="thin ms">本次平時考成績</h3>
                                 </header>
                             </div>
                         </div>
@@ -551,11 +566,11 @@
     <script src="Assets/assets/plugins/morris/morris.min.js"></script>
     <script src="Assets/demo/js/dashboard.js"></script>
     <script type="text/javascript">
-    window.addEventListener("resize", function() {
-        if (window.innerWidth >= 767) {
-            //test
-        }
-    });
+        window.addEventListener("resize", function() {
+            if (window.innerWidth >= 767) {
+                //test
+            }
+        });
     </script>
 
 
