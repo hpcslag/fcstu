@@ -237,3 +237,38 @@ exports.RollColl = function(req,res){
 	OnlyParticularPerson(req,res,'teacher');
 	res.render('dashboard/Teacher/StudentManager/RollColl', {});
 };
+exports.AssetsManagement = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'teacher');
+	res.render('dashboard/Teacher/AssetsManager/AssetsManagement', {});
+};
+exports.AddUsuallyTest = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'teacher');
+	res.render('dashboard/Teacher/UsuallyTestManager/AddUsuallyTest', {});
+};
+exports.UsuallyTestCorrect = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'teacher');
+	res.render('dashboard/Teacher/UsuallyTestManager/UsuallyTestCorrect', {});
+};
+exports.RollColl = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'teacher');
+	res.render('dashboard/Teacher/StudentManager/RollColl', {});
+};
+exports.RollColl = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'teacher');
+	res.render('dashboard/Teacher/StudentManager/RollColl', {});
+};
+exports.RollColl = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'teacher');
+	res.render('dashboard/Teacher/StudentManager/RollColl', {});
+};
+exports.RollColl = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'teacher');
+	res.render('dashboard/Teacher/StudentManager/RollColl', {});
+};
