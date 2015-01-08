@@ -252,23 +252,18 @@ exports.UsuallyTestCorrect = function(req,res){
 	OnlyParticularPerson(req,res,'teacher');
 	res.render('dashboard/Teacher/UsuallyTestManager/UsuallyTestCorrect', {});
 };
-exports.RollColl = function(req,res){
+exports.UpdateWeekTest = function(req,res){
 	isLogin(req,res);
 	OnlyParticularPerson(req,res,'teacher');
-	res.render('dashboard/Teacher/StudentManager/RollColl', {});
+	res.render('dashboard/Teacher/WeekTestManagement/UpdateWeekTest', {});
 };
-exports.RollColl = function(req,res){
+exports.HomeworkCorrect = function(req,res){
 	isLogin(req,res);
 	OnlyParticularPerson(req,res,'teacher');
-	res.render('dashboard/Teacher/StudentManager/RollColl', {});
+	res.render('dashboard/Teacher/HomeworkManager/HomeworkCorrect', {});
 };
-exports.RollColl = function(req,res){
+exports.HomeworkUpdate = function(req,res){
 	isLogin(req,res);
 	OnlyParticularPerson(req,res,'teacher');
-	res.render('dashboard/Teacher/StudentManager/RollColl', {});
-};
-exports.RollColl = function(req,res){
-	isLogin(req,res);
-	OnlyParticularPerson(req,res,'teacher');
-	res.render('dashboard/Teacher/StudentManager/RollColl', {});
+	res.render('dashboard/Teacher/HomeworkManager/HomeworkUpdate', {});
 };
