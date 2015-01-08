@@ -13,7 +13,7 @@ var url = require('url'),
  */
 exports.index = function(req, res) {
 	/** found get method*/
-	if (req.session.logined) {
+	if (!!req.session.logined && !!req.session.user && !!req.cookies.userdata) {
 		res.redirect('/dashboard');
 	}
 	var url_parts = url.parse(req.url, true),
@@ -45,12 +45,8 @@ exports.index = function(req, res) {
  * Handle Login User Dashboard render
  */
 exports.dashboard_get = function(req, res) {
-	if (!!req.session.logined) {
-		res.render('dashboard/index', {});
-	}
-	else {
-		res.redirect('/');
-	}
+	isLogin(req, res);
+	res.render('dashboard/index', {});
 };
 
 /**
@@ -81,7 +77,7 @@ exports.dashboard = function(req, res) {
  */
 function checkLogin(request, response, callback) {
 	//check all - email and password
-	if (!!request.session.logined) {
+	if (!!request.session.logined && !!request.session.user && request.cookies.userdata) {
 		callback(true);
 	}
 	else {
@@ -132,7 +128,7 @@ exports.signout = function(req, res) {
  * isLogin
  */
 function isLogin(req, res) {
-		if (!!req.session.logined) {
+		if (!!req.session.logined && !!req.session.user && !!req.cookies.userdata) {
 			return true;
 		}
 		else {
