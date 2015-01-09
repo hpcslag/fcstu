@@ -21,13 +21,20 @@
                         <th width="10%">學生姓名</th>
                         <th width="10%">班級</th>
                         <th width="10%">本次是否到課</th>
-                        <th width="20%">到課率</th>
+                        <th width="20%">到課率<% var a = 10; %> <%= a %></th>
                     </tr>
                 </thead>
                 <tbody>
                     <!---->
                     <% for (var i = 0; i < Object.keys(list).length; i++) { %>
 		                <%	for (var j = 0; j < Object.keys(list[i].rollcall).length; j++) {%>
+		                <% var cc = 0; var vclass = list[Object.keys(list)].rollcall[Object.keys(list[i].rollcall)[j]].check;
+                			for(var k = 0;k<vclass.length;k++){
+                				if(vclass[k]){
+                					cc++;
+                				}
+                			}
+		                    var inClass = 100 / (vclass.length / cc); %>
 			         <tr>
                         <td><%= Object.keys(list[i].rollcall)[j] %></td>
                         <td><%= list[Object.keys(list)].rollcall[Object.keys(list[i].rollcall)[j]].class %></td>

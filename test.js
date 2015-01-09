@@ -22,14 +22,21 @@ var Class = sd('fcstu','class');
 //到課資料查詢
 Class.findAll(function(data){
 	for(var i =0;i<Object.keys(data).length;i++){ //這次課堂
-		console.log(data['0'].rollcall['游崇祐'].class);
-		console.log(Object.keys(data[i].rollcall)[0]);
-		console.log(data[i].rollcall['游崇祐'].check);
+		//console.log(data['0'].rollcall['游崇祐'].class);
+		//console.log(Object.keys(data[i].rollcall)[0]);
+		//console.log(data[i].rollcall['游崇祐'].check);
 		console.log()
 		for (var j = 0; j < Object.keys(data[i].rollcall).length; j++) { //班級人數
 			var studentName = Object.keys(data[i].rollcall)[j];
-			
-			console.log("學生: " +studentName+", 班級: "+data[Object.keys(data)].rollcall[studentName].class+", 本次是否到課? "+(data[Object.keys(data)].rollcall[studentName].check ? "有到課":"缺課"));
+			var cc = 0;
+			var vclass = data[Object.keys(data)].rollcall[studentName].check;
+			for(var k = 0;k<vclass.length;k++){
+				if(vclass[k]){
+					cc++;
+				}
+			}
+			var inClass = 100 / (vclass.length / cc);
+			console.log("學生: " +studentName+", 班級: "+data[Object.keys(data)].rollcall[studentName].class+", 本次是否到課? "+(data[Object.keys(data)].rollcall[studentName].check ? "有到課":"缺課") + ", 到課率: "+inClass);
 		}
 	//}
 	//console.log(Object.keys(data['0'].rollcall));

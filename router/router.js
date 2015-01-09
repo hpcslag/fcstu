@@ -234,13 +234,6 @@ exports.StudentManagement = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
 	staticdb('fcstu', 'class').findAll(function(data) {
-		for (var i = 0; i < Object.keys(data).length; i++) {
-			for (var j = 0; j < Object.keys(data[i].rollcall).length; j++) {
-				var studentName = Object.keys(data[i].rollcall)[j];
-				//console.log("學生: " + studentName + ", 班級: " + data[Object.keys(data)].rollcall[studentName].class + ", 本次是否到課? " + (data[Object.keys(data)].rollcall[studentName].check ? "有到課" : "缺課"));
-			}
-		}
-
 		res.render('dashboard/Teacher/StudentManager/StudentManagement',{list:data});
 	});
 };
