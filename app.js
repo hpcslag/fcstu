@@ -45,7 +45,6 @@ app.configure(function() {
 });
 
 //Global Router
-app.post('/dashboard', router.dashboard);
 app.get('/', router.index);
 app.get('/dashboard', router.dashboard_get);
 app.get('/signout', router.signout);
@@ -69,6 +68,7 @@ app.get('/Question',router.Question);
 //Teacher Router
 app.get('/AddStudent',router.AddStudent);
 app.get('/ModifyStudent',router.ModifyStudent);
+app.get('/StudentManagement',router.StudentManagement);
 app.get('/RollColl',router.RollColl);
 app.get('/AssetsManagement',router.AssetsManagement);
 app.get('/AddUsuallyTest',router.AddUsuallyTest);
@@ -76,5 +76,8 @@ app.get('/UsuallyTestCorrect',router.UsuallyTestCorrect);
 app.get('/UpdateWeekTest',router.UpdateWeekTest);
 app.get('/HomeworkCorrect',router.HomeworkCorrect);
 app.get('/HomeworkUpdate',router.HomeworkUpdate);
+
+//Feature POST Router
+app.post('/dashboard', router.dashboard);
 
 app.listen(process.env.PORT);
