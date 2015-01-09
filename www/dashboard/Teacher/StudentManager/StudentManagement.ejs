@@ -26,9 +26,15 @@
                 </thead>
                 <tbody>
                     <!---->
+                    <% for (var i = 0; i < Object.keys(list).length; i++) { %>
+		<%	for (var j = 0; j < Object.keys(data[i].rollcall).length; j++) {%>
+			<%	var studentName = Object.keys(data[i].rollcall)[j];%>
+			<%	console.log("學生: " + studentName + ", 班級: " + data[Object.keys(data)].rollcall[studentName].class + ", 本次是否到課? " + (data[Object.keys(data)].rollcall[studentName].check ? "有到課" : "缺課"));%>
+		<%	}%>
+	<% 	}%>
                     <tr>
-                        <td>游崇祐</td>
-                        <td>五工二甲</td>
+                        <td>游崇祐<%= Object.keys(list[0].rollcall)[0] %></td>
+                        <td>五工</td>
                         <td><span class="label label-success">正常到課</span></td>
                         <td class="valign-middle">
                             <div class="progress progress-sm">

@@ -2,8 +2,9 @@ var url = require('url'),
 	md5 = require('../lib/hash'),
 	colors = require('colors'),
 	encode = require('../lib/encode'),
-	staticdb = require('../lib/staticdb'),
-	users = new staticdb('fcstu', 'users');
+	staticdb = require('../lib/staticdb');
+	//users = staticdb('fcstu', 'users'),
+	//Class = new staticdb('fcstu', 'class');
 
 /**
  * Index Login Page Handle.
@@ -91,7 +92,7 @@ function checkLogin(request, response, callback) {
 		var email = request.body.email || request.cookies.userdata.email || false,
 			password = request.body.password;
 		if (email && !!password) {
-			users.findOne({
+			staticdb('fcstu', 'users').findOne({
 				"email": email.toLowerCase()
 			}, function(data) {
 				if (data.password == md5(password)) {
@@ -151,7 +152,7 @@ function isLogin(req, res) {
  * @param {string} identity
  */
 function OnlyParticularPerson(req, res, identity) {
-	if(!!req.session.logined){
+	if (!!req.session.logined) {
 		if (req.session.user.identity == identity) {
 			return true;
 		}
@@ -232,7 +233,16 @@ exports.ModifyStudent = function(req, res) {
 exports.StudentManagement = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
-	res.render('dashboard/Teacher/StudentManager/StudentManagement', {});
+	staticdb('fcstu', 'class').findAll(function(data) {
+		for (var i = 0; i < Object.keys(data).length; i++) {
+			for (var j = 0; j < Object.keys(data[i].rollcall).length; j++) {
+				var studentName = Object.keys(data[i].rollcall)[j];
+				console.log("學生: " + studentName + ", 班級: " + data[Object.keys(data)].rollcall[studentName].class + ", 本次是否到課? " + (data[Object.keys(data)].rollcall[studentName].check ? "有到課" : "缺課"));
+			}
+		}
+		
+		res.render('dashboard/Teacher/StudentManager/StudentManagement',{list:data});
+	});
 };
 exports.RollColl = function(req, res) {
 	isLogin(req, res);
