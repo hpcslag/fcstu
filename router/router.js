@@ -186,7 +186,7 @@ exports.PasswordReset = function(req, res) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
 	if(!!query.err){
-		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">密碼需要一致才能夠變更</a> 請再重新嘗試一次.</div>'
+		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">密碼需要一致才能夠變更，密碼也必須超過6位字元/a> 請再重新嘗試一次.</div>'
 	}
 	if(!!query.ok){
 		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 您的密碼已完成變更 <a href="#" class="alert-link">請注意密碼的安全性</a>.</div>'
