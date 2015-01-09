@@ -309,7 +309,10 @@ exports.PasswordResetPost = function(req,res){
         var html = '<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Article Dead</title></head><body><p>"Different password or message."</p><p>"欲設定的密碼不盡相同。"</p><p>"パスワードが一致していません"</p><p>"Different mot de passe ou un message."</p><p>"Eri salasana tai viestin."</p><p>"інший пароль або повідомлення."</p>"другой пароль или сообщения."<p>"Malsamaj pasvorton aŭ mesaĝo."</p><p>"jiné heslo nebo zprávu."</p><p>"Verschillende wachtwoord of boodschap."</p><p>"Different Passwort oder eine Nachricht."</p><script>alert("Different password or message."); window.location.href = "/dashboard?foward=psre&err=ps";</script></body></html>';
         res.send(html);
     }else{
-        console.log("可以re");
+    	staticdb('fcstu','users').findOne({email:req.session.user.email},function(data){
+			//varlog.password = md5('fcea920f7412b5da7be0cf42b8c93759');
+			staticdb('fcstu','users').update({"email":req.session.user.email},{"password":ps1})
+		});
         res.redirect('/dashboard?foward=psre&ok=1');
     }
 };

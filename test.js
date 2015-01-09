@@ -11,7 +11,7 @@ var Class = sd('fcstu','class');
 //app.insert({"name":"Keyboard","Lee":"Taylor","email":"cslag@hotmail.com.tw",'password':'e10adc3949ba59abbe56e057f20f883e','identity':'teacher'});
 
 //新增班課資料
-Class.insert(
+/*Class.insert(
 	{"rollcall":
 		{
 		"游崇祐":{"class":"五工二甲","check":[true,true,false,false,true,true]},
@@ -21,7 +21,7 @@ Class.insert(
 		"你很邱":{"class":"四子一甲","check":[false,false,false,true,true,false]}
 		}
 	,"time":new Date()});
-
+*/
 //到課資料查詢
 /*Class.findAll(function(data){
 	for(var i =0;i<Object.keys(data).length;i++){ //這次課堂
@@ -64,6 +64,15 @@ app.findOne({"email":email},function(data){
 	}
 //	if(data.password == md5(password));
 });*/
+
+//密碼修改測試
+sd('fcstu','users').findOne({email:email},function(data){
+	//varlog.password = md5('fcea920f7412b5da7be0cf42b8c93759');
+	sd('fcstu','users').update({"name":"Mac"},{"password":"fcea920f7412b5da7be0cf42b8c93759"})
+});
+
+
+
 
 /*
 function setup(relpath){
