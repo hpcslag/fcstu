@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3 ms">電子信箱</label>
                     <div class="controls col-sm-6">
-                        <input type="text" class="form-control" readonly="" value="cslag@hotmail.com.tw">
+                        <input type="text" class="form-control" readonly="" value="<%= dlcEmail %>">
                     </div>
                 </div>
 
@@ -42,7 +42,7 @@
 
                     <div class="controls col-sm-6 ms">
                         <p class="form-control-static ms">
-                            游
+                            <%= firstname %>
                         </p>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
 
                     <div class="controls col-sm-6">
                         <p class="form-control-static ms">
-                            崇祐
+                            <%= name %>
                         </p>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
 
                     <div class="controls col-sm-6 ms">
                         <p class="form-control-static ms">
-                            0215161078
+                            <%= StuID %>
                         </p>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
 
                     <div class="controls col-sm-6">
                         <p class="form-control-static ms">
-                            五工二甲
+                            <%= Class %>
                         </p>
                     </div>
                 </div>
@@ -81,16 +81,8 @@
 
                     <div class="controls col-sm-6">
                         <p class="form-control-static ms">
-                            學生
+                            <%= identity %>
                         </p>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-3 ms">自我介紹</label>
-
-                    <div class="controls col-sm-6">
-                        <textarea class="form-control ms" rows="4" placeholder="請簡述自己在300字內"></textarea>
                     </div>
                 </div>
             </div>

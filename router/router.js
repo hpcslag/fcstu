@@ -168,11 +168,20 @@ function OnlyParticularPerson(req, res, identity) {
  */
 exports.ProfileSetting = function(req, res) {
 	isLogin(req, res);
-	res.render('dashboard/management/ProfileSetting', {});
+	staticdb('fcstu', 'users').findOne({"email": req.session.user.email.toLowerCase()}, function(data) {
+		if(!!data){
+			res.render('dashboard/management/ProfileSetting', {dlcEmail:data.email,firstname:data.firstname,name:data.name,StuID:(!!data.StuID)?data.StuID:"教授無須學號資料",Class:(!!data.class)?data.class:"資訊工程系教授",identity:(data.identity == "teacher")?"教授":"學生"});
+		}else{
+			res.send("資料讀取失敗，請重新登入!");
+			res.clearCookie('userdata');
+			req.session.logined = null;
+			req.session.user = null;
+		}
+	});
 };
 exports.PasswordReset = function(req, res) {
 	isLogin(req, res);
-	res.render('dashboard/management/PasswordReset', {});
+	res.render('dashboard/management/PasswordReset', {email:req.session.user.email});
 };
 exports.Response = function(req, res) {
 	isLogin(req, res);

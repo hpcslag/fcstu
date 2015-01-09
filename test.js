@@ -11,16 +11,19 @@ var Class = sd('fcstu','class');
 //app.insert({"name":"Keyboard","Lee":"Taylor","email":"cslag@hotmail.com.tw",'password':'e10adc3949ba59abbe56e057f20f883e','identity':'teacher'});
 
 //新增班課資料
-/*Class.insert(
+Class.insert(
 	{"rollcall":
 		{
 		"游崇祐":{"class":"五工二甲","check":[true,true,false,false,true,true]},
-		"劉哲銘":{"class":"夜二工三甲","check":[true,false,false,false,false,true]}
+		"劉哲銘":{"class":"夜二工三甲","check":[true,false,false,false,false,true]},
+		"鄭智霖":{"class":"五媒二甲","check":[true,true,false,false,false,false]},
+		"野格":{"class":"四工三甲","check":[false,false,false,false,false,true]},
+		"你很邱":{"class":"四子一甲","check":[false,false,false,true,true,false]}
 		}
 	,"time":new Date()});
-*/
+
 //到課資料查詢
-Class.findAll(function(data){
+/*Class.findAll(function(data){
 	for(var i =0;i<Object.keys(data).length;i++){ //這次課堂
 		//console.log(data['0'].rollcall['游崇祐'].class);
 		//console.log(Object.keys(data[i].rollcall)[0]);
@@ -43,7 +46,7 @@ Class.findAll(function(data){
 	//for(var i = 0;i<Object.keys(data).length;i++){
 	//	console.log("學生: ");
 	}
-});
+});*/
 
 //登入測試資料
 var email = "keyboard@gmail.com";

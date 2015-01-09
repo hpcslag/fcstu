@@ -21,6 +21,7 @@
                         <th width="10%">學生姓名</th>
                         <th width="10%">班級</th>
                         <th width="10%">本次是否到課</th>
+                        <th width="10%">總到課</th>
                         <th width="20%">到課率</th>
                     </tr>
                 </thead>
@@ -45,6 +46,7 @@
                                 <span class="label label-danger">缺課</span>
                             <% } %>
                         </td>
+                        <td>[<%= list[Object.keys(list)].rollcall[Object.keys(list[i].rollcall)[j]].check %>]</td>
                         <td class="valign-middle">
                             <div class="progress progress-sm">
                                 <% if(inClass>90){ %>
@@ -53,7 +55,7 @@
                                     <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="<%= inClass %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= inClass %>%;"></div>
                                 <% }else if(inClass>70){%>
                                     <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= inClass %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= inClass %>%;"></div>
-                                <% }else if(inClass<60){ %>
+                                <% }else if(inClass>60){ %>
                                     <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<%= inClass %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= inClass %>%;"></div>
                                 <% }else{ %>
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= inClass %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= inClass %>%;"></div>
