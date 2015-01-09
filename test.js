@@ -14,32 +14,34 @@ var Class = sd('fcstu','class');
 /*Class.insert(
 	{"rollcall":
 		{
-		"游崇祐":{"class":"五工二甲","check":true},
-		"劉哲銘":{"class":"夜二工三甲","check":false}
+		"游崇祐":{"class":"五工二甲","check":[true,true,false,false,true,true]},
+		"劉哲銘":{"class":"夜二工三甲","check":[true,false,false,false,false,true]}
 		}
-	,"time":new Date()});*/
-
+	,"time":new Date()});
+*/
 //到課資料查詢
 Class.findAll(function(data){
-	for(var i =0;i<Object.keys(data).length;i++){
-		//console.log(data['0'].rollcall['游崇祐'].class);
-		//console.log(Object.keys(data[i].rollcall)[0]);
-		console.log();
-		for (var j = 0; j < Object.keys(data[i].rollcall).length; j++) {
+	for(var i =0;i<Object.keys(data).length;i++){ //這次課堂
+		console.log(data['0'].rollcall['游崇祐'].class);
+		console.log(Object.keys(data[i].rollcall)[0]);
+		console.log(data[i].rollcall['游崇祐'].check);
+		console.log()
+		for (var j = 0; j < Object.keys(data[i].rollcall).length; j++) { //班級人數
 			var studentName = Object.keys(data[i].rollcall)[j];
+			
 			console.log("學生: " +studentName+", 班級: "+data[Object.keys(data)].rollcall[studentName].class+", 本次是否到課? "+(data[Object.keys(data)].rollcall[studentName].check ? "有到課":"缺課"));
 		}
-	}
+	//}
 	//console.log(Object.keys(data['0'].rollcall));
 	//for(var i = 0;i<Object.keys(data).length;i++){
 	//	console.log("學生: ");
-	//}
+	}
 });
 
 //登入測試資料
 var email = "keyboard@gmail.com";
 var password = "123456";
-
+/*
 app.findOne({"email":email},function(data){
 	if(!!data){
 	    if(data.password == md5(password)){
@@ -51,7 +53,7 @@ app.findOne({"email":email},function(data){
 	    console.log("username or password is fail!!");
 	}
 //	if(data.password == md5(password));
-});
+});*/
 
 /*
 function setup(relpath){
