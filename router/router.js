@@ -185,6 +185,7 @@ exports.PasswordReset = function(req, res) {
 	var url = require('url');
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
+	console.log(query);
 	if(!!query.err){
 		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">密碼需要一致才能夠變更</a> 請再重新嘗試一次.</div>'
 	}
