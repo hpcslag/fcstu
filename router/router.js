@@ -179,19 +179,20 @@ exports.ProfileSetting = function(req, res) {
 		}
 	});
 };
-exports.PasswordReset = function(req, res) {
+exports.PasswordReset = function(req, res){
 	isLogin(req, res);
 	var html = '';
 	var url = require('url');
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
 	if(!!query.err){
-		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">密碼需要一致才能夠變更，密碼也必須超過6位字元</a> 請再重新嘗試一次.</div>'
+		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">密碼需要一致才能夠變更，密碼也必須超過6位字元</a> 請再重新嘗試一次.</div>';
 	}
 	if(!!query.ok){
-		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 您的密碼已完成變更 <a href="#" class="alert-link">請注意密碼的安全性</a>.</div>'
+		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 您的密碼已完成變更 <a href="#" class="alert-link">請注意密碼的安全性</a>.</div>';
 	}
-	res.render('dashboard/management/PasswordReset', {email:req.session.user.email,html:html});
+	if(isLogin(req, res))
+		res.render('dashboard/management/PasswordReset', {email:req.session.user.email,html:html});
 };
 exports.Response = function(req, res) {
 	isLogin(req, res);
@@ -242,7 +243,18 @@ exports.Question = function(req, res) {
 exports.AddStudent = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
-	res.render('dashboard/Teacher/StudentManager/AddStudent', {});
+	var html = '';
+	var url = require('url');
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	if(!!query.err){
+		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">學生資料需要整齊才可以新增</a> 請再重新嘗試一次.</div>';
+	}
+	if(!!query.ok){
+		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 學生已完成加入<a href="#" class="alert-link">您可以至學生管理查看目前狀態</a>.</div>';
+	}
+	if(isLogin(req, res))
+		res.render('dashboard/Teacher/StudentManager/AddStudent', {html:html});
 };
 exports.ModifyStudent = function(req, res) {
 	isLogin(req, res);
@@ -313,3 +325,17 @@ exports.PasswordResetPost = function(req,res){
         res.redirect('/dashboard?foward=psre&ok=1');
     }
 };
+exports.AddStudentPost = function(req,res){
+	isLogin(req,res);
+	var name = req.body.name;
+	var lastname = req.body.firstname;
+	var stuID = req.body.stuid;
+	var email = req.body.email;
+	var Class = req.body.email;
+	if(!!name && !!lastname && stuID && !!email && !!Class){
+		staticdb('fcstu','users').insert({"name":name,"firstname":lastname,"email":email,'password':stuID,'identity':'student'});
+		res.redirect('/dashboard?foward=psre&ok=1');
+	}else{
+		res.redirect('/dashboard?foward=astu&err=1');
+	}
+}
