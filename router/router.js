@@ -233,8 +233,13 @@ exports.ModifyStudent = function(req, res) {
 exports.StudentManagement = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
+	console.log("sds");
 	staticdb('fcstu', 'class').findAll(function(data) {
-		res.render('dashboard/Teacher/StudentManager/StudentManagement',{list:data});
+		if(data){
+			res.render('dashboard/Teacher/StudentManager/StudentManagement',{list:data});	
+		}else{
+			res.send("<h1 class='ms'>您還沒有建立學生資料，不允許瀏覽!</h1>");
+		}
 	});
 };
 exports.RollColl = function(req, res) {

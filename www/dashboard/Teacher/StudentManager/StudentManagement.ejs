@@ -21,7 +21,7 @@
                         <th width="10%">學生姓名</th>
                         <th width="10%">班級</th>
                         <th width="10%">本次是否到課</th>
-                        <th width="20%">到課率<% var a = 10; %> <%= a %></th>
+                        <th width="20%">到課率</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,8 +47,18 @@
                         </td>
                         <td class="valign-middle">
                             <div class="progress progress-sm">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;"></div>
-                            </div>
+                                <% if(inClass>90){ %>
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= inClass %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= inClass %>%;"></div>
+                                <% }else if(inClass>85){%>
+                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="<%= inClass %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= inClass %>%;"></div>
+                                <% }else if(inClass>70){%>
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= inClass %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= inClass %>%;"></div>
+                                <% }else if(inClass<60){ %>
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<%= inClass %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= inClass %>%;"></div>
+                                <% }else{ %>
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= inClass %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= inClass %>%;"></div>
+                                <% }%>
+                                </div>
                         </td>
                     </tr>
                 <% }%>
