@@ -542,9 +542,11 @@
                 loader(event,'PasswordReset?foward=psre&ok=1');
             }else if(window.location.search == "?foward=psre&err=ps"){
                 loader(event,'PasswordReset?foward=psre&err=ps');
-            }else if(window.location.search == "?forward=astu&err=1"){
-                loader(event,'AddStudent?foward=psre&err=ps');
-            }else if(window.location.search == "?foward=astu&ok=1")
+            }else if(window.location.search == "?foward=astu&err=1"){
+                loader(event,'AddStudent?foward=astu&err=1');
+            }else if(window.location.search == "?foward=astu&ok=1"){
+                loader(event,'AddStudent?foward=astu&ok=1');
+            }
         </script>
 
 

@@ -331,10 +331,10 @@ exports.AddStudentPost = function(req,res){
 	var lastname = req.body.firstname;
 	var stuID = req.body.stuid;
 	var email = req.body.email;
-	var Class = req.body.email;
-	if(!!name && !!lastname && stuID && !!email && !!Class){
-		staticdb('fcstu','users').insert({"name":name,"firstname":lastname,"email":email,'password':stuID,'identity':'student'});
-		res.redirect('/dashboard?foward=psre&ok=1');
+	var Class = req.body.class;
+	if(!!name && !!lastname && !!stuID && !!email && !!Class){
+		staticdb('fcstu','users').insert({"name":name,"firstname":lastname,"email":email,'password':md5(stuID),StuID:stuID,"class":Class,'identity':'student'});
+		res.redirect('/dashboard?foward=astu&ok=1');
 	}else{
 		res.redirect('/dashboard?foward=astu&err=1');
 	}
