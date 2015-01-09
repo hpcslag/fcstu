@@ -189,7 +189,7 @@ exports.PasswordReset = function(req, res) {
 		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">密碼需要一致才能夠變更</a> 請再重新嘗試一次.</div>'
 	}
 	if(!!query.ok){
-		html = '<div class="alert alert-success"><strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.</div>'
+		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 您的密碼已完成變更 <a href="#" class="alert-link">請注意密碼的安全性</a>.</div>'
 	}
 	res.render('dashboard/management/PasswordReset', {email:req.session.user.email,html:html});
 };
