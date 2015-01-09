@@ -181,7 +181,17 @@ exports.ProfileSetting = function(req, res) {
 };
 exports.PasswordReset = function(req, res) {
 	isLogin(req, res);
-	res.render('dashboard/management/PasswordReset', {email:req.session.user.email});
+	var html = '';
+	var url = require('url');
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	if(!!query.err){
+		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">密碼需要一致才能夠變更</a> 請再重新嘗試一次.</div>'
+	}
+	if(!!query.ok){
+		html = '<div class="alert alert-success"><strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.</div>'
+	}
+	res.render('dashboard/management/PasswordReset', {email:req.session.user.email,html:html});
 };
 exports.Response = function(req, res) {
 	isLogin(req, res);
@@ -285,4 +295,21 @@ exports.HomeworkUpdate = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
 	res.render('dashboard/Teacher/HomeworkManager/HomeworkUpdate', {});
+};
+
+/**
+* Feature POST
+* 
+*/
+exports.PasswordResetPost = function(req,res){
+	isLogin(req,res);
+	var ps1 = req.body.password;
+	var ps2 = req.body.repassword;
+    if(ps1 !== ps2){
+        var html = '<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Article Dead</title></head><body><p>"Different password or message."</p><p>"欲設定的密碼不盡相同。"</p><p>"パスワードが一致していません"</p><p>"Different mot de passe ou un message."</p><p>"Eri salasana tai viestin."</p><p>"інший пароль або повідомлення."</p>"другой пароль или сообщения."<p>"Malsamaj pasvorton aŭ mesaĝo."</p><p>"jiné heslo nebo zprávu."</p><p>"Verschillende wachtwoord of boodschap."</p><p>"Different Passwort oder eine Nachricht."</p><script>alert("Different password or message."); window.location.href = "/dashboard?foward=psre&err=ps";</script></body></html>';
+        res.send(html);
+    }else{
+        console.log("可以re");
+        res.redirect('/dashboard?foward=psre&ok=1');
+    }
 };

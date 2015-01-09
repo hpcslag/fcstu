@@ -538,6 +538,11 @@
                     //test
                 }
             });
+            if(window.location.search == "?foward=psre&ok=1"){
+                loader(event,'PasswordReset');
+            }else if(window.location.search == "?foward=psre&err=ps"){
+                loader(event,'PasswordReset?foward=psre&err=ps');
+            }
         </script>
 
 

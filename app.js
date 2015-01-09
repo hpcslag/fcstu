@@ -79,5 +79,5 @@ app.get('/HomeworkUpdate',router.HomeworkUpdate);
 
 //Feature POST Router
 app.post('/dashboard', router.dashboard);
-
+app.post('/PasswordReset',router.PasswordResetPost);
 app.listen(process.env.PORT);
