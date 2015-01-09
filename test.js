@@ -66,10 +66,8 @@ app.findOne({"email":email},function(data){
 });*/
 
 //密碼修改測試
-sd('fcstu','users').findOne({email:email},function(data){
-	//varlog.password = md5('fcea920f7412b5da7be0cf42b8c93759');
-	sd('fcstu','users').update({"name":"Mac"},{"password":"fcea920f7412b5da7be0cf42b8c93759"})
-});
+sd('fcstu','users').update({"email":email},{"password":"fcea920f7412b5da7be0cf42b8c93759"})
+
 
 
 
