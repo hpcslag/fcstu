@@ -546,7 +546,7 @@
         (function(){
             checkNotReadMessage();
         })();
-        function cheageContext(arr,notifications){
+        function cheageContext(arr,notifications,footer){
             var message = '';
             for(var i = 0;i<arr.length;i++){
                 if(i == 6){
@@ -556,19 +556,20 @@
                 message = message.concat('<li><a href="javascript:;" class="notification"><div class="notification-thumb pull-left"><i class="fa fa-exclamation fa-2x text-danger"></i></div><div class="notification-body"><strong>'+arr[i].title+'</strong><br><small class="text-muted">'+arr[i].subtitle+'</small></div></a></li>');
             }
             console.log(message);
-            document.getElementById('messageAll').innerHTML = notifications + message;
+            document.getElementById('messageAll').innerHTML = notifications + message + footer;
         }
         /** get Message Data **/
         function checkNotReadMessage(){
             var gets = httpGet('../checkThing');
             var message = JSON.parse(gets);
-            document.getElementById('messageCount').innerHTML = message.notRead.length || 0;
+            document.getElementById('messageCount').innerHTML = (message.notRead.length<6?message.notRead.length:'6+') || 0;
             var Notification = '<li id="alertMessageCount" class="dropdown-title bg-inverse ms">新通知 (0)</li>';
+            var footer = '<li class="dropdown-footer ms"><a href="javascript: loader(event,"Response");"><i class="fa fa-share"></i> 查看所有訊息</a></li>'
             if(!!message.notRead.length == false){
-                document.getElementById('messageAll').innerHTML = '<li id="alertMessageCount" class="dropdown-title bg-inverse ms">新通知 (0)</li><li><a href="javascript:;" class="notification"><div class="notification-thumb pull-left"><i class="fa fa-exclamation fa-2x text-danger"></i></div><div class="notification-body"><strong>沒有訊息的狀態</strong><br><small class="text-muted">時間: '+new Date()+'</small></div></a></li>';
+                document.getElementById('messageAll').innerHTML = '<li id="alertMessageCount" class="dropdown-title bg-inverse ms">新通知 (0)</li><li><a href="javascript:;" class="notification"><div class="notification-thumb pull-left"><i class="fa fa-exclamation fa-2x text-danger"></i></div><div class="notification-body"><strong>沒有訊息的狀態</strong><br><small class="text-muted">時間: '+new Date()+'</small></div></a></li>'+footer;
             }else{
-                cheageContext(message.notRead,Notification);
-                document.getElementById('alertMessageCount').innerHTML = "新通知 ("+(message.notRead.length||0)+")";
+                cheageContext(message.notRead,Notification,footer);
+                document.getElementById('alertMessageCount').innerHTML = "新通知 ("+((message.notRead.length<6?message.notRead.length:'6+')||0)+")";
             }
         }
         /** Clean Message Data**/
@@ -581,6 +582,10 @@
                 loader(event,'PasswordReset?foward=psre&ok=1');
             }else if(window.location.search == "?foward=psre&err=ps"){
                 loader(event,'PasswordReset?foward=psre&err=ps');
+            }else if(window.location.search == "?foward=utu&ok=1"){
+                loader(event,'UsuallyTest?foward=utu&ok=1');
+            }else if(window.location.search == "?foward=utu&err=1"){
+                loader(event,'UsuallyTest?foward=utu&err=1');
             }
     </script>
 

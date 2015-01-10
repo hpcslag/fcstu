@@ -89,8 +89,9 @@ app.post('/UpdateWeekTest',router.UpdateWeekTestPost);
 app.post('/AssetsManagement',router.AssetsManagementPost);
 
 //Studnet Feature POST Router
-//app.post('');
+app.post('/UsuallyTest',router.UsuallyTestPost);
 
+//message test
 app.get('/addMessage',router.addMessage);
 
 //listen in default port

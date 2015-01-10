@@ -507,28 +507,32 @@
             (function() {
                 checkNotReadMessage();
             })();
-
-            function cheageContext(arr, notifications) {
-                    var message = '';
-                    for (var i = 0; i < arr.length; i++) {
-                        if (i == 6) {
-                            break;
-                        }
-                        console.log(arr[i].title);
-                        message = message.concat('<li><a href="javascript:;" class="notification"><div class="notification-thumb pull-left"><i class="fa fa-exclamation fa-2x text-danger"></i></div><div class="notification-body"><strong>' + arr[i].title + '</strong><br><small class="text-muted">' + arr[i].subtitle + '</small></div></a></li>');
-                    }
-                    console.log(message);
-                    document.getElementById('messageAll').innerHTML = notifications + message;
+function cheageContext(arr,notifications,footer){
+            var message = '';
+            for(var i = 0;i<arr.length;i++){
+                if(i == 6){
+                    break;
                 }
-                /** get Message Data **/
-            function checkNotReadMessage() {
-                    var gets = httpGet('../checkThing');
-                    var message = JSON.parse(gets);
-                    document.getElementById('messageCount').innerHTML = message.notRead.length || 0;
-                    var Notification = '<li id="alertMessageCount" class="dropdown-title bg-inverse ms">新通知 (0)</li>';
-                    cheageContext(message.notRead, Notification);
-                    document.getElementById('alertMessageCount').innerHTML = "新通知 (" + (message.notRead.length || 0) + ")";
-                }
+                console.log(arr[i].title);
+                message = message.concat('<li><a href="javascript:;" class="notification"><div class="notification-thumb pull-left"><i class="fa fa-exclamation fa-2x text-danger"></i></div><div class="notification-body"><strong>'+arr[i].title+'</strong><br><small class="text-muted">'+arr[i].subtitle+'</small></div></a></li>');
+            }
+            console.log(message);
+            document.getElementById('messageAll').innerHTML = notifications + message + footer;
+        }
+        /** get Message Data **/
+        function checkNotReadMessage(){
+            var gets = httpGet('../checkThing');
+            var message = JSON.parse(gets);
+            document.getElementById('messageCount').innerHTML = (message.notRead.length<6?message.notRead.length:'6+') || 0;
+            var Notification = '<li id="alertMessageCount" class="dropdown-title bg-inverse ms">新通知 (0)</li>';
+            var footer = '<li class="dropdown-footer ms"><a href="javascript: loader(event,"Response");"><i class="fa fa-share"></i> 查看所有訊息</a></li>'
+            if(!!message.notRead.length == false){
+                document.getElementById('messageAll').innerHTML = '<li id="alertMessageCount" class="dropdown-title bg-inverse ms">新通知 (0)</li><li><a href="javascript:;" class="notification"><div class="notification-thumb pull-left"><i class="fa fa-exclamation fa-2x text-danger"></i></div><div class="notification-body"><strong>沒有訊息的狀態</strong><br><small class="text-muted">時間: '+new Date()+'</small></div></a></li>'+footer;
+            }else{
+                cheageContext(message.notRead,Notification,footer);
+                document.getElementById('alertMessageCount').innerHTML = "新通知 ("+((message.notRead.length<6?message.notRead.length:'6+')||0)+")";
+            }
+        }
                 /** Clean Message Data**/
             function cleanNotReadMessage() {
                 var gets = httpGet('../checkAll');

@@ -276,7 +276,7 @@ function AddRead2People(req,res,person,message){
 }
 exports.addMessage = function(req,res){
 	isLogin(req,res);
-	AddRead2People(req,res,"cslag@hotmail.com.tw",{title:"平時作業",subtitle:"您的作業 [PPTP] 實作已經被教授批准了",status:"danger"});
+	AddRead2People(req,res,req.session.user.email,{title:"平時作業",subtitle:"您的作業 [PPTP] 實作已經被教授批准了",status:"danger"});
 	res.redirect('/');
 };
 
@@ -293,8 +293,19 @@ exports.UsuallyTest = function(req, res) {
 	OnlyParticularPerson(req, res, 'student');
 	staticdb('fcstu', 'usually').findAll(function(data) {
 		if (!!data) {
+			var html = '';
+			var url = require('url');
+			var url_parts = url.parse(req.url, true);
+			var query = url_parts.query;
+			if (!!query.err) {
+				html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">需要寫完考試題目，否則無法計算成績</a> 請再重新嘗試一次.</div>';
+			}
+			if (!!query.ok) {
+				html = '<div class="alert alert-success ms"><strong>Well done!</strong> 考試已完成提交，若教授批改將會通知。 <a href="#" class="alert-link">請加油！</a>.</div>';
+			}
 			res.render('dashboard/Student/UsuallyTest', {
-				data: data[Object.keys(data).length - 1]
+				data: data[Object.keys(data).length - 1],
+				html:html
 			});
 		}
 		else {
@@ -356,6 +367,18 @@ exports.getAssets = function(req,res){
 		}
 	});
 };
+exports.UsuallyTestPost = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'student');
+	var url = req.body.url;
+	var context = req.body.context;
+	if(!!url && !!context){
+		
+		res.redirect('/UsuallyTest?foward=utu?ok=1')
+	}else{
+		res.redirect('/UsuallyTest?foward=utu?err=1');
+	}
+}
 
 /**
  * Teacher All Page
