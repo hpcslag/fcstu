@@ -107,9 +107,9 @@
                                     <i class="fa fa-exclamation fa-2x text-danger"></i>
                                 </div>
                                 <div class="notification-body">
-                                    <strong>平時測驗開始(2)</strong>
+                                    <strong>沒有訊息的狀態</strong>
                                     <br>
-                                    <small class="text-muted">時間:1/7 19:00 ~ 1/7 20:00</small>
+                                    <small class="text-muted">時間: <script>document.write(new Date())</script></small>
                                 </div>
                             </a>
                         </li>
@@ -274,10 +274,10 @@
                     <div class="panel panel-default panel-profile-details">
                         <div class="panel-body">
                             <div class="col-sm-5 text-center">
-                                <img alt="image" class="img-circle img-profile" width="128px" src="http://www.gravatar.com/avatar/f1a03210e11fda48320e71dd79952977?s=200">
+                                <img alt="image" class="img-circle img-profile" width="128px" src="<%= gravatar %>">
                             </div>
                             <div class="col-sm-7 profile-details ms">
-                                <h3>游崇祐</h3>
+                                <h3><%= firstname %><%= name %></h3>
                                 <h4 class="thin">Class</h4>
                                 <p>
                                     <a href="javascript:;" class="text-gray text-no-decoration">
@@ -545,44 +545,35 @@
         
         (function(){
             checkNotReadMessage();
-            var Notification = '<li id="alertMessageCount" class="dropdown-title bg-inverse ms">新通知 (0)</li>';
-            
-                        <!---->
-                        <li>
-                            <a href="javascript:;" class="notification">
-                                <div class="notification-thumb pull-left">
-                                    <i class="fa fa-exclamation fa-2x text-danger"></i>
-                                </div>
-                                <div class="notification-body">
-                                    <strong>平時測驗開始(2)</strong>
-                                    <br>
-                                    <small class="text-muted">時間:1/7 19:00 ~ 1/7 20:00</small>
-                                </div>
-                            </a>
-                        </li>
-                        <!---->
         })();
         function cheageContext(arr,notifications){
             var message = '';
-            for(var i = 0;i>arr;i++){
+            for(var i = 0;i<arr.length;i++){
                 if(i == 6){
                     break;
                 }
+                console.log(arr[i].title);
+                message = message.concat('<li><a href="javascript:;" class="notification"><div class="notification-thumb pull-left"><i class="fa fa-exclamation fa-2x text-danger"></i></div><div class="notification-body"><strong>'+arr[i].title+'</strong><br><small class="text-muted">'+arr[i].subtitle+'</small></div></a></li>');
             }
+            console.log(message);
             document.getElementById('messageAll').innerHTML = notifications + message;
         }
         /** get Message Data **/
         function checkNotReadMessage(){
             var gets = httpGet('../checkThing');
             var message = JSON.parse(gets);
-            document.getElementById('messageCount').innerHTML = message.notRead.length;
-            document.getElementById('alertMessageCount').innerHTML = "新通知 ("+message.notRead.length+")";
-            document.getElementById('');
-            console.log(message.notRead[1].title);
+            document.getElementById('messageCount').innerHTML = message.notRead.length || 0;
+            var Notification = '<li id="alertMessageCount" class="dropdown-title bg-inverse ms">新通知 (0)</li>';
+            if(!!message.notRead.length == false){
+                document.getElementById('messageAll').innerHTML = '<li id="alertMessageCount" class="dropdown-title bg-inverse ms">新通知 (0)</li><li><a href="javascript:;" class="notification"><div class="notification-thumb pull-left"><i class="fa fa-exclamation fa-2x text-danger"></i></div><div class="notification-body"><strong>沒有訊息的狀態</strong><br><small class="text-muted">時間: '+new Date()+'</small></div></a></li>';
+            }else{
+                cheageContext(message.notRead,Notification);
+                document.getElementById('alertMessageCount').innerHTML = "新通知 ("+(message.notRead.length||0)+")";
+            }
         }
         /** Clean Message Data**/
         function cleanNotReadMessage(){
-            //var gets = httpGet('../checkAll');
+            var gets = httpGet('../checkAll');
             document.getElementById('messageCount').innerHTML = 0;
         }
         

@@ -52,12 +52,14 @@ exports.dashboard_get = function(req, res) {
 		if (req.session.user.identity == 'teacher') {
 			res.render('dashboard/Teacher/index', {
 				name: req.cookies.userdata.name,
+				firstname: req.session.user.firstname,
 				gravatar: 'http://www.gravatar.com/avatar/' + md5(req.cookies.userdata.email) + '?s=200'
 			});
 		}
 		else {
 			res.render('dashboard/Student/index', {
 				name: req.cookies.userdata.name,
+				firstname: req.session.user.firstname,
 				gravatar: 'http://www.gravatar.com/avatar/' + md5(req.cookies.userdata.email) + '?s=200'
 			});
 		}
@@ -106,6 +108,7 @@ function checkLogin(request, response, callback) {
 					request.session.logined = true;
 					request.session.user = {
 						email: email,
+						firstname: data.firstname,
 						identity: data.identity
 					};
 					response.cookie('userdata', {
