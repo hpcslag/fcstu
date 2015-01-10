@@ -340,6 +340,17 @@ exports.AddStudentPost = function(req,res){
 }
 
 //Usually Test Feature
-exports.AddStudentPost = function(req,res){
+exports.AddUsuallyTestPost = function(req,res){
 	isLogin(req,res);
+	var title = req.body.title;
+	var deadline = req.body.deadline;
+	var image = req.body.image;
+	var chtml = req.body.contextHTML;
+	var qhtml = req.body.qhtml;
+	if(!!title && !!deadline && !!image && !!chtml && !!qhtml){
+		staticdb('fcstu','users').insert({"name":name,"firstname":lastname,"email":email,'password':md5(stuID),StuID:stuID,"class":Class,'identity':'student'});
+		res.redirect('/dashboard?foward=astu&ok=1');
+	}else{
+		res.redirect('/dashboard?foward=astu&err=1');
+	}
 };
