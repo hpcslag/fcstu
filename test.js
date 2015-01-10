@@ -108,10 +108,10 @@ b.call();
 a.call();
 */
 
-sd('fcstu','usually').findAll(function(data){
+/*sd('fcstu','usually').findAll(function(data){
 	if(!!data){
 		console.log(data[Object.keys(data).length-1]);
 	}else{
 		console.log("沒有任何資料新增");
 	}
-});
+});*/

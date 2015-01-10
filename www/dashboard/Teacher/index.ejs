@@ -150,8 +150,8 @@
                 </li>
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle navbar-user" href="javascript:;">
-                        <img class="img-circle" src="http://www.gravatar.com/avatar/f1a03210e11fda48320e71dd79952977?s=200">
-                        <span class="hidden-xs ms">李建磐 教授</span>
+                        <img class="img-circle" src="<%= gravatar %>">
+                        <span class="hidden-xs ms"><%= name %> 教授</span>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu pull-right-xs ms">
@@ -171,10 +171,10 @@
     <div class="page-wrapper">
         <aside class="sidebar sidebar-default">
             <div class="sidebar-profile">
-                <img class="img-circle profile-image" src="http://www.gravatar.com/avatar/f1a03210e11fda48320e71dd79952977?s=200">
+                <img class="img-circle profile-image" src="<%= gravatar %>">
 
                 <div class="profile-body ms">
-                    <h4>李建磐 教授</h4>
+                    <h4><%= name %> 教授</h4>
 
                     <div class="sidebar-user-links" style="color:grey">
                         資工網路工程實驗室

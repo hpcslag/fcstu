@@ -50,10 +50,16 @@ exports.dashboard_get = function(req, res) {
 	isLogin(req, res);
 	if (!!req.session.user) {
 		if (req.session.user.identity == 'teacher') {
-			res.render('dashboard/Teacher/index', {});
+			res.render('dashboard/Teacher/index', {
+				name: req.cookies.userdata.name,
+				gravatar: 'http://www.gravatar.com/avatar/' + md5(req.cookies.userdata.email) + '?s=200'
+			});
 		}
 		else {
-			res.render('dashboard/Student/index', {});
+			res.render('dashboard/Student/index', {
+				name: req.cookies.userdata.name,
+				gravatar: 'http://www.gravatar.com/avatar/' + md5(req.cookies.userdata.email) + '?s=200'
+			});
 		}
 	}
 };
