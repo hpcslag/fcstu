@@ -131,17 +131,17 @@ sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(dat
 
 
 //老師 - 管理平時考 - 顯示學生
-/*sd('fcstu','usually').findAll(function(row){
+sd('fcstu','usually').findAll(function(row){
 	var length = Object.keys(row).length-1;
 	sd('fcstu','studentUsually').findAll(function(data){
 		for(var i = 0;i<Object.keys(data).length;i++){
-			if(!!!data[i].scope[length]){
-				console.log(data[i].name + "  實作網址: "+data[i].test[length].url + " , 回答內容: "+data[i].test[length].context);//test[0] == 考試的第幾次數
+			//可批改條件 沒有分數 且 有答案，跟數量一樣
+			if(!!data[i].scope[length] == false && data[i].test.length == length+1){
+				console.log("電子信箱"+data[i].email+" "+data[i].name + "  實作網址: "+data[i].test[length].url + " , 回答內容: "+data[i].test[length].context);//test[0] == 考試的第幾次數
 			}
 		}
-		//console.log(Object.keys(data).length);
 	});
-});*/
+});
 
 //學生 - 想要考試
 /*sd('fcstu','studentUsually').findOne({email:"ted99rw@gmail.com"},function(row){
@@ -155,10 +155,10 @@ sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(dat
 		}
 	});
 })*/
-sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(data){
+/*sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(data){
 	data.test.push({url:"https;fa","context":"野格"});
 	sd('fcstu','studentUsually').override({email:"cslag@hotmail.com.tw"},data);
-});
+});*/
 //新增考試成績
 /*sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(data){
 	data.scope.unshift();

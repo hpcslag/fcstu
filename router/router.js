@@ -487,7 +487,18 @@ exports.AddUsuallyTest = function(req, res) {
 exports.UsuallyTestCorrect = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
-	res.render('dashboard/Teacher/UsuallyTestManager/UsuallyTestCorrect', {});
+	staticdb('fcstu','usually').findAll(function(row){
+		var length = Object.keys(row).length-1;
+		staticdb('fcstu','studentUsually').findAll(function(data){
+			var student = [];
+			for(var i = 0;i<Object.keys(data).length;i++){
+				if(!!data[i].scope[length] == false && data[i].test.length == length+1){
+					student.push({email:data[i].email,name:data[i].name,class:data[i].class,url:data[i].test[length].url,context:data[i].test[length].context});
+				}
+			}
+			res.render('dashboard/Teacher/UsuallyTestManager/UsuallyTestCorrect', {data:student});
+		});
+	});
 };
 exports.UpdateWeekTest = function(req, res) {
 	isLogin(req, res);
