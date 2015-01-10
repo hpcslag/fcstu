@@ -303,10 +303,27 @@ exports.UsuallyTest = function(req, res) {
 			if (!!query.ok) {
 				html = '<div class="alert alert-success ms"><strong>Well done!</strong> 考試已完成提交，若教授批改將會通知。 <a href="#" class="alert-link">請加油！</a>.</div>';
 			}
-			res.render('dashboard/Student/UsuallyTest', {
-				data: data[Object.keys(data).length - 1],
-				html:html
-			});
+			staticdb('fcstu','studentUsually').findOne({email:req.session.user.email},function(row){
+				console.log("可不可以考這次的考試呢?");
+				staticdb('fcstu','usually').findAll(function(datas){
+					var length = Object.keys(datas).length;
+					if(row.scope.length == length){	
+						res.render('dashboard/Student/UsuallyTest', {
+							data: 0,
+							html:0,
+							indata:false
+						});
+						console.log("你不可以考試");
+					}else{
+						console.log("你可以考試唷");
+						res.render('dashboard/Student/UsuallyTest', {
+							data: data[Object.keys(data).length - 1],
+							html:html,
+							indata:true
+						});
+					}
+				});
+			})
 		}
 		else {
 			res.send("沒有任何新的平時測驗");
@@ -373,8 +390,8 @@ exports.UsuallyTestPost = function(req,res){
 	var url = req.body.url;
 	var context = req.body.context;
 	if(!!url && !!context){
-		
-		res.redirect('/UsuallyTest?foward=utu?ok=1')
+		console.log("你的實作網址: "+url+" ，你的回答: "+context);
+		//res.redirect('/UsuallyTest?foward=utu?ok=1')
 	}else{
 		res.redirect('/UsuallyTest?foward=utu?err=1');
 	}

@@ -116,3 +116,42 @@ a.call();
 	}
 });*/
 
+
+
+//平時考
+//插入學生考試過的資料出去
+//sd('fcstu','studentUsually').insert({"email":"ted99rw@gmail.com","name":"馬修",test:[{"url":'http://google.com','context':'18 5 3 2 6 6'}],scope:[]});
+
+
+/*平時考 - 學生檢查考過了沒?
+
+sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(data){
+	console.log(data);
+});*/
+
+
+//老師 - 管理平時考 - 顯示學生
+sd('fcstu','usually').findAll(function(row){
+	var length = Object.keys(row).length-1;
+	sd('fcstu','studentUsually').findAll(function(data){
+		for(var i = 0;i<Object.keys(data).length;i++){
+			if(!!!data[i].scope[length]){
+				console.log(data[i].name + "  實作網址: "+data[i].test[length].url + " , 回答內容: "+data[i].test[length].context);//test[0] == 考試的第幾次數
+			}
+		}
+		//console.log(Object.keys(data).length);
+	});
+});
+
+//學生 - 想要考試
+/*sd('fcstu','studentUsually').findOne({email:"ted99rw@gmail.com"},function(row){
+	console.log("可不可以考這次的考試呢?");
+	sd('fcstu','usually').findAll(function(data){
+		var length = Object.keys(data).length;
+		if(row.scope.length == length){
+			console.log("你不可以考試");
+		}else{
+			console.log("你可以考試唷");
+		}
+	});
+})*/
