@@ -257,8 +257,16 @@ exports.WeekTest = function(req, res) {
 exports.WeekTestAnswer = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'student');
-	staticdb('fcstu',)
-	res.render('dashboard/management/WeekTestAnswer', {});
+	staticdb('fcstu','week').findAll(function(data) {
+	    if (!!data) {
+			res.render('dashboard/management/WeekTestAnswer', {
+				data: data[Object.keys(data).length - 1]
+			});
+		}
+		else {
+			res.send("沒有釋出週試題目，自然也不會有解答");
+		}
+	});
 };
 exports.Homework = function(req, res) {
 	isLogin(req, res);

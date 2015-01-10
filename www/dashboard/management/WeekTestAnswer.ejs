@@ -14,7 +14,7 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title">每周測試(一) - 矩陣求解 (題目)</h4>
+                        <h4 class="panel-title"><%= data.title %> (題目)</h4>
 
                         <p>請依照問題解出答案</p>
                         <div class="panel-options">
@@ -25,71 +25,32 @@
                     </div>
                     <div class="panel-body">
                         <div class="course-quiz-preamble">
-                            <p>寫一個程式解線性系統 Ax = y。其中 A 是 n 乘 n 方陣，x 及 y 都是 n 乘 1 的向量。給定 A 及 y 時求解 x。為求簡單起見，給定的 A 一定是上三角矩陣。</p>
-
-                            <pre>void upper_solver(double *A, double *x, double *y, int n);
-</pre>
-
-                            <ul>
-                                <li>函式 upper_solver 的第一個參數式指向 A 的指標。<b>注意</b>，為了節省記憶體我們只存 A 的上三角部分，而且存成一維陣列，請參考下方的主程式。</li>
-                                <li>upper_solver 的第二個參數是指向 x 的指標。upper_solver 必須將 x 的解放在這裡。</li>
-                                <li>upper_solver 的第三個參數是指向 y 的指標。</li>
-                                <li>upper_solver 的第四個參數是矩陣大小 n。</li>
-                            </ul>
-
-                            <p>我們提供了主程式，請你實作函式 upper_solver。</p>
-
-                            <pre>#include <stdio.h>
-#define N 256
-
-void upper_solver(double *A, double *x, double *y, int n);
-int main(void)
-{
-    int i, j;
-    int n; 
-    double A[N * (N + 1) / 2];
-    double *aptr = A;
-    double x[N];
-    double y[N];
-    scanf("%d", &amp;n);
-    for ( i = 0 ; i &lt; n ; i++ )
-        for ( j = i ; j &lt; n ; j++ ) {
-            scanf("%lf", aptr);
-            aptr++;
-        }
-    for ( i = 0 ; i &lt; n ; i++ )
-        scanf("%lf", &amp;(y[i]));
-    upper_solver(A, x, y, n);
-
-    for ( i = 0 ; i &lt; n ; i++ )
-        printf("%lf ", x[i]);
-
-    return 0;
-}
-</stdio.h></pre>
-
-                            <h4>參數規範</h4>
-
-                            <p>0 &lt; n &lt;= 256</p>
-
-                            <h4>輸入範例</h4>
-                            <pre>3
-1.000 2.000 3.000
-      2.000 1.000
-            4.000
-2.000
-3.000
--4.000
-</pre>
-
-                            <h4>輸出範例</h4>
-                            <pre>1.000000 2.000000 -1.000000
-</pre> </div>
+                            <%- data.chtml%>
+                        </div>
                     </div>
                 </div>
             </div>
             <!---->
-            
+            <!---->
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">解答 (Answer)</h4>
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="fa fa-fw fa-minus"></i></a>
+                            <a href="#" data-rel="reload"><i class="fa fa-fw fa-refresh"></i></a>
+                            <a href="#" data-rel="close"><i class="fa fa-fw fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div style="float:none;width:100%">
+                            <div class="course-quiz-question-text">
+                                <%- data.anshtml %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!---->
         </div>
     </div>
