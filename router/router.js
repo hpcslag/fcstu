@@ -2,9 +2,11 @@ var url = require('url'),
 	md5 = require('../lib/hash'),
 	colors = require('colors'),
 	encode = require('../lib/encode'),
-	staticdb = require('../lib/staticdb');
-	//users = staticdb('fcstu', 'users'),
-	//Class = new staticdb('fcstu', 'class');
+	staticdb = require('../lib/staticdb'),
+	async = require('async'),
+	fs = require('fs');
+//users = staticdb('fcstu', 'users'),
+//Class = new staticdb('fcstu', 'class');
 
 /**
  * Index Login Page Handle.
@@ -168,10 +170,20 @@ function OnlyParticularPerson(req, res, identity) {
  */
 exports.ProfileSetting = function(req, res) {
 	isLogin(req, res);
-	staticdb('fcstu', 'users').findOne({"email": req.session.user.email.toLowerCase()}, function(data) {
-		if(!!data){
-			res.render('dashboard/management/ProfileSetting', {dlcEmail:data.email,firstname:data.firstname,name:data.name,StuID:(!!data.StuID)?data.StuID:"教授無須學號資料",Class:(!!data.class)?data.class:"資訊工程系教授",identity:(data.identity == "teacher")?"教授":"學生"});
-		}else{
+	staticdb('fcstu', 'users').findOne({
+		"email": req.session.user.email.toLowerCase()
+	}, function(data) {
+		if (!!data) {
+			res.render('dashboard/management/ProfileSetting', {
+				dlcEmail: data.email,
+				firstname: data.firstname,
+				name: data.name,
+				StuID: (!!data.StuID) ? data.StuID : "教授無須學號資料",
+				Class: (!!data.class) ? data.class : "資訊工程系教授",
+				identity: (data.identity == "teacher") ? "教授" : "學生"
+			});
+		}
+		else {
 			res.send("資料讀取失敗，請重新登入!");
 			res.clearCookie('userdata');
 			req.session.logined = null;
@@ -179,20 +191,23 @@ exports.ProfileSetting = function(req, res) {
 		}
 	});
 };
-exports.PasswordReset = function(req, res){
+exports.PasswordReset = function(req, res) {
 	isLogin(req, res);
 	var html = '';
 	var url = require('url');
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
-	if(!!query.err){
+	if (!!query.err) {
 		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">密碼需要一致才能夠變更，密碼也必須超過6位字元</a> 請再重新嘗試一次.</div>';
 	}
-	if(!!query.ok){
+	if (!!query.ok) {
 		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 您的密碼已完成變更 <a href="#" class="alert-link">請注意密碼的安全性</a>.</div>';
 	}
-	if(isLogin(req, res))
-		res.render('dashboard/management/PasswordReset', {email:req.session.user.email,html:html});
+	if (isLogin(req, res))
+		res.render('dashboard/management/PasswordReset', {
+			email: req.session.user.email,
+			html: html
+		});
 };
 exports.Response = function(req, res) {
 	isLogin(req, res);
@@ -209,7 +224,16 @@ exports.Assets = function(req, res) {
 exports.UsuallyTest = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'student');
-	res.render('dashboard/Student/UsuallyTest', {});
+	staticdb('fcstu', 'usually').findAll(function(data) {
+		if (!!data) {
+			res.render('dashboard/Student/UsuallyTest', {
+				data: data[Object.keys(data).length - 1]
+			});
+		}
+		else {
+			res.send("沒有任何新的平時測驗");
+		}
+	});
 };
 exports.UsuallyTestScores = function(req, res) {
 	isLogin(req, res);
@@ -247,14 +271,16 @@ exports.AddStudent = function(req, res) {
 	var url = require('url');
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
-	if(!!query.err){
+	if (!!query.err) {
 		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">學生資料需要整齊才可以新增</a> 請再重新嘗試一次.</div>';
 	}
-	if(!!query.ok){
+	if (!!query.ok) {
 		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 學生已完成加入<a href="#" class="alert-link">您可以至學生管理查看目前狀態</a>.</div>';
 	}
-	if(isLogin(req, res))
-		res.render('dashboard/Teacher/StudentManager/AddStudent', {html:html});
+	if (isLogin(req, res))
+		res.render('dashboard/Teacher/StudentManager/AddStudent', {
+			html: html
+		});
 };
 exports.ModifyStudent = function(req, res) {
 	isLogin(req, res);
@@ -265,9 +291,12 @@ exports.StudentManagement = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
 	staticdb('fcstu', 'class').findAll(function(data) {
-		if(data){
-			res.render('dashboard/Teacher/StudentManager/StudentManagement',{list:data});	
-		}else{
+		if (data) {
+			res.render('dashboard/Teacher/StudentManager/StudentManagement', {
+				list: data
+			});
+		}
+		else {
 			res.send("<h1 class='ms'>您還沒有建立學生資料，不允許瀏覽!</h1>");
 		}
 	});
@@ -289,14 +318,16 @@ exports.AddUsuallyTest = function(req, res) {
 	var url = require('url');
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
-	if(!!query.err){
+	if (!!query.err) {
 		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">資料不齊全，需要填入才可以新增，尤其您需要繪製圖片給學生參考！</a> 請再重新嘗試一次.</div>';
 	}
-	if(!!query.ok){
+	if (!!query.ok) {
 		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 平時考資料已完成加入<a href="#" class="alert-link">若要更新，請在本表單重新輸入</a>.</div>';
 	}
-	if(isLogin(req, res))
-		res.render('dashboard/Teacher/UsuallyTestManager/AddUsuallyTest', {html:html});
+	if (isLogin(req, res))
+		res.render('dashboard/Teacher/UsuallyTestManager/AddUsuallyTest', {
+			html: html
+		});
 };
 exports.UsuallyTestCorrect = function(req, res) {
 	isLogin(req, res);
@@ -306,7 +337,18 @@ exports.UsuallyTestCorrect = function(req, res) {
 exports.UpdateWeekTest = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
-	res.render('dashboard/Teacher/WeekTestManagement/UpdateWeekTest', {});
+	var html = '';
+	var url = require('url');
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	if (!!query.err) {
+		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">資料不齊全，需要填入才可以新增，尤其您需要繪製圖片給學生參考！</a> 請再重新嘗試一次.</div>';
+	}
+	if (!!query.ok) {
+		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 每週測驗資料已完成加入<a href="#" class="alert-link">若要更新，請在本表單重新輸入</a>.</div>';
+	}
+	if (isLogin(req, res))
+		res.render('dashboard/Teacher/WeekTestManagement/UpdateWeekTest', {html:html});
 };
 exports.HomeworkCorrect = function(req, res) {
 	isLogin(req, res);
@@ -320,48 +362,96 @@ exports.HomeworkUpdate = function(req, res) {
 };
 
 /**
-* Feature POST
-* 
-*/
-exports.PasswordResetPost = function(req,res){
-	isLogin(req,res);
+ * Feature POST
+ *
+ */
+exports.PasswordResetPost = function(req, res) {
+	isLogin(req, res);
 	var ps1 = req.body.password;
 	var ps2 = req.body.repassword;
-    if(ps1 !== ps2 || ps1.length < 6){
-        var html = '<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Article Dead</title></head><body><p>"Different password or message."</p><p>"欲設定的密碼不盡相同。"</p><p>"パスワードが一致していません"</p><p>"Different mot de passe ou un message."</p><p>"Eri salasana tai viestin."</p><p>"інший пароль або повідомлення."</p>"другой пароль или сообщения."<p>"Malsamaj pasvorton aŭ mesaĝo."</p><p>"jiné heslo nebo zprávu."</p><p>"Verschillende wachtwoord of boodschap."</p><p>"Different Passwort oder eine Nachricht."</p><script>alert("Different password or message."); window.location.href = "/dashboard?foward=psre&err=ps";</script></body></html>';
-        res.send(html);
-    }else{
-		staticdb('fcstu','users').update({"email":req.session.user.email},{"password":md5(ps1)})
-        res.redirect('/dashboard?foward=psre&ok=1');
-    }
+	if (ps1 !== ps2 || ps1.length < 6) {
+		var html = '<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Article Dead</title></head><body><p>"Different password or message."</p><p>"欲設定的密碼不盡相同。"</p><p>"パスワードが一致していません"</p><p>"Different mot de passe ou un message."</p><p>"Eri salasana tai viestin."</p><p>"інший пароль або повідомлення."</p>"другой пароль или сообщения."<p>"Malsamaj pasvorton aŭ mesaĝo."</p><p>"jiné heslo nebo zprávu."</p><p>"Verschillende wachtwoord of boodschap."</p><p>"Different Passwort oder eine Nachricht."</p><script>alert("Different password or message."); window.location.href = "/dashboard?foward=psre&err=ps";</script></body></html>';
+		res.send(html);
+	}
+	else {
+		staticdb('fcstu', 'users').update({
+			"email": req.session.user.email
+		}, {
+			"password": md5(ps1)
+		})
+		res.redirect('/dashboard?foward=psre&ok=1');
+	}
 };
-exports.AddStudentPost = function(req,res){
-	isLogin(req,res);
+exports.AddStudentPost = function(req, res) {
+	isLogin(req, res);
 	var name = req.body.name;
 	var lastname = req.body.firstname;
 	var stuID = req.body.stuid;
 	var email = req.body.email;
 	var Class = req.body.class;
-	if(!!name && !!lastname && !!stuID && !!email && !!Class){
-		staticdb('fcstu','users').insert({"name":name,"firstname":lastname,"email":email,'password':md5(stuID),StuID:stuID,"class":Class,'identity':'student'});
+	if (!!name && !!lastname && !!stuID && !!email && !!Class) {
+		staticdb('fcstu', 'users').insert({
+			"name": name,
+			"firstname": lastname,
+			"email": email,
+			'password': md5(stuID),
+			StuID: stuID,
+			"class": Class,
+			'identity': 'student'
+		});
 		res.redirect('/dashboard?foward=astu&ok=1');
-	}else{
+	}
+	else {
 		res.redirect('/dashboard?foward=astu&err=1');
 	}
 }
 
 //Usually Test Feature
-exports.AddUsuallyTestPost = function(req,res){
-	isLogin(req,res);
+exports.AddUsuallyTestPost = function(req, res) {
+	isLogin(req, res);
 	var title = req.body.title;
 	var deadline = req.body.deadline;
 	var image = req.body.image;
 	var chtml = req.body.contextHTML;
 	var qhtml = req.body.quizHTML;
-	if(!!title && !!deadline && !!image && !!chtml && !!qhtml){
-		staticdb('fcstu','usually').insert({title:title,deadline:deadline,image:image,chtml:chtml,qhtml:qhtml});
+	if (!!title && !!deadline && !!image && !!chtml && !!qhtml) {
+		staticdb('fcstu', 'usually').insert({
+			title: title,
+			deadline: deadline,
+			image: image,
+			chtml: chtml,
+			qhtml: qhtml
+		});
 		res.redirect('/dashboard?foward=autup&ok=1');
-	}else{
+	}
+	else {
 		res.redirect('/dashboard?foward=autup&err=1');
+	}
+};
+exports.UpdateWeekTestPost = function(req, res) {
+	isLogin(req, res);
+	var title = req.body.title;
+	var image = req.body.image;
+	var chtml = req.body.chtml;
+	var qhtml = req.body.qhtml;
+	var anshtml = req.body.anshtml;
+	var i = 1;
+	var str = req.body.qhtml;
+	str = "<div><title>"+i+"</title>"+req.body.html+'</div>';
+	str.replace(/--addNewSection_V/g , "</div>"+(i++)+"<div>");
+	console.log(str);
+	if (!!title && !!image && !!chtml && !!qhtml && !!anshtml) {
+		/*staticdb('fcstu', 'week').insert({
+			title: title,
+			image: image,
+			chtml: chtml,
+			qhtml: qhtml,
+			anshtml: anshtml,
+			openDate: new Date().getDate()
+		});*/
+		res.redirect('/dashboard?foward=uwt&ok=1');
+	}
+	else {
+		res.redirect('/dashboard?foward=uwt&err=1');
 	}
 };

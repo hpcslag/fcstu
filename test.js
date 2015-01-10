@@ -71,7 +71,7 @@ app.findOne({"email":email},function(data){
 //幫野格增加資料
 //sd('fcstu','class').update({"name":"野格"},{"password":"fcea920f7412b5da7be0cf42b8c93759"})
 
-sd('fcstu','class').findAll(function(data){
+//sd('fcstu','class').findAll(function(data){
 	/*sd('fcstu','class').findOne({emai:(Object.keys(data)[0].rollcall) },function(one){
 		console.l
 	});*/
@@ -87,7 +87,7 @@ sd('fcstu','class').findAll(function(data){
 	}*/
 	//console.log(data);
 	//list[Object.keys(list)].rollcall[Object.keys(list[i].rollcall)[j]].check
-});
+//});
 
 
 
@@ -107,3 +107,11 @@ var b = setup('b');
 b.call();
 a.call();
 */
+
+sd('fcstu','usually').findAll(function(data){
+	if(!!data){
+		console.log(data[Object.keys(data).length-1]);
+	}else{
+		console.log("沒有任何資料新增");
+	}
+});

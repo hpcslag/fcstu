@@ -6,16 +6,16 @@ var express = require('express'),
 app.configure(function() {
 	app.use(express.static(__dirname + '/www'));
 	app.use(express.cookieParser());
-	app.use(express.session({
+	/*app.use(express.session({
 		secret: 'MD5HeapMap'
-	}));
+	}));*/
 	/**
-	*Long Alive Server session
+	*Long Alive Server session*/
 	
 	app.use(express.cookieSession({
 		key:'cookie',
 		secret:'https://www.youtube.com/watch?v=SR6iYWJxHqs'
-	}));*/
+	}));
 	app.use(express.bodyParser()); //open GER,POST body parser
 	app.set('views', __dirname + '/www'); //views engine path
 	app.set('view engine', 'ejs');
@@ -82,4 +82,5 @@ app.post('/dashboard', router.dashboard);
 app.post('/PasswordReset',router.PasswordResetPost);
 app.post('/AddStudent',router.AddStudentPost);
 app.post('/AddUsuallyTest',router.AddUsuallyTestPost);
+app.post('/UpdateWeekTest',router.UpdateWeekTestPost);
 app.listen(process.env.PORT);
