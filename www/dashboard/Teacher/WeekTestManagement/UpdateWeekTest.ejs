@@ -22,27 +22,47 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label" for="exampleInputName6">測驗標題</label>
-                                    <input type="text" name="title" class="form-control" id="exampleInputName6" placeholder="週試 - 離散時間訊號處理">
+                                    <% if(indata){ %>
+                                        <input type="text" name="title" class="form-control" id="exampleInputName6" placeholder="週試 - 離散時間訊號處理" value='<%= data.title %>' >
+                                    <% }else{ %>
+                                        <input type="text" name="title" class="form-control" id="exampleInputName6" placeholder="週試 - 離散時間訊號處理" value=''>
+                                    <% } %>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label" for="exampleInputCompany6">題目圖片(採用imgur.com網址)</label>
-                                    <input type="text" name="image" class="form-control" id="exampleInputText1" placeholder="http://imgur.com/sX25S3x">
+                                    <% if(indata){ %>
+                                        <input type="text" name="image" class="form-control" id="exampleInputText1" placeholder="http://imgur.com/sX25S3x" value='<%= data.image %>'>
+                                    <% }else{ %>
+                                        <input type="text" name="image" class="form-control" id="exampleInputText1" placeholder="http://imgur.com/sX25S3x">
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="exampleInputMessage6">題目HTML</label>
-                            <textarea rows="6" name="chtml" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="<div>xxx<div>...   不需要head, html5, body宣告"></textarea>
+                            <% if(indata){ %>
+                                <textarea rows="6" name="chtml" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="<div>xxx<div>...   不需要head, html5, body宣告"><%= data.chtml %></textarea>
+                            <% }else{ %>
+                                <textarea rows="6" name="chtml" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="<div>xxx<div>...   不需要head, html5, body宣告"></textarea>
+                            <% } %>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="exampleInputMessage6">問題HTML</label>
-                            <textarea rows="6" name="qhtml" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="輸入可能是測試資料、問題等等...  <h3>輸入</h3><pre>5 2 5 3 1</pre>請問輸出? 。 若有多個問題請在結尾div寫上 --addNewSection_V 然後再換行繼續寫下一個問題"></textarea>
+                            <% if(indata){ %>
+                                <textarea rows="6" name="qhtml" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="輸入可能是測試資料、問題等等...  <h3>輸入</h3><pre>5 2 5 3 1</pre>請問輸出? 。 若有多個問題請在結尾div寫上 --addNewSection_V 然後再換行繼續寫下一個問題"><%= data.qhtml %></textarea>
+                            <% }else{ %>                                
+                                <textarea rows="6" name="qhtml" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="輸入可能是測試資料、問題等等...  <h3>輸入</h3><pre>5 2 5 3 1</pre>請問輸出? 。 若有多個問題請在結尾div寫上 --addNewSection_V 然後再換行繼續寫下一個問題"></textarea>
+                            <% } %>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="exampleInputMessage6">測驗公布答案HTML</label>
-                            <textarea rows="6" name="anshtml" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="輸入公布答案的html"></textarea>
+                            <% if(indata){ %>
+                                <textarea rows="6" name="anshtml" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="輸入公布答案的html"><%= data.anshtml %></textarea>
+                            <% }else{ %>
+                                <textarea rows="6" name="anshtml" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="輸入公布答案的html"></textarea>
+                            <% } %>
                         </div>
                     </div>
                     <div class="panel-footer">

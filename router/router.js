@@ -243,11 +243,21 @@ exports.UsuallyTestScores = function(req, res) {
 exports.WeekTest = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'student');
-	res.render('dashboard/Student/WeekTest', {});
+	staticdb('fcstu', 'week').findAll(function(data) {
+		if (!!data) {
+			res.render('dashboard/Student/WeekTest', {
+				data: data[Object.keys(data).length - 1]
+			});
+		}
+		else {
+			res.send("沒有釋出週試題目，請等待教授完成出題");
+		}
+	})
 };
 exports.WeekTestAnswer = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'student');
+	staticdb('fcstu',)
 	res.render('dashboard/management/WeekTestAnswer', {});
 };
 exports.Homework = function(req, res) {
@@ -347,8 +357,23 @@ exports.UpdateWeekTest = function(req, res) {
 	if (!!query.ok) {
 		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 每週測驗資料已完成加入<a href="#" class="alert-link">若要更新，請在本表單重新輸入</a>.</div>';
 	}
-	if (isLogin(req, res))
-		res.render('dashboard/Teacher/WeekTestManagement/UpdateWeekTest', {html:html});
+	if (isLogin(req, res)) {
+		staticdb('fcstu', 'week').findAll(function(data) {
+			if (!!data) {
+				res.render('dashboard/Teacher/WeekTestManagement/UpdateWeekTest', {
+					html: html,
+					indata: true,
+					data: data[Object.keys(data).length - 1]
+				});
+			}
+			else {
+				res.render('dashboard/Teacher/WeekTestManagement/UpdateWeekTest', {
+					html: html,
+					indata: false
+				});
+			}
+		});
+	}
 };
 exports.HomeworkCorrect = function(req, res) {
 	isLogin(req, res);
@@ -435,20 +460,18 @@ exports.UpdateWeekTestPost = function(req, res) {
 	var chtml = req.body.chtml;
 	var qhtml = req.body.qhtml;
 	var anshtml = req.body.anshtml;
-	var i = 1;
-	var str = req.body.qhtml;
-	str = "<div><title>"+i+"</title>"+req.body.html+'</div>';
-	str.replace(/--addNewSection_V/g , "</div>"+(i++)+"<div>");
-	console.log(str);
 	if (!!title && !!image && !!chtml && !!qhtml && !!anshtml) {
-		/*staticdb('fcstu', 'week').insert({
+		var str = req.body.qhtml;
+		str = '<div class="col-md-6"><div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title">Question</h4></div><div class="panel-body"><div style="float:none;width:100%"><div class="course-quiz-question-text">' + str + '</div></div></div></div></div>';
+		str = str.replace(/--addNewSection_V/g, '</div></div></div></div></div><div class="col-md-6"><div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title">Question</h4></div><div class="panel-body"><div style="float:none;width:100%"><div class="course-quiz-question-text">');
+		staticdb('fcstu', 'week').insert({
 			title: title,
 			image: image,
 			chtml: chtml,
-			qhtml: qhtml,
+			qhtml: str,
 			anshtml: anshtml,
 			openDate: new Date().getDate()
-		});*/
+		});
 		res.redirect('/dashboard?foward=uwt&ok=1');
 	}
 	else {
