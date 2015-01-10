@@ -218,6 +218,27 @@ exports.Response = function(req, res) {
 	isLogin(req, res);
 	res.render('dashboard/management/Response', {});
 };
+exports.checkAll = function(req,res){
+	//is check all and clean notRead!
+	isLogin(req,res);
+	res.send();
+}
+exports.checkThing = function(req,res){
+	// check can read thing!
+	isLogin(req,res);
+	staticdb('fcstu','message').insert({email:"cslag@hotmail.com.tw",total:3,notRead:[{title:"平時作業",subtitle:"您的作業 [PPTP] 實作已經被教授批准了",status:"success"},{title:"平時作業",subtitle:"您的作業 [CPU] 實作已經被教授退回了",status:"danger"},{title:"平時考試",subtitle:"您的平時考 [表面積與體積] 已經釋出了成績 67 分",status:"success"}],AllMessage:[{title:"平時作業",subtitle:"您的作業 [PPTP] 實作已經被教授批准了",status:"success"},{title:"平時作業",subtitle:"您的作業 [CPU] 實作已經被教授退回了",status:"danger"},{title:"平時考試",subtitle:"您的平時考 [表面積與體積] 已經釋出了成績 67 分",status:"success"}]});
+	res.send({email:"cslag@hotmail.com.tw",total:3,notRead:[{title:"平時作業",subtitle:"您的作業 [PPTP] 實作已經被教授批准了",status:"success"},{title:"平時作業",subtitle:"您的作業 [CPU] 實作已經被教授退回了",status:"danger"},{title:"平時考試",subtitle:"您的平時考 [表面積與體積] 已經釋出了成績 67 分",status:"success"}],AllMessage:[{title:"平時作業",subtitle:"您的作業 [PPTP] 實作已經被教授批准了",status:"success"},{title:"平時作業",subtitle:"您的作業 [CPU] 實作已經被教授退回了",status:"danger"},{title:"平時考試",subtitle:"您的平時考 [表面積與體積] 已經釋出了成績 67 分",status:"success"}]});
+}
+
+/**
+* Add Read message to people
+* 
+* @param {request} req
+* @param {response} res
+* @param {strnig} person
+* @param {object} message -> {title,subtitle,stats}
+*/
+function AddRead2People(req,res,person,message){}
 
 /**
  * Student All Page

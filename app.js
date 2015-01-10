@@ -51,6 +51,8 @@ app.get('/signout', router.signout);
 app.get('/ProfileSetting', router.ProfileSetting);
 app.get('/PasswordReset', router.PasswordReset);
 app.get('/Response',router.Response);
+app.get('/checkAll',router.checkAll);//message check all read!
+app.get('/checkThing',router.checkThing);//check not read message!
 //losePassword
 //resetPassword
 //mail to
@@ -64,6 +66,7 @@ app.get('/WeekTest', router.WeekTest);
 app.get('/WeekTestAnswer', router.WeekTestAnswer);
 app.get('/Homework',router.Homework);
 app.get('/Question',router.Question);
+app.get('/getAssets',router.getAssets);
 
 //Teacher Router
 app.get('/AddStudent',router.AddStudent);
@@ -77,12 +80,17 @@ app.get('/UpdateWeekTest',router.UpdateWeekTest);
 app.get('/HomeworkCorrect',router.HomeworkCorrect);
 app.get('/HomeworkUpdate',router.HomeworkUpdate);
 
-//Feature POST Router
+//Teacher Feature POST Router
 app.post('/dashboard', router.dashboard);
 app.post('/PasswordReset',router.PasswordResetPost);
 app.post('/AddStudent',router.AddStudentPost);
 app.post('/AddUsuallyTest',router.AddUsuallyTestPost);
 app.post('/UpdateWeekTest',router.UpdateWeekTestPost);
 app.post('/AssetsManagement',router.AssetsManagementPost);
-app.get('/getAssets',router.getAssets);
+
+//Studnet Feature POST Router
+//app.post('');
+
+
+//listen in default port
 app.listen(process.env.PORT);
