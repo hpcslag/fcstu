@@ -221,7 +221,8 @@ exports.Response = function(req, res) {
 exports.checkAll = function(req,res){
 	//is check all and clean notRead!
 	isLogin(req,res);
-	res.send();
+	staticdb('fcstu','message').update({email:req.session.user.email},{notRead:{}});
+	res.send(true);
 }
 exports.checkThing = function(req,res){
 	// check can read thing!
