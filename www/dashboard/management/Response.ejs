@@ -25,55 +25,23 @@
                 <div class="table-responsive">
                     <table class="table table-hover table-mail">
                         <tbody>
-                            <!---->
-                        <tr class="unread starred">
+                            <% for(var i = 0;i<data.AllMessage.length;i++){ %>
+                            <tr class="unread starred">
                             <td class="mail-check">
                                 <div class="icheckbox_square-blue" style="position: relative;"><input type="checkbox" class="icheck square-blue" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
                             </td>
                             <td class="mail-from">
-                                平時作業
+                                <%= data.AllMessage[i].title %>
                             </td>
                             <td class="mail-subject">
-                                <span class="label label-success">接受</span>
-                                您的作業 [實作PPTP協定] 已被批准，恭喜!
+                                <span class="label label-<%= data.AllMessage[i].status %>"><%= data.AllMessage[i].status %></span>
+                               <%= data.AllMessage[i].subtitle %>
                             </td>
                             <td class="mail-date">
-                                8:48 PM
+                                <%= date %>
                             </td>
                         </tr>
-                        <!---->
-                        <tr class="unread">
-                            <td class="mail-check">
-                                <div class="icheckbox_square-blue checked" style="position: relative;"><input type="checkbox" class="icheck square-blue" checked="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
-                            </td>
-                            <td class="mail-from">
-                                平時作業
-                            </td>
-                            <td class="mail-subject">
-                                <span class="label label-danger">退回</span>
-                                您的作業 [Java Torrent下載串流實作] 不符規格已被退回。  
-                            </td>
-                            <td class="mail-date">
-                                7:52 PM
-                            </td>
-                        </tr>
-                        <!---->
-                        <tr class="unread">
-                            <td class="mail-check">
-                                <div class="icheckbox_square-blue checked" style="position: relative;"><input type="checkbox" class="icheck square-blue" checked="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
-                            </td>
-                            <td class="mail-from">
-                                平時測驗
-                            </td>
-                            <td class="mail-subject">
-                                <span class="label label-success">接受</span>
-                                您的平時測驗 [平時考(一) - 表面積與體積] 已提交並批改完成 - 60分。  
-                            </td>
-                            <td class="mail-date">
-                                7:52 PM
-                            </td>
-                        </tr>
-                        <!---->
+                            <% } %>
                         </tbody>
                     </table>
                 </div>

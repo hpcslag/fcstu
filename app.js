@@ -91,6 +91,7 @@ app.post('/AssetsManagement',router.AssetsManagementPost);
 //Studnet Feature POST Router
 //app.post('');
 
+app.get('/addMessage',router.addMessage);
 
 //listen in default port
 app.listen(process.env.PORT);

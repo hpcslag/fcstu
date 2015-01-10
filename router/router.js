@@ -219,12 +219,21 @@ exports.PasswordReset = function(req, res) {
 };
 exports.Response = function(req, res) {
 	isLogin(req, res);
-	res.render('dashboard/management/Response', {});
+	staticdb('fcstu','message').findOne({email:req.session.user.email},function(data){
+		if(!!data){
+			if(!!data.AllMessage[0])
+				res.render('dashboard/management/Response', {data:data,date:new Date().getHours()+':'+new Date().getMinutes()+(new Date().getHours() > 12?' PM':' AM')});
+			else
+				res.render('dashboard/management/Response',{data:{AllMessage:[{title:'',subtitle:'沒有任何訊息資料。',status:'success'}]},date: new Date().getHours()+':'+new Date().getMinutes()+(new Date().getHours() > 12?' PM':' AM')});
+		}else{
+			res.send("error# server dead! : this user are hacker!");
+		}
+	});
 };
 exports.checkAll = function(req,res){
 	//is check all and clean notRead!
 	isLogin(req,res);
-	staticdb('fcstu','message').update({email:req.session.user.email},{notRead:{}});
+	staticdb('fcstu','message').update({email:req.session.user.email},{notRead:[]});
 	res.send(true);
 }
 exports.checkThing = function(req,res){
@@ -254,8 +263,23 @@ function AddRead2People(req,res,person,message){
 	//total: notRead + new message length
 	//notRead: [{title,subtitle,stats}]
 	//Allmessage:[{title,subtitle,stats}]
-	//staticdb('fcstu','message').insert({email:"cslag@hotmail.com.tw",total:3,notRead:[{title:"平時作業",subtitle:"您的作業 [PPTP] 實作已經被教授批准了",status:"success"},{title:"平時作業",subtitle:"您的作業 [CPU] 實作已經被教授退回了",status:"danger"},{title:"平時考試",subtitle:"您的平時考 [表面積與體積] 已經釋出了成績 67 分",status:"success"}],AllMessage:[{title:"平時作業",subtitle:"您的作業 [PPTP] 實作已經被教授批准了",status:"success"},{title:"平時作業",subtitle:"您的作業 [CPU] 實作已經被教授退回了",status:"danger"},{title:"平時考試",subtitle:"您的平時考 [表面積與體積] 已經釋出了成績 67 分",status:"success"}]});
+	var title = message.title;
+	var subtitle = message.subtitle;
+	var status = message.status;
+	staticdb('fcstu','message').findOne({email:person},function(data){
+		data.notRead.unshift({title:title,subtitle:subtitle,status:status});
+		data.AllMessage.unshift({title:title,subtitle:subtitle,status:status});
+		staticdb('fcstu','message').override({email:person},data);
+	});
+	//staticdb('fcstu','message').update({email:person},
+	//{total:,notRead:[{title:"平時作業",subtitle:"您的作業 [PPTP] 實作已經被教授批准了",status:"success"},{title:"平時作業",subtitle:"您的作業 [CPU] 實作已經被教授退回了",status:"danger"},{title:"平時考試",subtitle:"您的平時考 [表面積與體積] 已經釋出了成績 67 分",status:"success"}],AllMessage:[{title:"平時作業",subtitle:"您的作業 [PPTP] 實作已經被教授批准了",status:"success"},{title:"平時作業",subtitle:"您的作業 [CPU] 實作已經被教授退回了",status:"danger"},{title:"平時考試",subtitle:"您的平時考 [表面積與體積] 已經釋出了成績 67 分",status:"success"}]});
 }
+exports.addMessage = function(req,res){
+	isLogin(req,res);
+	AddRead2People(req,res,"cslag@hotmail.com.tw",{title:"平時作業",subtitle:"您的作業 [PPTP] 實作已經被教授批准了",status:"danger"});
+	res.redirect('/');
+};
+
 
 /**
  * Student All Page
@@ -484,6 +508,7 @@ exports.PasswordResetPost = function(req, res) {
 		}, {
 			"password": md5(ps1)
 		})
+		staticdb('fcstu','message').insert({email:req.session.user.email,total:0,notRead:[],AllMessage:[]});
 		res.redirect('/dashboard?foward=psre&ok=1');
 	}
 };
