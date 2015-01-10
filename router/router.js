@@ -307,15 +307,13 @@ exports.UsuallyTest = function(req, res) {
 				console.log("可不可以考這次的考試呢?");
 				staticdb('fcstu','usually').findAll(function(datas){
 					var length = Object.keys(datas).length;
-					if(row.scope.length == length){	
+					if(row.scope.length == length || row.test.length == length){	
 						res.render('dashboard/Student/UsuallyTest', {
 							data: 0,
 							html:html,
 							indata:false
 						});
-						console.log("你不可以考試");
 					}else{
-						console.log("你可以考試唷");
 						res.render('dashboard/Student/UsuallyTest', {
 							data: data[Object.keys(data).length - 1],
 							html:html,
@@ -390,10 +388,9 @@ exports.UsuallyTestPost = function(req,res){
 	var url = req.body.url;
 	var context = req.body.context;
 	if(!!url && !!context){
-		console.log("你的實作網址: "+url+" ，你的回答: "+context);
-		staticdb('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(data){
-			data.test.push({url:"https;fa","context":"野格"});
-			staticdb('fcstu','studentUsually').override({email:"cslag@hotmail.com.tw"},data);
+		staticdb('fcstu','studentUsually').findOne({email:req.session.user.email},function(data){
+			data.test.push({url:url,"context":context});
+			staticdb('fcstu','studentUsually').override({email:req.session.user.email},data);
 		});
 		res.redirect('/dashboard/?foward=utu&ok=1')
 	}else{
