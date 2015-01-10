@@ -64,8 +64,14 @@
             x.setAttribute("style", "active");
         };
         var AssetsLoader = function(url) {
-            var vpx = '<iframe src="' + url + '" class="ifr" frameborder="0" height="100%" width="100%"></iframe>';
-            document.getElementById('load_v').innerHTML = vpx;
+            var gets = httpGet('../getAssets');
+            //https://hackpad.com/-30-CVE--55wdYEJDxwI
+            if(JSON.parse(gets).url == "none"){
+                document.getElementById('load_v').innerHTML = "<p class='ms'>教授尚未新增資源，您可以稍後再回來。</p>";
+            }else{
+                var vpx = '<iframe src="' + JSON.parse(gets).url + '" class="ifr" frameborder="0" height="100%" width="100%"></iframe>';
+                document.getElementById('load_v').innerHTML = vpx;
+            }
         };
     </script>
 </head>
@@ -207,7 +213,7 @@
                         </ul>
                     </li>
                     <li class="">
-                        <a href="#" onclick="AssetsLoader('https://hackpad.com/-30-CVE--55wdYEJDxwI')" title="Orders">
+                        <a href="#" onclick="AssetsLoader()" title="Orders">
                             <i class="fa fa-lg fa-fw fa-graduation-cap"></i> 課程資源
                             <span class="label label-danger pull-right">實用</span>
                         </a>

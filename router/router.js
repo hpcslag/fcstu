@@ -277,6 +277,17 @@ exports.Question = function(req, res) {
 	OnlyParticularPerson(req, res, 'student');
 	res.render('dashboard/Student/Question', {});
 };
+exports.getAssets = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'student');
+	staticdb('fcstu','assets').findAll(function(data){
+		if(!!data){
+			res.send({url:data[Object.keys(data).length-1].url});
+		}else{
+			res.send({url:'none'});
+		}
+	});
+};
 
 /**
  * Teacher All Page
@@ -506,7 +517,7 @@ exports.UpdateWeekTestPost = function(req, res) {
 		res.redirect('/dashboard?foward=uwt&err=1');
 	}
 };
-exports.AssetsManagement = function(req,res){	
+exports.AssetsManagementPost = function(req,res){	
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
 	var url = req.body.url;
@@ -514,9 +525,9 @@ exports.AssetsManagement = function(req,res){
 		staticdb('fcstu', 'assets').insert({
 			url: url
 		});
-		res.redirect('/dashboard?foward=autup&ok=1');
+		res.redirect('/dashboard?foward=assets&ok=1');
 	}
 	else {
-		res.redirect('/dashboard?foward=autup&err=1');
+		res.redirect('/dashboard?foward=assets&err=1');
 	}
 };
