@@ -81,5 +81,5 @@ app.get('/HomeworkUpdate',router.HomeworkUpdate);
 app.post('/dashboard', router.dashboard);
 app.post('/PasswordReset',router.PasswordResetPost);
 app.post('/AddStudent',router.AddStudentPost);
-app.post('AddUsuallyTest',router.AddUsuallyTestPost);
+app.post('/AddUsuallyTest',router.AddUsuallyTestPost);
 app.listen(process.env.PORT);

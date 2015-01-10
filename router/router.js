@@ -285,7 +285,18 @@ exports.AssetsManagement = function(req, res) {
 exports.AddUsuallyTest = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
-	res.render('dashboard/Teacher/UsuallyTestManager/AddUsuallyTest', {});
+	var html = '';
+	var url = require('url');
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	if(!!query.err){
+		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">資料不齊全，需要填入才可以新增，尤其您需要繪製圖片給學生參考！</a> 請再重新嘗試一次.</div>';
+	}
+	if(!!query.ok){
+		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 平時考資料已完成加入<a href="#" class="alert-link">若要更新，請在本表單重新輸入</a>.</div>';
+	}
+	if(isLogin(req, res))
+		res.render('dashboard/Teacher/UsuallyTestManager/AddUsuallyTest', {html:html});
 };
 exports.UsuallyTestCorrect = function(req, res) {
 	isLogin(req, res);
@@ -346,11 +357,11 @@ exports.AddUsuallyTestPost = function(req,res){
 	var deadline = req.body.deadline;
 	var image = req.body.image;
 	var chtml = req.body.contextHTML;
-	var qhtml = req.body.qhtml;
+	var qhtml = req.body.quizHTML;
 	if(!!title && !!deadline && !!image && !!chtml && !!qhtml){
-		staticdb('fcstu','users').insert({"name":name,"firstname":lastname,"email":email,'password':md5(stuID),StuID:stuID,"class":Class,'identity':'student'});
-		res.redirect('/dashboard?foward=astu&ok=1');
+		staticdb('fcstu','usually').insert({title:title,deadline:deadline,image:image,chtml:chtml,qhtml:qhtml});
+		res.redirect('/dashboard?foward=autup&ok=1');
 	}else{
-		res.redirect('/dashboard?foward=astu&err=1');
+		res.redirect('/dashboard?foward=autup&err=1');
 	}
 };

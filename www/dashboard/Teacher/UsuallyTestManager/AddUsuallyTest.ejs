@@ -9,8 +9,9 @@
     <h2>平時測驗新增</h2>
 </div>
 <div class="container-fluid-md ms">
+    <%- html %>
     <div class="col-md-6">
-            <form role="form">
+            <form role="form" action="/AddUsuallyTest" method="post">
             <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">平時測驗新增</h4>
@@ -26,13 +27,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label" for="exampleInputName6">測驗標題</label>
-                                    <input type="text" class="form-control" id="exampleInputName6" placeholder="平時考(一) - 表面積與體積">
+                                    <input type="text" name="title" class="form-control" id="exampleInputName6" placeholder="平時考(一) - 表面積與體積">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label" for="exampleInputCompany6">繳交期限</label>
-                                    <input type="text" class="form-control" id="exampleInputCompany6" placeholder="日期 - 時間(24h) 2015/1/9 - 17:50">
+                                    <input type="text" name="deadline" class="form-control" id="exampleInputCompany6" placeholder="日期 - 時間(24h) 2015/1/9 - 17:50">
                                 </div>
                             </div>
                         </div>
@@ -40,17 +41,17 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label" for="exampleInputEmail6">題目圖片(採用imgur.com網址)</label>
-                                    <input type="text" class="form-control" id="exampleInputText1" placeholder="http://imgur.com/sX25S3x">
+                                    <input type="text" name="image" class="form-control" id="exampleInputText1" placeholder="http://imgur.com/sX25S3x">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="exampleInputMessage6">題目HTML</label>
-                            <textarea rows="6" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="<div>xxx<div>...   不需要head, html5, body宣告"></textarea>
+                            <textarea rows="6" class="form-control" name="contextHTML" id="exampleInputMessage6" style="resize:vertical" placeholder="<div>xxx<div>...   不需要head, html5, body宣告"></textarea>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="exampleInputMessage6">問題HTML</label>
-                            <textarea rows="6" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="輸入可能是測試資料、問題等等...  <h3>輸入</h3><pre>5 2 5 3 1</pre>請問輸出?"></textarea>
+                            <textarea rows="6" class="form-control" name="quizHTML" id="exampleInputMessage6" style="resize:vertical" placeholder="輸入可能是測試資料、問題等等...  <h3>輸入</h3><pre>5 2 5 3 1</pre>請問輸出?"></textarea>
                         </div>
                     </div>
                     <div class="panel-footer">
