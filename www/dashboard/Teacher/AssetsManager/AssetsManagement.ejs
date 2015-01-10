@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                    <form role="form" action="/AssetsManagement" method="post">
                         <div class="form-group">
                             <label class="control-label" for="exampleInputText1"></label>
 
@@ -35,7 +35,11 @@
                             <span class="help"></span>
 
                             <div class="controls">
-                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="url...">
+                                <% if(indata) { %>
+                                    <input type="text" name="url" class="form-control" id="exampleInputPassword1" placeholder="url..." value='<%= data.url %>'>
+                                <% }else{ %>
+                                    <input type="text" name="url" class="form-control" id="exampleInputPassword1" placeholder="url...">
+                                <% }%>
                             </div>
                         </div>
                         <button class="btn btn-success" type="submit"><i class="fa fa-check"></i> 完成發布</button>

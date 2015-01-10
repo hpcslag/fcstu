@@ -26,7 +26,6 @@ exports.index = function(req, res) {
 		res.clearCookie('userdata');
 		res.redirect('/');
 	}
-	//如果有cookie才找username，不是本人就刪除cookie即可,資訊全部撈cookie的資料
 	if (!!req.cookies.userdata) {
 		//if is logined
 		var cookie = req.cookies.userdata;
@@ -327,7 +326,25 @@ exports.RollColl = function(req, res) {
 exports.AssetsManagement = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
-	res.render('dashboard/Teacher/AssetsManager/AssetsManagement', {});
+	var html = '';
+	var url = require('url');
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	if (!!query.err) {
+		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">資源網址不能為空</a> 請再重新嘗試一次.</div>';
+	}
+	if (!!query.ok) {
+		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 資源已完成新增<a href="#" class="alert-link">您隨時可以變更您的資源網址，我們在每次修改都會存取一次紀錄</a>.</div>';
+	}
+	if (isLogin(req, res)){
+		staticdb('fcstu', 'assets').findAll(function(data){
+			if(!!data){
+				res.render('dashboard/Teacher/AssetsManager/AssetsManagement', {html:html,indata:true,data:data[Object.keys(data).length-1]});
+			}else{
+				res.render('dashboard/Teacher/AssetsManager/AssetsManagement', {html:html,indata:false});
+			}
+		});
+	}
 };
 exports.AddUsuallyTest = function(req, res) {
 	isLogin(req, res);
@@ -417,6 +434,7 @@ exports.PasswordResetPost = function(req, res) {
 };
 exports.AddStudentPost = function(req, res) {
 	isLogin(req, res);
+	OnlyParticularPerson(req, res, 'teacher');
 	var name = req.body.name;
 	var lastname = req.body.firstname;
 	var stuID = req.body.stuid;
@@ -442,6 +460,7 @@ exports.AddStudentPost = function(req, res) {
 //Usually Test Feature
 exports.AddUsuallyTestPost = function(req, res) {
 	isLogin(req, res);
+	OnlyParticularPerson(req, res, 'teacher');
 	var title = req.body.title;
 	var deadline = req.body.deadline;
 	var image = req.body.image;
@@ -463,6 +482,7 @@ exports.AddUsuallyTestPost = function(req, res) {
 };
 exports.UpdateWeekTestPost = function(req, res) {
 	isLogin(req, res);
+	OnlyParticularPerson(req, res, 'teacher');
 	var title = req.body.title;
 	var image = req.body.image;
 	var chtml = req.body.chtml;
@@ -484,5 +504,19 @@ exports.UpdateWeekTestPost = function(req, res) {
 	}
 	else {
 		res.redirect('/dashboard?foward=uwt&err=1');
+	}
+};
+exports.AssetsManagement = function(req,res){	
+	isLogin(req, res);
+	OnlyParticularPerson(req, res, 'teacher');
+	var url = req.body.url;
+	if (!!url) {
+		staticdb('fcstu', 'assets').insert({
+			url: url
+		});
+		res.redirect('/dashboard?foward=autup&ok=1');
+	}
+	else {
+		res.redirect('/dashboard?foward=autup&err=1');
 	}
 };

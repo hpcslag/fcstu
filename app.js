@@ -83,4 +83,5 @@ app.post('/PasswordReset',router.PasswordResetPost);
 app.post('/AddStudent',router.AddStudentPost);
 app.post('/AddUsuallyTest',router.AddUsuallyTestPost);
 app.post('/UpdateWeekTest',router.UpdateWeekTestPost);
+app.post('/AssetsManagement',router.AssetsManagement);
 app.listen(process.env.PORT);
