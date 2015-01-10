@@ -264,7 +264,6 @@ exports.ModifyStudent = function(req, res) {
 exports.StudentManagement = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
-	console.log("sds");
 	staticdb('fcstu', 'class').findAll(function(data) {
 		if(data){
 			res.render('dashboard/Teacher/StudentManager/StudentManagement',{list:data});	
@@ -339,3 +338,8 @@ exports.AddStudentPost = function(req,res){
 		res.redirect('/dashboard?foward=astu&err=1');
 	}
 }
+
+//Usually Test Feature
+exports.AddStudentPost = function(req,res){
+	isLogin(req,res);
+};

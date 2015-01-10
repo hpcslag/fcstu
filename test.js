@@ -11,7 +11,7 @@ var Class = sd('fcstu','class');
 //app.insert({"name":"Keyboard","Lee":"Taylor","email":"cslag@hotmail.com.tw",'password':'e10adc3949ba59abbe56e057f20f883e','identity':'teacher'});
 
 //新增班課資料
-/*Class.insert(
+/*sd('fcstu','class').insert(
 	{"rollcall":
 		{
 		"游崇祐":{"class":"五工二甲","check":[true,true,false,false,true,true]},
@@ -20,7 +20,7 @@ var Class = sd('fcstu','class');
 		"野格":{"class":"四工三甲","check":[false,false,false,false,false,true]},
 		"你很邱":{"class":"四子一甲","check":[false,false,false,true,true,false]}
 		}
-	,"time":new Date()});
+	,"time":[new Date(),new Date(),new Date(),new Date(),new Date(),new Date(),new Date()]});
 */
 //到課資料查詢
 /*Class.findAll(function(data){
@@ -68,7 +68,26 @@ app.findOne({"email":email},function(data){
 //密碼修改測試
 //sd('fcstu','users').update({"email":email},{"password":"fcea920f7412b5da7be0cf42b8c93759"})
 
+//幫野格增加資料
+//sd('fcstu','class').update({"name":"野格"},{"password":"fcea920f7412b5da7be0cf42b8c93759"})
 
+sd('fcstu','class').findAll(function(data){
+	/*sd('fcstu','class').findOne({emai:(Object.keys(data)[0].rollcall) },function(one){
+		console.l
+	});*/
+	/*var roll = data[Object.keys(data)[0]].rollcall;
+	for(var i = 0;i<Object.keys(roll).length;i++){
+		var name = Object.keys(roll)[i];
+		//console.log(roll[name].check);
+		roll[name].check.push(false);
+		sd('fcstu','class').findOne(data,function(na){
+			console.log(na);
+		});
+		//console.log(roll[name].check)
+	}*/
+	//console.log(data);
+	//list[Object.keys(list)].rollcall[Object.keys(list[i].rollcall)[j]].check
+});
 
 
 
