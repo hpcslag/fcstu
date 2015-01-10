@@ -310,7 +310,7 @@ exports.UsuallyTest = function(req, res) {
 					if(row.scope.length == length){	
 						res.render('dashboard/Student/UsuallyTest', {
 							data: 0,
-							html:0,
+							html:html,
 							indata:false
 						});
 						console.log("你不可以考試");
@@ -391,9 +391,13 @@ exports.UsuallyTestPost = function(req,res){
 	var context = req.body.context;
 	if(!!url && !!context){
 		console.log("你的實作網址: "+url+" ，你的回答: "+context);
-		//res.redirect('/UsuallyTest?foward=utu?ok=1')
+		staticdb('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(data){
+			data.test.push({url:"https;fa","context":"野格"});
+			staticdb('fcstu','studentUsually').override({email:"cslag@hotmail.com.tw"},data);
+		});
+		res.redirect('/dashboard/?foward=utu&ok=1')
 	}else{
-		res.redirect('/UsuallyTest?foward=utu?err=1');
+		res.redirect('/dashboard/?foward=utu&err=1');
 	}
 }
 

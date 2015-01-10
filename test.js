@@ -131,7 +131,7 @@ sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(dat
 
 
 //老師 - 管理平時考 - 顯示學生
-sd('fcstu','usually').findAll(function(row){
+/*sd('fcstu','usually').findAll(function(row){
 	var length = Object.keys(row).length-1;
 	sd('fcstu','studentUsually').findAll(function(data){
 		for(var i = 0;i<Object.keys(data).length;i++){
@@ -141,7 +141,7 @@ sd('fcstu','usually').findAll(function(row){
 		}
 		//console.log(Object.keys(data).length);
 	});
-});
+});*/
 
 //學生 - 想要考試
 /*sd('fcstu','studentUsually').findOne({email:"ted99rw@gmail.com"},function(row){
@@ -155,3 +155,13 @@ sd('fcstu','usually').findAll(function(row){
 		}
 	});
 })*/
+sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(data){
+	data.test.push({url:"https;fa","context":"野格"});
+	sd('fcstu','studentUsually').override({email:"cslag@hotmail.com.tw"},data);
+});
+//新增考試成績
+/*sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(data){
+	data.scope.unshift();
+	sd('fcstu','studentUsually').override({email:"cslag@hotmail.com.tw"},{scope:data.scope});
+});*/
+//取得近期考試成績

@@ -99,7 +99,7 @@
                                 <label class="control-label" for="exampleInputPassword1">輸出或回答</label>
 
                                 <div class="controls">
-                                    <textarea rows="5" class="form-control" id="exampleInputMessage5" placeholder="範例: 7 2 3 4 5 6 8 6..." style="resize:vertical"></textarea>
+                                    <textarea rows="5" name="context" class="form-control" id="exampleInputMessage5" placeholder="範例: 7 2 3 4 5 6 8 6..." style="resize:vertical"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -115,5 +115,6 @@
         </div>
     </div>
     <% }else{ %>
+    <%- html %>
     <h1 class="ms">該考的試已經考完了!</h1>
     <% }%>
