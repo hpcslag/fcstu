@@ -749,6 +749,7 @@ exports.AddStudentPost = function(req, res) {
 exports.RollCollPost = function(req,res){
 	isLogin(req,res);
 	OnlyParticularPerson(req,res,'teacher');
+	console.log(req.body);
 	
 };
 //Usually Test Feature

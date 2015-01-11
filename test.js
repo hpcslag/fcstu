@@ -266,7 +266,7 @@ var tag = '你還不行';
 //學生姓名 {'游崇祐',{t}}
 //打印出學生
 
-sd('fcstu','class').findAll(function(data){
+/*sd('fcstu','class').findAll(function(data){
 	var dps = [];
 	for(var i = 0;i<Object.keys(data['0'].rollcall).length;i++){
 		var studentName = Object.keys(data['0'].rollcall)[i];
@@ -276,11 +276,32 @@ sd('fcstu','class').findAll(function(data){
 		dps.push({name:studentName,class:className,email:email});
 	}
 	console.log(dps)
-});
+});*/
 
 //將數筆學生資料點名了!
 //查詢checkbox 然後用名子搜尋，增加一筆考試資料，回去
+var obj = { 'cslag@hotmail.com.tw': '',
+  'kpxp@gasp.com': '',
+  'chilin@gmail.com': '',
+  'yager@gmail.com': '' }
 
+sd('fcstu','class').findAll(function(row){
+	for(var i = 0;i<Object.keys(row['0'].rollcall).length;i++){
+		var studentName = Object.keys(row['0'].rollcall)[i];
+		var student = row[Object.keys(row)].rollcall[Object.keys(row[Object.keys(row)].rollcall)[i]];
+		for(var j=0;j<Object.keys(obj).length;j++){
+			if(student.email == Object.keys(obj)[j]){
+				console.log(studentName+" 已經點到了");
+				break;
+			}
+			if(student.email != Object.keys(obj)[j] && j == Object.keys(obj).length-1){
+				console.log(studentName+" 沒有到");
+				break;
+			}
+		}
+		//console.log(Object.keys(obj)[i]);
+	}
+})
 
 //註冊必要初始化值:
 

@@ -7,6 +7,8 @@
 <div class="page-heading page-heading-md ms">
     <h2>學生點名</h2>
 </div>
+
+<form action="/RollColl" method="post">
 <div class="container-fluid-md ms">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -27,9 +29,9 @@
                     <!---->
                     <tr>
                         <td><%= data[i].name %></td>
-                        <td>五工二甲</td>
+                        <td><%= data[i].class %></td>
                         <td><label class="checkbox-inline">
-                            <input type="checkbox" value="">
+                            <input type="checkbox" name="<%= data[i].email %>" checked="" value="x">
                             到課
                         </label></td>
                     </tr>
@@ -38,5 +40,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+        <div class="panel-footer"><button class="btn btn-success" type="submit" from="from">完成點名</button></div>
+    </div> 
+    </form>
 </div>
