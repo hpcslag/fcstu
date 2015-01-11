@@ -1,7 +1,10 @@
 var express = require('express'),
 	app = new express(),
 	ejs = require('ejs'),
-	router = require('./router');
+	router = require('./router'),
+	ManagementAPI = require('./router/ManagementAPI.js'),
+	StudentAPI = require('./router/StudentAPI.js'),
+	TeacherAPI = require('./router/TeacherAPI.js');
 
 app.configure(function() {
 	app.use(express.static(__dirname + '/www'));
@@ -43,61 +46,63 @@ app.configure(function() {
 		res.type('txt').send('Not found');
 	})
 });
-
 //Global Router
+app.get('/signout',router.signout);
 app.get('/', router.index);
 app.get('/dashboard', router.dashboard_get);
-app.get('/signout', router.signout);
-app.get('/ProfileSetting', router.ProfileSetting);
-app.get('/PasswordReset', router.PasswordReset);
-app.get('/Response',router.Response);
-app.get('/checkAll',router.checkAll);//message check all read!
-app.get('/checkThing',router.checkThing);//check not read message!
+
+//ManagementAPI Router
+app.get('/ProfileSetting', ManagementAPI.ProfileSetting);
+app.get('/PasswordReset', ManagementAPI.PasswordReset);
+app.get('/Response',ManagementAPI.Response);
+app.get('/checkAll',ManagementAPI.checkAll);//message check all read!
+app.get('/checkThing',ManagementAPI.checkThing);//check not read message!
+app.post('/dashboard', ManagementAPI.dashboard);
+app.post('/PasswordReset',ManagementAPI.PasswordResetPost);
 //losePassword
 //resetPassword
 //mail to
+//message test
+app.get('/addMessage',ManagementAPI.addMessage);
 
-
-//Student Router
-app.get('/Assets', router.Assets);
-app.get('/UsuallyTest', router.UsuallyTest);
-app.get('/UsuallyTestScores', router.UsuallyTestScores);
-app.get('/WeekTest', router.WeekTest);
-app.get('/WeekTestAnswer', router.WeekTestAnswer);
-app.get('/Homework',router.Homework);
-app.get('/Question',router.Question);
-app.get('/getAssets',router.getAssets);
+//StudentAPI Router
+app.get('/Assets', StudentAPI.Assets);
+app.get('/UsuallyTest', StudentAPI.UsuallyTest);
+app.get('/UsuallyTestScores', StudentAPI.UsuallyTestScores);
+app.get('/WeekTest', StudentAPI.WeekTest);
+app.get('/WeekTestAnswer', StudentAPI.WeekTestAnswer);
+app.get('/Homework',StudentAPI.Homework);
+app.get('/Question',StudentAPI.Question);
+app.get('/getAssets',StudentAPI.getAssets);
+//Studnet Feature POST Router
+app.post('/UsuallyTest',StudentAPI.UsuallyTestPost);
+app.post('/Homework',StudentAPI.HomeworkPost);
+app.post('/FeedBack',StudentAPI.FeedBack);
 
 //Teacher Router
-app.get('/AddStudent',router.AddStudent);
-app.get('/ModifyStudent',router.ModifyStudent);
-app.get('/StudentManagement',router.StudentManagement);
-app.get('/RollColl',router.RollColl);
-app.get('/AssetsManagement',router.AssetsManagement);
-app.get('/AddUsuallyTest',router.AddUsuallyTest);
-app.get('/UsuallyTestCorrect',router.UsuallyTestCorrect);
-app.get('/UpdateWeekTest',router.UpdateWeekTest);
-app.get('/HomeworkCorrect',router.HomeworkCorrect);
-app.get('/HomeworkUpdate',router.HomeworkUpdate);
+app.get('/AddStudent',TeacherAPI.AddStudent);
+app.get('/ModifyStudent',TeacherAPI.ModifyStudent);
+app.get('/StudentManagement',TeacherAPI.StudentManagement);
+app.get('/RollColl',TeacherAPI.RollColl);
+app.get('/AssetsManagement',TeacherAPI.AssetsManagement);
+app.get('/AddUsuallyTest',TeacherAPI.AddUsuallyTest);
+app.get('/UsuallyTestCorrect',TeacherAPI.UsuallyTestCorrect);
+app.get('/UpdateWeekTest',TeacherAPI.UpdateWeekTest);
+app.get('/HomeworkCorrect',TeacherAPI.HomeworkCorrect);
+app.get('/HomeworkUpdate',TeacherAPI.HomeworkUpdate);
 
-//Teacher Feature POST Router
-app.post('/dashboard', router.dashboard);
-app.post('/PasswordReset',router.PasswordResetPost);
-app.post('/AddStudent',router.AddStudentPost);
-app.post('/AddUsuallyTest',router.AddUsuallyTestPost);
-app.post('/UpdateWeekTest',router.UpdateWeekTestPost);
-app.post('/AssetsManagement',router.AssetsManagementPost);
-app.get('/UsuallyTestGift',router.UsuallyTestGift);
-app.get('/HomeworkCorrectGet',router.HomeworkCorrectGet);
-app.post('/RollColl',router.RollCollPost);
+//Feature POST Router
+app.post('/AddStudent',TeacherAPI.AddStudentPost);
+app.post('/AddUsuallyTest',TeacherAPI.AddUsuallyTestPost);
+app.post('/UpdateWeekTest',TeacherAPI.UpdateWeekTestPost);
+app.post('/AssetsManagement',TeacherAPI.AssetsManagementPost);
+app.get('/UsuallyTestGift',TeacherAPI.UsuallyTestGift);
+app.get('/HomeworkCorrectGet',TeacherAPI.HomeworkCorrectGet);
+app.post('/RollColl',TeacherAPI.RollCollPost);
 
-//Studnet Feature POST Router
-app.post('/UsuallyTest',router.UsuallyTestPost);
-app.post('/Homework',router.HomeworkPost);
-app.post('/FeedBack',router.FeedBack);
 
-//message test
-app.get('/addMessage',router.addMessage);
+
+
 
 //listen in default port
 app.listen(process.env.PORT);
