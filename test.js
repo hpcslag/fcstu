@@ -211,13 +211,42 @@ var context = "內容更新了唷";
 
 
 //學生做作業
-sd('fcstu','homework').findOne({email:"cslag@hotmail.com.tw"},function(row){
+/*sd('fcstu','homework').findOne({email:"cslag@hotmail.com.tw"},function(row){
 	//檢查有沒有填入
 	row.homework.push({deadline:deadline,context:context});
-	sd('fcstu','homeworkqus').override({key:"homeworkqus"},row);
+	sd('fcstu','homework').override({email:"cslag@hotmail.com.tw"},row);
+});*/
+
+
+//老師 - 管理作業 - 顯示繳交學生
+sd('fcstu','homeworkqus').findAll(function(row){
+	var length = row[Object.keys(row)].homework.length;
+	sd('fcstu','homework').findAll(function(data){
+		for(var i = 0;i<Object.keys(data).length;i++){
+			//可批改條件 沒有分數 且 有答案，跟數量一樣
+			var student = [];
+			if(data[i].homework.length == length && !!data[i].scope[length-1] == false){
+				student.push(data[i]);
+				console.log("這位學生可以交作業: "+data[i].name);
+			}else{
+				console.log("這位學生不能交作業: "+data[i].name);
+			}
+		}
+		console.log("可批改學生:");
+		console.log(student);
+	});
 });
+
+
+
+
+
+
+
+
+
 
 //註冊必要初始化值:
 
 //回家作業批改與學生
-//sd('fcstu','homework').insert({"email":"ted99rw@gmail.com","name":"馬修","class":"五設三甲","test":[],"scope":[]});
+//sd('fcstu','homework').insert({"email":"ted99rw@gmail.com","name":"馬修","class":"五設三甲","homework":[],"scope":[]});

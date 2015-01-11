@@ -390,7 +390,7 @@ exports.Homework = function(req, res) {
 			console.log("目前沒有作業可以做");
 		}else{
 			staticdb('fcstu','homework').findOne({email:req.session.user.email},function(data){
-				if(data.test.length<row[Object.keys(row)].homework.length){
+				if(data.homework.length<row[Object.keys(row)].homework.length){
 					var homework = row[Object.keys(row)].homework[row[Object.keys(row)].homework.length-1];
 					res.render('dashboard/Student/Homework', {html:html,homework:homework});
 				}else{
@@ -439,7 +439,19 @@ exports.HomeworkPost = function(req,res){
 	OnlyParticularPerson(req,res,'student');
 	if(!!req.body.url && !!req.body.response && !!req.body.keyword){
 		console.log("你可以交作業了");
-		res.send("你可以交作業了");
+		staticdb('fcstu','homework').findOne({email:req.session.user.email},function(row){
+			//檢查有沒有做過了
+			staticdb('fcstu','homeworkqus').findAll(function(data){
+				//if(data.homework.length<row[Object.keys(row)].homework.length){
+				if(row.homework.length < data[Object.keys(data)].homework.length){
+					row.homework.push({url:req.body.url,response:req.body.response,keyword:req.body.keyword});
+					staticdb('fcstu','homework').override({email:req.session.user.email},row);
+					res.send("<h1 class='ms'>作業已完成繳交，若批改會通知</h1><script>alert('作業已完成繳交，若批改會通知'); window.location.href = '/dashboard';</script>");
+				}else{
+					res.send("<h1 class='ms'>你已經完成過這項作業了！</h1>");
+				}
+			});
+		});
 	}else{
 		res.redirect('/dashboard?foward=H&err=1');
 	}
