@@ -131,7 +131,7 @@ sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(dat
 
 
 //老師 - 管理平時考 - 顯示學生
-sd('fcstu','usually').findAll(function(row){
+/*sd('fcstu','usually').findAll(function(row){
 	var length = Object.keys(row).length-1;
 	sd('fcstu','studentUsually').findAll(function(data){
 		for(var i = 0;i<Object.keys(data).length;i++){
@@ -141,7 +141,7 @@ sd('fcstu','usually').findAll(function(row){
 			}
 		}
 	});
-});
+});*/
 
 //學生 - 想要考試
 /*sd('fcstu','studentUsually').findOne({email:"ted99rw@gmail.com"},function(row){

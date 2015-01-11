@@ -115,7 +115,7 @@
                         </li>
                         <!---->
                         <li class="dropdown-footer ms">
-                            <a href="javascript: loader(event,'Response');"><i class="fa fa-share"></i> 查看所有訊息</a>
+                            <a href="javascript: loader(event,'Response');" onclick="tores()"><i class="fa fa-share"></i> 查看所有訊息</a>
                         </li>
                     </ul>
                 </li>
@@ -564,7 +564,7 @@
             var message = JSON.parse(gets);
             document.getElementById('messageCount').innerHTML = (message.notRead.length<6?message.notRead.length:'6+') || 0;
             var Notification = '<li id="alertMessageCount" class="dropdown-title bg-inverse ms">新通知 (0)</li>';
-            var footer = '<li class="dropdown-footer ms"><a href="javascript: loader(event,"Response");"><i class="fa fa-share"></i> 查看所有訊息</a></li>'
+            var footer = '<li class="dropdown-footer ms"><a href="javascript: loader(event,"Response");" onclick="tores()"><i class="fa fa-share"></i> 查看所有訊息</a></li>'
             if(!!message.notRead.length == false){
                 document.getElementById('messageAll').innerHTML = '<li id="alertMessageCount" class="dropdown-title bg-inverse ms">新通知 (0)</li><li><a href="javascript:;" class="notification"><div class="notification-thumb pull-left"><i class="fa fa-exclamation fa-2x text-danger"></i></div><div class="notification-body"><strong>沒有訊息的狀態</strong><br><small class="text-muted">時間: '+new Date()+'</small></div></a></li>'+footer;
             }else{
@@ -576,6 +576,9 @@
         function cleanNotReadMessage(){
             var gets = httpGet('../checkAll');
             document.getElementById('messageCount').innerHTML = 0;
+        }
+        function tores(){
+            loader(event,'Response');
         }
         
         if(window.location.search == "?foward=psre&ok=1"){

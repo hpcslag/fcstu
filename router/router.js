@@ -260,7 +260,6 @@ exports.checkThing = function(req,res){
 */
 function AddRead2People(req,res,person,message){
 	//email: dsdlakd
-	//total: notRead + new message length
 	//notRead: [{title,subtitle,stats}]
 	//Allmessage:[{title,subtitle,stats}]
 	var title = message.title;
@@ -304,7 +303,6 @@ exports.UsuallyTest = function(req, res) {
 				html = '<div class="alert alert-success ms"><strong>Well done!</strong> 考試已完成提交，若教授批改將會通知。 <a href="#" class="alert-link">請加油！</a>.</div>';
 			}
 			staticdb('fcstu','studentUsually').findOne({email:req.session.user.email},function(row){
-				console.log("可不可以考這次的考試呢?");
 				staticdb('fcstu','usually').findAll(function(datas){
 					var length = Object.keys(datas).length;
 					if(row.scope.length == length || row.test.length == length){	
@@ -496,9 +494,52 @@ exports.UsuallyTestCorrect = function(req, res) {
 					student.push({email:data[i].email,name:data[i].name,class:data[i].class,url:data[i].test[length].url,context:data[i].test[length].context});
 				}
 			}
-			res.render('dashboard/Teacher/UsuallyTestManager/UsuallyTestCorrect', {data:student});
+			var html = '';
+			var url = require('url');
+			var url_parts = url.parse(req.url, true);
+			var query = url_parts.query;
+			if (!!query.err) {
+				html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">資料不齊全，需要填入才可以新增，尤其您需要評分學生的成績！</a> 請再重新嘗試一次.</div>';
+			}
+			if (!!query.ok) {
+				html = '<div class="alert alert-success ms"><strong>Well done!</strong> 平時考分數資料已完成加入<a href="#" class="alert-link">若要更新，請變更資料庫表</a>.</div>';
+			}
+			res.render('dashboard/Teacher/UsuallyTestManager/UsuallyTestCorrect', {data:student,html:html});
 		});
 	});
+};
+exports.UsuallyTestGift = function(req,res){
+		isLogin(req, res);
+		OnlyParticularPerson(req, res, 'teacher');
+		var html = '';
+		var url = require('url');
+		var url_parts = url.parse(req.url, true);
+		var query = url_parts.query;
+		if (!!query.scope && !!query.tag && !isNaN(parseInt(query.scope))) {
+			staticdb('fcstu','usually').findAll(function(row){
+				var length = Object.keys(row).length-1;
+				staticdb('fcstu','studentUsually').findOne({email:query.email},function(data){
+					if(!!data){
+						if(!!data.scope[length] == false && data.test.length == length+1){
+							//{"scope":99,"tag":"你沒有寫完",pass:21} //你被21了
+							var sc = {scope:query.scope,tag:query.tag,pass:query.pass};
+							//換內容
+							data.scope.push(sc);
+							staticdb('fcstu','studentUsually').override({email:query.email},data);
+							AddRead2People(req,res,query.email,{title:"學生資料以批改",subtitle:"您最近的平時考已批改，分數: "+query.scope,status:query.pass==21?"danger":"success"})
+							res.redirect('/dashboard?foward=suc&ok=1');
+						}else{
+							res.send("以批改學生或資料");
+						}
+					}else{
+						res.send("找無學生資料");
+					}
+				});
+			});
+		}else{
+			res.redirect('/dashboard?foward=suc&err=1');
+			//res.send("請輸入正確數值");
+		}
 };
 exports.UpdateWeekTest = function(req, res) {
 	isLogin(req, res);
