@@ -285,25 +285,41 @@ var obj = { 'cslag@hotmail.com.tw': '',
   'chilin@gmail.com': '',
   'yager@gmail.com': '' }
 
-sd('fcstu','class').findAll(function(row){
+/*sd('fcstu','class').findAll(function(row){
 	for(var i = 0;i<Object.keys(row['0'].rollcall).length;i++){
 		var studentName = Object.keys(row['0'].rollcall)[i];
 		var student = row[Object.keys(row)].rollcall[Object.keys(row[Object.keys(row)].rollcall)[i]];
 		for(var j=0;j<Object.keys(obj).length;j++){
 			if(student.email == Object.keys(obj)[j]){
 				console.log(studentName+" 已經點到了");
+				row[Object.keys(row)].rollcall[Object.keys(row[Object.keys(row)].rollcall)[i]].check.push(true);
 				break;
 			}
 			if(student.email != Object.keys(obj)[j] && j == Object.keys(obj).length-1){
 				console.log(studentName+" 沒有到");
+				row[Object.keys(row)].rollcall[Object.keys(row[Object.keys(row)].rollcall)[i]].check.push(false);
 				break;
 			}
 		}
 		//console.log(Object.keys(obj)[i]);
 	}
-})
+	//console.log(row[Object.keys(row)].rollcall[Object.keys(row[Object.keys(row)].rollcall)[0]].check)
+	row['0'].time.push(new Date());
+	console.log(row['0']);
+	sd('fcstu','class').override({key:"class"},row['0']);
+})*/
 
 //註冊必要初始化值:
 
 //回家作業批改與學生
 //sd('fcstu','homework').insert({"email":"ted99rw@gmail.com","name":"馬修","class":"五設三甲","homework":[],"scope":[]});
+
+//initialzation Class Database(push up)
+		staticdb('fcstu','users').findAll()
+		
+		//initialzation Homework Database(push up)
+		
+		//initialzation Message Database (insert)
+		
+		//initialzation studentUsually Database(insert)
+		
