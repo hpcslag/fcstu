@@ -91,6 +91,7 @@ app.get('/UsuallyTestGift',router.UsuallyTestGift);
 
 //Studnet Feature POST Router
 app.post('/UsuallyTest',router.UsuallyTestPost);
+app.post('/Homework',router.HomeworkPost);
 
 //message test
 app.get('/addMessage',router.addMessage);

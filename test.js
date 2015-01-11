@@ -166,10 +166,58 @@ sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(dat
 });*/
 
 //取得近期考試成績
-sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(row){
+/*sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(row){
 	var ss = row.scope;
 	var now = ss[ss.length-1].scope-ss[ss.length-2].scope;
 	console.log(now >= 0?"進步"+now:"退步 "+now*-1);
 	//console.log("本次平時考分數: "+(!!row.scope[row.scope.length-1]?row.scope[row.scope.length-1].scope:"沒有任何考試紀錄(NaN)")+" 比上次進步: "+(!!row.scope[row.scope.length-2]?(row.scope[row.scope.length-1]-row.scope[row.scope.length-2].scope):"上次沒有成績(NaN)"));
 	//console.log("上次平時考分數: "+(!!row.scope[row.scope.length-3]?row.scope[row.scope.length-3].scope:"沒有成績(NaN)")+" 比上次進步: "+(!!row.scope[row.scope.length-3]?row.scope[row.scope.length-3].scope:"上次沒有成績(NaN)"));
+});*/
+
+
+//回家作業新增
+//sd('fcstu','homeworkqus').insert({homework:[{deadline:"2015-15",context:'<p>內容更新</p>'},{deadline:"2015-15",context:'<p>內容更新</p>'}]});
+
+
+var deadline = "2/15日";
+var context = "內容更新了唷";
+
+//回家作業更新
+/*sd('fcstu','homeworkqus').findOne({key:"homeworkqus"},function(row){
+	//檢查有沒有填入
+	row.homework.push({deadline:deadline,context:context});
+	sd('fcstu','homeworkqus').override({key:"homeworkqus"},row);
+});*/
+
+//翻出本次回家作業 / 可不可以作回家作業?
+/*sd('fcstu','homeworkqus').findAll(function(row){
+	//console.log(row);
+	//可不可以作回家作業
+	if(row[Object.keys(row)].homework.length == 0){
+		console.log("目前沒有作業可以做");
+	}else{
+		console.log("目前第幾字號題目: "+row[Object.keys(row)].homework.length);
+		//找到現在這位學生有沒有做過了?
+		sd('fcstu','homework').findOne({email:"cslag@hotmail.com.tw"},function(data){
+			if(data.test.length<row[Object.keys(row)].homework.length){
+				var homework = row[Object.keys(row)].homework[row[Object.keys(row)].homework.length-1];
+				//render()
+			}else{
+				console.log("你已經做過這項作業了");
+			}
+		});
+	}
+});*/
+
+
+//學生做作業
+sd('fcstu','homework').findOne({email:"cslag@hotmail.com.tw"},function(row){
+	//檢查有沒有填入
+	row.homework.push({deadline:deadline,context:context});
+	sd('fcstu','homeworkqus').override({key:"homeworkqus"},row);
 });
+
+//註冊必要初始化值:
+
+//回家作業批改與學生
+//sd('fcstu','homework').insert({"email":"ted99rw@gmail.com","name":"馬修","class":"五設三甲","test":[],"scope":[]});

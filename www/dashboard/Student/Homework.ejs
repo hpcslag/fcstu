@@ -8,6 +8,7 @@
         <h2>作業內容 (內容/提交)</h2>
     </div>
     <div class="container-fluid-md">
+        <%- html %>
         <div class="row ms">
             <!---->
             <div class="col-md-6">
@@ -25,68 +26,10 @@
                     <div class="panel-body">
                         <div class="course-quiz-preamble">
                             <h3>作業繳交期限</h3>
-                            <strong>發布起至 2015- 1/8 下午17:50分，遲交請至J607A研究室提交，並扣分總分<code>0.5</code>，未繳交作業扣分總分<code>1</code>分</strong>
+                            <strong>發布起至 <%= homework.deadline %>，遲交請至J607A研究室提交，並扣分總分<code>0.5</code>，未繳交作業扣分總分<code>1</code>分</strong>
                             <hr>
-                            <p>寫一個程式解線性系統 Ax = y。其中 A 是 n 乘 n 方陣，x 及 y 都是 n 乘 1 的向量。給定 A 及 y 時求解 x。為求簡單起見，給定的 A 一定是上三角矩陣。</p>
-
-                            <pre>void upper_solver(double *A, double *x, double *y, int n);
-</pre>
-
-                            <ul>
-                                <li>函式 upper_solver 的第一個參數式指向 A 的指標。<b>注意</b>，為了節省記憶體我們只存 A 的上三角部分，而且存成一維陣列，請參考下方的主程式。</li>
-                                <li>upper_solver 的第二個參數是指向 x 的指標。upper_solver 必須將 x 的解放在這裡。</li>
-                                <li>upper_solver 的第三個參數是指向 y 的指標。</li>
-                                <li>upper_solver 的第四個參數是矩陣大小 n。</li>
-                            </ul>
-
-                            <p>我們提供了主程式，請你實作函式 upper_solver。</p>
-
-                            <pre>#include <stdio.h>
-#define N 256
-
-void upper_solver(double *A, double *x, double *y, int n);
-int main(void)
-{
-    int i, j;
-    int n; 
-    double A[N * (N + 1) / 2];
-    double *aptr = A;
-    double x[N];
-    double y[N];
-    scanf("%d", &amp;n);
-    for ( i = 0 ; i &lt; n ; i++ )
-        for ( j = i ; j &lt; n ; j++ ) {
-            scanf("%lf", aptr);
-            aptr++;
-        }
-    for ( i = 0 ; i &lt; n ; i++ )
-        scanf("%lf", &amp;(y[i]));
-    upper_solver(A, x, y, n);
-
-    for ( i = 0 ; i &lt; n ; i++ )
-        printf("%lf ", x[i]);
-
-    return 0;
-}
-</stdio.h></pre>
-
-                            <h4>參數規範</h4>
-
-                            <p>0 &lt; n &lt;= 256</p>
-
-                            <h4>輸入範例</h4>
-                            <pre>3
-1.000 2.000 3.000
-      2.000 1.000
-            4.000
-2.000
-3.000
--4.000
-</pre>
-
-                            <h4>輸出範例</h4>
-                            <pre>1.000000 2.000000 -1.000000
-</pre> </div>
+                            <%- homework.context %>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -119,7 +62,7 @@ int main(void)
             </div>
             <!---->
             <div class="col-md-6">
-                <form class="form-horizontal" role="form">
+                <form class="form-horizontal" role="form" action="/Homework" method="post">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">作業繳交</h4>
@@ -135,19 +78,19 @@ int main(void)
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-4 control-label">作業網址</label>
                                 <div class="col-sm-8">
-                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Google Docs/ IDEONE 或 C9.IO 網址">
+                                    <input type="text" name="url" class="form-control" id="inputEmail3" placeholder="Google Docs/ IDEONE 或 C9.IO 網址">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword3" class="col-sm-4 control-label">作業回應(含回答題目)</label>
                                 <div class="col-sm-8">
-                                    <textarea rows="6" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="輸出的測資、簡述題或觀念題...                                      比方: 1.對 2.錯 3.測試資料:9 1 2 3 4 5 6 | 4.NASM是一個可以跨平台的組合語言，支持所有X86架構cpu的處理器 5.PPTP是一個沒有安全加密驗證的點對點交換協定，通常用於VPN服務。"></textarea>
+                                    <textarea rows="6" name="response" class="form-control" id="exampleInputMessage6" style="resize:vertical" placeholder="輸出的測資、簡述題或觀念題...                                      比方: 1.對 2.錯 3.測試資料:9 1 2 3 4 5 6 | 4.NASM是一個可以跨平台的組合語言，支持所有X86架構cpu的處理器 5.PPTP是一個沒有安全加密驗證的點對點交換協定，通常用於VPN服務。"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputFirstName3" class="col-sm-4 control-label">請輸入作業的關鍵字</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="inputFirstName3" placeholder="輸入一個相關的專有名詞或一個詞...">
+                                    <input type="text" name="keyword" class="form-control" id="inputFirstName3" placeholder="輸入一個相關的專有名詞或一個詞...">
                                 </div>
                             </div>
                         </div>

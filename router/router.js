@@ -375,7 +375,30 @@ exports.WeekTestAnswer = function(req, res) {
 exports.Homework = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'student');
-	res.render('dashboard/Student/Homework', {});
+	var html = '';
+	var url = require('url');
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	if (!!query.err) {
+		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">提交作業應將回應完整填寫</a> 請再重新嘗試一次.</div>';
+	}
+	if (!!query.ok) {
+		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 作業已完成提交，若教授批改將會通知。 <a href="#" class="alert-link">請加油！</a>.</div>';
+	}
+	staticdb('fcstu','homeworkqus').findAll(function(row){
+		if(row[Object.keys(row)].homework.length == 0){
+			console.log("目前沒有作業可以做");
+		}else{
+			staticdb('fcstu','homework').findOne({email:req.session.user.email},function(data){
+				if(data.test.length<row[Object.keys(row)].homework.length){
+					var homework = row[Object.keys(row)].homework[row[Object.keys(row)].homework.length-1];
+					res.render('dashboard/Student/Homework', {html:html,homework:homework});
+				}else{
+					res.send("<h1 class='ms'> 你已經完成這項作業了!</h1>");
+				}
+			});
+		}
+	});
 };
 exports.Question = function(req, res) {
 	isLogin(req, res);
@@ -393,6 +416,9 @@ exports.getAssets = function(req,res){
 		}
 	});
 };
+/**
+* Student Feature Post
+*/
 exports.UsuallyTestPost = function(req,res){
 	isLogin(req,res);
 	OnlyParticularPerson(req,res,'student');
@@ -406,6 +432,16 @@ exports.UsuallyTestPost = function(req,res){
 		res.redirect('/dashboard/?foward=utu&ok=1')
 	}else{
 		res.redirect('/dashboard/?foward=utu&err=1');
+	}
+}
+exports.HomeworkPost = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'student');
+	if(!!req.body.url && !!req.body.response && !!req.body.keyword){
+		console.log("你可以交作業了");
+		res.send("你可以交作業了");
+	}else{
+		res.redirect('/dashboard?foward=H&err=1');
 	}
 }
 
