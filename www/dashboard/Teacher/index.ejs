@@ -572,9 +572,12 @@ function cheageContext(arr,notifications,footer){
                 loader(event, 'AssetsManagement?foward=assets&err=1');
             }else if (window.location.search == "?foward=suc&ok=1") {
                 loader(event, 'UsuallyTestCorrect?foward=suc&ok=1');
-            }
-            else if (window.location.search == "?foward=suc&err=1") {
+            }else if (window.location.search == "?foward=suc&err=1") {
                 loader(event, 'UsuallyTestCorrect?foward=suc&err=1');
+            }else if (window.location.search == "?foward=HC&ok=1") {
+                loader(event, 'HomeworkCorrect?foward=HC&ok=1');
+            }else if (window.location.search == "?foward=HC&err=1") {
+                loader(event, 'HomeworkCorrect?foward=HC&err=1');
             }
         </script>
 

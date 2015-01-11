@@ -1,3 +1,4 @@
+<% if(student.length>0){ %>
 <!doctype html>
 <div class="page-subheading page-subheading-md">
     <ol class="breadcrumb ms">
@@ -10,39 +11,33 @@
 </div>
 <div class="container-fluid-md ms">
     <!---->
+    <%- html %>
+    <% for(var i = 0;i<student.length;i++){ %>
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">學生: 游崇祐</h3>
-                <p>五工二甲</p>
+                <h3 class="panel-title">學生: <%= student[i].name%></h3>
+                <p><%= student[i].class%></p>
             </div>
             <div class="panel-body">
-                <h4>實作網址: <a href="#">https://ideone.com/fpsklds55ds</a></h4>
+                <h4>實作網址: <a href="<%= student[i].url%>"><%= student[i].url%></a></h4>
                 <hr>
+                <p>作業提交關鍵字: <%= student[i].keyword %></p>
                 <p>輸出&回答</p>
-                <pre class="ms">
-1. 錯，因為L2TP/IPSEC有SLL加密驗證。
-2. 輸出資料:
-   3
-   4
-   7
-   9
-   6
-   3
-   2
-                    </pre>
+                <pre class="ms"><%= student[i].response%></pre>
 
             </div>
             <!---->
             <div class="panel-footer">
                 <div class="form-group">
-                    <form>
+                    <form action="/HomeworkCorrectGet" method="get">
                         評分:
-                        <input type="text" class="form-control" id="exampleInputText1"> 額外說明:
-                        <input type="text" class="form-control" id="exampleInputText1">
+                        <input type="text" name="email" value="<%= student[i].email %>" style="display:none;">
+                        <input type="text" name="scope" class="form-control" id="exampleInputText1"> 額外說明:
+                        <input type="text" name="tag" class="form-control" id="exampleInputText1">
                         <br>
-                        <button class="btn btn-success" type="submit"><i class="fa fa-check"></i> 及格送出</button>
-                        <button class="btn btn-danger" type="submit"><i class="fa fa-times"></i> 退回送出</button>
+                        <button name="pass" value="22" class="btn btn-success" type="submit"><i class="fa fa-check"></i> 及格送出</button>
+                        <button name="pass" value="21" class="btn btn-danger" type="submit"><i class="fa fa-times"></i> 退回送出</button>
                     </form>
                 </div>
             </div>
@@ -50,82 +45,9 @@
         </div>
     </div>
     <!---->
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">學生: 劉哲銘</h3>
-                <p>夜二工三甲</p>
-            </div>
-            <div class="panel-body">
-                <h4>實作網址: <a href="#">https://ideone.com/fpsklds55ds</a></h4>
-                <hr>
-                <p>輸出&回答</p>
-                <pre class="ms">
-1. 對
-2. 輸出資料:
-   3
-   4
-   7
-   9
-   6
-   3
-   2
-                    </pre>
-            </div>
-            <!---->
-            <div class="panel-footer">
-                <div class="form-group">
-                    <form>
-                        評分:
-                        <input type="text" class="form-control" id="exampleInputText1"> 額外說明:
-                        <input type="text" class="form-control" id="exampleInputText1">
-                        <br>
-                        <button class="btn btn-success" type="submit"><i class="fa fa-check"></i> 及格送出</button>
-                        <button class="btn btn-danger" type="submit"><i class="fa fa-times"></i> 退回送出</button>
-                    </form>
-                </div>
-            </div>
-            <!---->
-        </div>
-    </div>
-    <!---->
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">學生: 柯文哲</h3>
-                <p>四工一甲</p>
-            </div>
-            <div class="panel-body">
-                <h4>實作網址: <a href="#">https://ideone.com/fpsklds55ds</a></h4>
-                <hr>
-                <p>輸出&回答</p>
-                <pre class="ms">
-1. 錯，因為L2TP/IPSEC有SLL加密驗證。
-2. 輸出資料:
-   3
-   4
-   7
-   9
-   6
-   3
-   2
-                    </pre>
-            </div>
-            <!---->
-            <div class="panel-footer">
-                <div class="form-group">
-                    <form>
-                        評分:
-                        <input type="text" class="form-control" id="exampleInputText1"> 額外說明:
-                        <input type="text" class="form-control" id="exampleInputText1">
-                        <br>
-                        <button class="btn btn-success" type="submit"><i class="fa fa-check"></i> 及格送出</button>
-                        <button class="btn btn-danger" type="submit"><i class="fa fa-times"></i> 退回送出</button>
-                    </form>
-                </div>
-            </div>
-            <!---->
-        </div>
-    </div>
-    <!---->
+    <% } %>
 </div>
+<% }else{ %>
+<%- html %>
+<h1 class="ms">目前沒有學生可以批改作業</h1>
+<% } %>

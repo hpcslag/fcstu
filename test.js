@@ -219,12 +219,12 @@ var context = "內容更新了唷";
 
 
 //老師 - 管理作業 - 顯示繳交學生
-sd('fcstu','homeworkqus').findAll(function(row){
+/*sd('fcstu','homeworkqus').findAll(function(row){
 	var length = row[Object.keys(row)].homework.length;
 	sd('fcstu','homework').findAll(function(data){
+		var student = [];
 		for(var i = 0;i<Object.keys(data).length;i++){
 			//可批改條件 沒有分數 且 有答案，跟數量一樣
-			var student = [];
 			if(data[i].homework.length == length && !!data[i].scope[length-1] == false){
 				student.push(data[i]);
 				console.log("這位學生可以交作業: "+data[i].name);
@@ -234,12 +234,30 @@ sd('fcstu','homeworkqus').findAll(function(row){
 		}
 		console.log("可批改學生:");
 		console.log(student);
+		//render
+		//if(data.length < 0)-> 沒有學生可以批改
 	});
-});
+});*/
 
+var scope = 12;
+var tag = '你還不行';
+//回家作業批改
+/*sd('fcstu','homeworkqus').findAll(function(row){
+	var length = row[Object.keys(row)].homework.length;
+	sd('fcstu','homework').findOne({email:"cslag@hotmail.com.tw"},function(data){
+		if(data.homework.length == length && !!data.scope[length-1] == false){
+			data.homework.push({scope:scope,tag:tag});
+			sd('fcstu','homework').override({email:"cslag@hotmail.com.tw"},data);
+		}else{
+			console.log("這個學生已經批改過了");
+		}
+	});
+});*/
 
-
-
+//找到老師
+sd('fcstu','users').findAll(function(data){
+	console.log(data);
+})
 
 
 

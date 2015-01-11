@@ -635,7 +635,29 @@ exports.UpdateWeekTest = function(req, res) {
 exports.HomeworkCorrect = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
-	res.render('dashboard/Teacher/HomeworkManager/HomeworkCorrect', {});
+	staticdb('fcstu','homeworkqus').findAll(function(row){
+	var length = row[Object.keys(row)].homework.length;
+	var html = '';
+	var url = require('url');
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	if (!!query.err) {
+		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">資料不齊全，需要填入才可以新增，尤其您需要輸入學生分數！</a> 請再重新嘗試一次.</div>';
+	}
+	if (!!query.ok) {
+		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 學生資料已完成加入<a href="#" class="alert-link">若要更新，請查詢資料庫</a>.</div>';
+	}
+	staticdb('fcstu','homework').findAll(function(data){
+		var student = [];
+		for(var i = 0;i<Object.keys(data).length;i++){
+			//可批改條件 沒有分數 且 有答案，跟數量一樣
+			if(data[i].homework.length == length && !!data[i].scope[length-1] == false){
+				student.push({email:data[i].email,name:data[i].name,class:data[i].class,url:data[i].homework[length-1].url,response:data[i].homework[length-1].response,keyword:data[i].homework[length-1].keyword});
+			}
+		}
+		res.render('dashboard/Teacher/HomeworkManager/HomeworkCorrect', {student:student,html:html});
+	});
+});
 };
 exports.HomeworkUpdate = function(req, res) {
 	isLogin(req, res);
@@ -751,5 +773,28 @@ exports.AssetsManagementPost = function(req,res){
 	}
 	else {
 		res.redirect('/dashboard?foward=assets&err=1');
+	}
+};
+exports.HomeworkCorrectGet = function(req,res){
+	var url = require('url');
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	console.log(query.email);
+	if(!!query.email && !!query.tag && !!query.scope && !!query.pass){
+		staticdb('fcstu','homeworkqus').findAll(function(row){
+			var length = row[Object.keys(row)].homework.length;
+			staticdb('fcstu','homework').findOne({email:query.email},function(data){
+				if(data.homework.length == length && !!data.scope[length-1] == false){
+					data.homework.push({scope:query.scope,tag:query.tag,pass:query.pass});
+					staticdb('fcstu','homework').override({email:query.email},data);
+					AddRead2People(req,res,query.email,{title:"平時作業",subtitle:"您的作業以批改過，"+query.scope+" 。 "+query.pass==21?"不通過退回":"已被批改接受",status:query.pass==21?'danger':'success'})
+					res.redirect('/dashboard?foward=HC&ok=1');
+				}else{
+					res.send('<h1>這位學生已經批改過了</h1><script>alert("這位學生已經批改過了");window.location.href = "/dashboard?foward=psre&err=ps";</script>');
+				}
+			});
+		});
+	}else{
+		console.log('資料不齊全');
 	}
 };
