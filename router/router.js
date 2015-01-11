@@ -451,7 +451,6 @@ exports.Homework = function(req, res) {
 	}
 	staticdb('fcstu', 'homeworkqus').findAll(function(row) {
 		if (row[Object.keys(row)].homework.length == 0) {
-			console.log("目前沒有作業可以做");
 		}
 		else {
 			staticdb('fcstu', 'homework').findOne({
@@ -534,7 +533,6 @@ exports.HomeworkPost = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'student');
 	if (!!req.body.url && !!req.body.response && !!req.body.keyword) {
-		console.log("你可以交作業了");
 		staticdb('fcstu', 'homework').findOne({
 			email: req.session.user.email
 		}, function(row) {
@@ -896,13 +894,18 @@ exports.AddStudentPost = function(req, res) {
 			'identity': 'student'
 		});
 		//initialzation Class Database(push up)
-		staticdb('fcstu','users').findAll()
+		staticdb('fcstu','class').findAll(function(row){
+			row['0'].rollcall[lastname+name] = {"email":email,"class":Class,"check":[]};
+			console.log(row['0']);
+			staticdb('fcstu','class').override({key:'class'},row['0']);
+		});
 		
 		//initialzation Homework Database(push up)
-		
+		staticdb('fcstu','homework').insert({"email":email,"name":lastname+name,"class":Class,"homework":[],"scope":[]});
 		//initialzation Message Database (insert)
-		
+		staticdb('fcstu','message').insert({"email":email,"notRead":[],"AllMessage":[]});
 		//initialzation studentUsually Database(insert)
+		staticdb('fcstu','studentUsually').insert({"email":email,"class":Class,"name":lastname+name,"test":[],"scope":[]});
 		
 		res.redirect('/dashboard?foward=astu&ok=1');
 	}

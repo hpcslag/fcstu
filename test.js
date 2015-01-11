@@ -315,11 +315,17 @@ var obj = { 'cslag@hotmail.com.tw': '',
 //sd('fcstu','homework').insert({"email":"ted99rw@gmail.com","name":"馬修","class":"五設三甲","homework":[],"scope":[]});
 
 //initialzation Class Database(push up)
-		staticdb('fcstu','users').findAll()
+		/*sd('fcstu','class').findAll(function(row){
+			//"游崇祐":{"email":"cslag@hotmail.com.tw","class":"五工二甲","check":[]} in row
+			row['0'].rollcall["名子"] = {"email":"cslag@hotmail.com.tw","class":"五工二甲","check":[]};
+			console.log(row['0']);
+			sd('fcstu','class').override({key:'class'},row['0']);
+		});*/
 		
-		//initialzation Homework Database(push up)
-		
-		//initialzation Message Database (insert)
-		
-		//initialzation studentUsually Database(insert)
+//initialzation Homework Database(push up)
+		//sd('fcstu','homework').insert({"email":"cslag@hotmail.com.tw","name":"游崇祐","class":"五工一甲","homework":[],"scope":[]});
+//initialzation Message Database (insert)
+		//sd('fcstu','message').insert({"email":"keyboard@gmail.com","notRead":[],"AllMessage":[]});
+//initialzation studentUsually Database(insert)
+		sd('fcstu','studentUsually').insert({"email":"cslag@hotmail.com.tw","class":"五工二甲","name":"游崇祐","test":[],"scope":[]});
 		
