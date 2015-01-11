@@ -95,7 +95,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">額外說明答</h3>
-                    <p>發布時間 Sat Jan 10 2015 16:30:57 GMT+0800 (台北標準時間)</p>
+                    <p>接收時間 <%= feedBack.time %></p>
 
                     <div class="panel-options">
                         <a href="#" data-rel="collapse"><i class="fa fa-fw fa-minus"></i></a>
@@ -106,25 +106,7 @@
                 <div class="panel-body">
                     <h1>補充回應詳細說明</h1>
                     <hr>
-                    <p>確認題目的要求再進行回答，需要取得長、寬、高，設定變數各為hight,width,weight並相乘相除得到結果。</p>
-                    測試資料為:
-                    <pre>
-5
-6
-3
-2
-1
-2
-                    </pre>
-                    輸出資料應該為
-                                        <pre>
-5
-6
-3
-2
-1
-2
-                    </pre>
+                    <%- feedBack.tag%>
                 </div>
             </div>
         </div>

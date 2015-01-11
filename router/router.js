@@ -340,6 +340,7 @@ exports.UsuallyTestScores = function(req, res) {
 		var backlast = {now: (!!row.scope[row.scope.length-3]?row.scope[row.scope.length-3].scope:"無紀錄")};
 		var progressNow = {now: (now.now-last.now>= 0?now.now-last.now:(now.now-last.now)*-1),isBack:(now.now-last.now>= 0?true:false)};
 		var progressLast = {now: (last.now-backlast.now>= 0?last.now-backlast.now:(last.now-backlast.now)*-1),isBack:(last.now-backlast.now>= 0?true:false)};
+		var feedBack = {tag:(!!row.scope[row.scope.length-1]?row.scope[row.scope.length-1].tag:"目前還沒有考試紀錄回應"),time: new Date()};
 		res.render('dashboard/Student/UsuallyTestScores', {now:now,last:last,progressNow:progressNow,progressLast:progressLast,feedBack:feedBack});
 	});
 };
