@@ -255,17 +255,31 @@ var tag = '你還不行';
 });*/
 
 //找到老師
-sd('fcstu','users').findAll(function(data){
+/*sd('fcstu','users').findAll(function(data){
 	for(var i = 0;i<Object.keys(data).length;i++){
 		if(data[Object.keys(data)[i]].identity == 'teacher'){
 			console.log(data[i].email);
 		}
 	}
-})
+});*/
 
+//學生姓名 {'游崇祐',{t}}
+//打印出學生
 
+sd('fcstu','class').findAll(function(data){
+	var dps = [];
+	for(var i = 0;i<Object.keys(data['0'].rollcall).length;i++){
+		var studentName = Object.keys(data['0'].rollcall)[i];
+		var className = data[Object.keys(data)].rollcall[Object.keys(data[Object.keys(data)].rollcall)[i]].class;
+		var email = data[Object.keys(data)].rollcall[Object.keys(data[Object.keys(data)].rollcall)[i]].email;
+		console.log("學生: "+studentName+"，班級: "+className+" Email: "+email);
+		dps.push({name:studentName,class:className,email:email});
+	}
+	console.log(dps)
+});
 
-
+//將數筆學生資料點名了!
+//查詢checkbox 然後用名子搜尋，增加一筆考試資料，回去
 
 
 //註冊必要初始化值:

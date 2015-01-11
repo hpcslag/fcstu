@@ -23,9 +23,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <% for(var i = 0;i<data.length;i++){ %>
                     <!---->
                     <tr>
-                        <td>游崇祐</td>
+                        <td><%= data[i].name %></td>
                         <td>五工二甲</td>
                         <td><label class="checkbox-inline">
                             <input type="checkbox" value="">
@@ -33,24 +34,7 @@
                         </label></td>
                     </tr>
                     <!---->
-                    <tr>
-                        <td>劉哲銘</td>
-                        <td>夜工三甲</td>
-                        <td><label class="checkbox-inline">
-                            <input type="checkbox" value="">
-                            到課
-                        </label></td>
-                    </tr>
-                    <!---->
-                    <tr>
-                        <td>柯文哲</td>
-                        <td>四工一甲</td>
-                        <td><label class="checkbox-inline">
-                            <input type="checkbox" value="">
-                            到課
-                        </label></td>
-                    </tr>
-                    <!---->
+                    <% } %>
                 </tbody>
             </table>
         </div>

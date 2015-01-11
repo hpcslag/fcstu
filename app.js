@@ -89,6 +89,7 @@ app.post('/UpdateWeekTest',router.UpdateWeekTestPost);
 app.post('/AssetsManagement',router.AssetsManagementPost);
 app.get('/UsuallyTestGift',router.UsuallyTestGift);
 app.get('/HomeworkCorrectGet',router.HomeworkCorrectGet);
+app.post('/RollColl',router.RollCollPost);
 
 //Studnet Feature POST Router
 app.post('/UsuallyTest',router.UsuallyTestPost);

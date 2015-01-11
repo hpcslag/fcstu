@@ -526,7 +526,16 @@ exports.StudentManagement = function(req, res) {
 exports.RollColl = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'teacher');
-	res.render('dashboard/Teacher/StudentManager/RollColl', {});
+	staticdb('fcstu','class').findAll(function(data){
+		var Class = [];
+		for(var i = 0;i<Object.keys(data['0'].rollcall).length;i++){
+			var studentName = Object.keys(data['0'].rollcall)[i];
+			var className = data[Object.keys(data)].rollcall[Object.keys(data[Object.keys(data)].rollcall)[i]].class;
+			var email = data[Object.keys(data)].rollcall[Object.keys(data[Object.keys(data)].rollcall)[i]].email;
+			Class.push({name:studentName,class:className,email:email});
+		}
+		res.render('dashboard/Teacher/StudentManager/RollColl', {data:Class});
+	});
 };
 exports.AssetsManagement = function(req, res) {
 	isLogin(req, res);
@@ -737,7 +746,11 @@ exports.AddStudentPost = function(req, res) {
 		res.redirect('/dashboard?foward=astu&err=1');
 	}
 }
-
+exports.RollCollPost = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'teacher');
+	
+};
 //Usually Test Feature
 exports.AddUsuallyTestPost = function(req, res) {
 	isLogin(req, res);
