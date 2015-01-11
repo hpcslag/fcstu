@@ -164,4 +164,12 @@ sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(dat
 	data.scope.unshift();
 	sd('fcstu','studentUsually').override({email:"cslag@hotmail.com.tw"},{scope:data.scope});
 });*/
+
 //取得近期考試成績
+sd('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(row){
+	var ss = row.scope;
+	var now = ss[ss.length-1].scope-ss[ss.length-2].scope;
+	console.log(now >= 0?"進步"+now:"退步 "+now*-1);
+	//console.log("本次平時考分數: "+(!!row.scope[row.scope.length-1]?row.scope[row.scope.length-1].scope:"沒有任何考試紀錄(NaN)")+" 比上次進步: "+(!!row.scope[row.scope.length-2]?(row.scope[row.scope.length-1]-row.scope[row.scope.length-2].scope):"上次沒有成績(NaN)"));
+	//console.log("上次平時考分數: "+(!!row.scope[row.scope.length-3]?row.scope[row.scope.length-3].scope:"沒有成績(NaN)")+" 比上次進步: "+(!!row.scope[row.scope.length-3]?row.scope[row.scope.length-3].scope:"上次沒有成績(NaN)"));
+});

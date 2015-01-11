@@ -7,9 +7,15 @@
     </div>
     <div class="page-heading page-heading-md ms">
         <h2>平時測驗成績</h2><br><div class="progress progress-lg">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                            <span class="ms">平時考(一) - 表面與體積 80分</span>
-                        </div>
+                        <% if(now.now>60){ %>
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= now.now %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= now.now %>%">
+                                <span class="ms">本次平時考 <%= now.now %>分</span>
+                            </div>
+                        <% }else{ %>
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= now.now %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= now.now %>%">
+                                <span class="ms">本次平時考 <%= now.now %>分</span>
+                            </div>
+                        <% }%>
                     </div>
     </div>
     <div class="container-fluid-md ms">
@@ -21,13 +27,23 @@
                             <div class="panel-body panel-body-inverse">
                                 <div class="metric-content">
                                     <div class="value">
-                                        80
+                                        <%= now.now %> 分
                                     </div>
                                     <div class="trend">
+                                        <% if(progressNow.isBack){%>
                                         <p class="text-success">
-                                            <i class="fa fa-chevron-up"></i> 5.1%
+                                            <i class="fa fa-chevron-up"></i>
+                                        <% }else{%>
+                                        <p class="text-danger">
+                                            <i class="fa fa-chevron-down"></i>
+                                        <% }%>
+                                             <%= progressNow.now %> 分
                                         </p>
+                                        <% if(progressNow.isBack){%>
                                         <strong>比上次進步</strong>
+                                        <% }else{%>
+                                        <strong>比上次退步</strong>
+                                        <% }%>
                                     </div>
                                     <div id="metric-sales" class="chart" style="padding: 0px; position: relative;">
                                         <canvas class="flot-base" width="581" height="135" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 581px; height: 135px;"></canvas>
@@ -45,13 +61,22 @@
                             <div class="panel-body panel-body-info">
                                 <div class="metric-content">
                                     <div class="value">
-                                        70
+                                        <%= last.now %> 分
                                     </div>
                                     <div class="trend">
+                                        <% if(progressNow.isBack){%>
+                                        <p class="text-success">
+                                            <i class="fa fa-chevron-up"></i>
+                                        <% }else{%>
                                         <p class="text-danger">
-                                            <i class="fa fa-chevron-down"></i> 2.3%
+                                            <i class="fa fa-chevron-down"></i>
+                                        <% }%> <%= progressLast.now %> 分
                                         </p>
-                                        <strong class="ms">比上次退步</strong>
+                                        <% if(progressLast.isBack){%>
+                                        <strong>比上次進步</strong>
+                                        <% }else{%>
+                                        <strong>比上次退步</strong>
+                                        <% }%>
                                     </div>
                                     <div id="metric-orders" class="chart" style="padding: 0px; position: relative;">
                                         <canvas class="flot-base" width="581" height="135" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 581px; height: 135px;"></canvas>

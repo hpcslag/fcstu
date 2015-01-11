@@ -329,7 +329,19 @@ exports.UsuallyTest = function(req, res) {
 exports.UsuallyTestScores = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'student');
-	res.render('dashboard/Student/UsuallyTestScores', {});
+	var scope = {};
+	staticdb('fcstu','studentUsually').findOne({email:"cslag@hotmail.com.tw"},function(row){
+		var err = "沒有成績紀錄(NaN)";
+		var thr = "進步 ";
+		var btr = "退步 ";
+		
+		var now = {now: (!!row.scope[row.scope.length-1]?row.scope[row.scope.length-1].scope:"無紀錄")};
+		var last = {now: (!!row.scope[row.scope.length-2]?row.scope[row.scope.length-2].scope:"無紀錄")};
+		var backlast = {now: (!!row.scope[row.scope.length-3]?row.scope[row.scope.length-3].scope:"無紀錄")};
+		var progressNow = {now: (now.now-last.now>= 0?now.now-last.now:(now.now-last.now)*-1),isBack:(now.now-last.now>= 0?true:false)};
+		var progressLast = {now: (last.now-backlast.now>= 0?last.now-backlast.now:(last.now-backlast.now)*-1),isBack:(last.now-backlast.now>= 0?true:false)};
+		res.render('dashboard/Student/UsuallyTestScores', {now:now,last:last,progressNow:progressNow,progressLast:progressLast,feedBack:feedBack});
+	});
 };
 exports.WeekTest = function(req, res) {
 	isLogin(req, res);
@@ -523,10 +535,9 @@ exports.UsuallyTestGift = function(req,res){
 						if(!!data.scope[length] == false && data.test.length == length+1){
 							//{"scope":99,"tag":"你沒有寫完",pass:21} //你被21了
 							var sc = {scope:query.scope,tag:query.tag,pass:query.pass};
-							//換內容
 							data.scope.push(sc);
 							staticdb('fcstu','studentUsually').override({email:query.email},data);
-							AddRead2People(req,res,query.email,{title:"學生資料以批改",subtitle:"您最近的平時考已批改，分數: "+query.scope,status:query.pass==21?"danger":"success"})
+							AddRead2People(req,res,query.email,{title:"平時測驗",subtitle:"您最近的平時考已批改，分數: "+query.scope,status:query.pass==21?"danger":"success"})
 							res.redirect('/dashboard?foward=suc&ok=1');
 						}else{
 							res.send("以批改學生或資料");
