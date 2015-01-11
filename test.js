@@ -256,7 +256,11 @@ var tag = '你還不行';
 
 //找到老師
 sd('fcstu','users').findAll(function(data){
-	console.log(data);
+	for(var i = 0;i<Object.keys(data).length;i++){
+		if(data[Object.keys(data)[i]].identity == 'teacher'){
+			console.log(data[i].email);
+		}
+	}
 })
 
 

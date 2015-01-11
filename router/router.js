@@ -403,7 +403,17 @@ exports.Homework = function(req, res) {
 exports.Question = function(req, res) {
 	isLogin(req, res);
 	OnlyParticularPerson(req, res, 'student');
-	res.render('dashboard/Student/Question', {});
+	var html = '';
+	var url = require('url');
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	if (!!query.err) {
+		html = '<div class="alert alert-danger ms"><strong>Ooops!</strong> <a href="#" class="alert-link ms">要與教授反饋，麻煩請將資料完整填寫！</a> 請再重新嘗試一次.</div>';
+	}
+	if (!!query.ok) {
+		html = '<div class="alert alert-success ms"><strong>Well done!</strong> 反饋已完成提交，若教授收到通知，可能會另外與您聯絡! <a href="#" class="alert-link">有急事請至教授辦公室</a>.</div>';
+	}
+	res.render('dashboard/Student/Question', {html:html});
 };
 exports.getAssets = function(req,res){
 	isLogin(req,res);
@@ -456,6 +466,22 @@ exports.HomeworkPost = function(req,res){
 		res.redirect('/dashboard?foward=H&err=1');
 	}
 }
+exports.FeedBack = function(req,res){
+	isLogin(req,res);
+	OnlyParticularPerson(req,res,'student');
+	if(!!req.body.title && !!req.body.feedback){
+		staticdb('fcstu','users').findAll(function(data){
+			for(var i = 0;i<Object.keys(data).length;i++){
+				if(data[Object.keys(data)[i]].identity == 'teacher'){
+					AddRead2People(req,res,data[i].email,{title:req.body.title,subtitle:req.body.feedback,status:'info'});
+					res.redirect('/dashboard?foward=feedback&ok=1');
+				}
+			}
+		});
+	}else{
+		res.redirect('/dashboard?foward=feedback&err=1');
+	}
+};
 
 /**
  * Teacher All Page

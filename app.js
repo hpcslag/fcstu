@@ -93,6 +93,7 @@ app.get('/HomeworkCorrectGet',router.HomeworkCorrectGet);
 //Studnet Feature POST Router
 app.post('/UsuallyTest',router.UsuallyTestPost);
 app.post('/Homework',router.HomeworkPost);
+app.post('/FeedBack',router.FeedBack);
 
 //message test
 app.get('/addMessage',router.addMessage);

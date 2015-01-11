@@ -8,6 +8,7 @@
         <h2>問題回應</h2>
     </div>
 <div class="container-fluid-md ms">
+    <%- html%>
     <div class="row">
         <div class="col-md-6">
             <div class="panel panel-default">
@@ -17,16 +18,16 @@
                     <p>您碰到任何問題需要與教授溝通，請填寫此表單。</p>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                    <form role="form" action="/FeedBack" method="post">
                         <div class="form-group">
                             <label class="control-label" for="exampleInputText1">問題主旨</label>
                             <div class="controls">
-                                <input type="text" class="form-control" id="exampleInputText1" placeholder="輸入您的問題主旨...">
+                                <input type="text" name="title" class="form-control" id="exampleInputText1" placeholder="輸入您的問題主旨...">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="sr-only" for="exampleInputMessage5">Message</label>
-                            <textarea rows="5" class="form-control" id="exampleInputMessage5" placeholder="輸入您的疑問或反饋..." style="resize:vertical"></textarea>
+                            <textarea rows="5" name="feedback" class="form-control" id="exampleInputMessage5" placeholder="輸入您的疑問或反饋..." style="resize:vertical"></textarea>
                         </div>
                         <button class="btn btn-info" type="submit">提交給教授</button>
                     </form>
