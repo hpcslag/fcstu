@@ -311,12 +311,12 @@ exports.PasswordResetPost = function(req, res) {
 		}, {
 			"password": md5(ps1)
 		})
-		staticdb('fcstu', 'message').insert({
+		/*staticdb('fcstu', 'message').insert({
 			email: req.session.user.email,
 			total: 0,
 			notRead: [],
 			AllMessage: []
 		});
-		res.redirect('/dashboard?foward=psre&ok=1');
+		res.redirect('/dashboard?foward=psre&ok=1');*/
 	}
 };
